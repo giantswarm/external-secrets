@@ -6,6 +6,16 @@ giantswarm:
       tag: ""
     pullPolicy: IfNotPresent
 
+  crds:
+    install: true
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "265Mi"
+        cpu: "500m"
+
 replicaCount: 1
 
 # Moved under giantswarm
