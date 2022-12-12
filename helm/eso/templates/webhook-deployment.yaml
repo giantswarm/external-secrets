@@ -43,8 +43,8 @@ spec:
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          image: "{{ .Values.webhook.image.repository }}:{{ .Values.webhook.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.webhook.image.pullPolicy }}
+          image: "{{ .Values.giantswarm.images.registry }}/{{ .Values.giantswarm.images.webhook.image }}:{{ .Values.giantswarm.images.webhook.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.giantswarm.images.pullPolicy }}
           args:
           - webhook
           - --port={{ .Values.webhook.port }}

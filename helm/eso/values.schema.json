@@ -32,20 +32,6 @@
                 "fullnameOverride": {
                     "type": "string"
                 },
-                "image": {
-                    "type": "object",
-                    "properties": {
-                        "pullPolicy": {
-                            "type": "string"
-                        },
-                        "repository": {
-                            "type": "string"
-                        },
-                        "tag": {
-                            "type": "string"
-                        }
-                    }
-                },
                 "imagePullSecrets": {
                     "type": "array"
                 },
@@ -257,6 +243,17 @@
                 "images": {
                     "type": "object",
                     "properties": {
+                        "certController": {
+                            "type": "object",
+                            "properties": {
+                                "image": {
+                                    "type": "string"
+                                },
+                                "tag": {
+                                    "type": "string"
+                                }
+                            }
+                        },
                         "eso": {
                             "type": "object",
                             "properties": {
@@ -273,6 +270,17 @@
                         },
                         "registry": {
                             "type": "string"
+                        },
+                        "webhook": {
+                            "type": "object",
+                            "properties": {
+                                "image": {
+                                    "type": "string"
+                                },
+                                "tag": {
+                                    "type": "string"
+                                }
+                            }
                         }
                     }
                 }
@@ -455,20 +463,6 @@
                 },
                 "hostNetwork": {
                     "type": "boolean"
-                },
-                "image": {
-                    "type": "object",
-                    "properties": {
-                        "pullPolicy": {
-                            "type": "string"
-                        },
-                        "repository": {
-                            "type": "string"
-                        },
-                        "tag": {
-                            "type": "string"
-                        }
-                    }
                 },
                 "imagePullSecrets": {
                     "type": "array"

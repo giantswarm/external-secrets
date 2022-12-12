@@ -42,8 +42,8 @@ spec:
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          image: "{{ .Values.certController.image.repository }}:{{ .Values.certController.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.certController.image.pullPolicy }}
+          image: "{{ .Values.giantswarm.images.registry }}/{{ .Values.giantswarm.images.certController.image }}:{{ .Values.giantswarm.images.certController.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.giantswarm.images.pullPolicy }}
           args:
           - certcontroller
           - --crd-requeue-interval={{ .Values.certController.requeueInterval }}
