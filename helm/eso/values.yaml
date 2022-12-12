@@ -2,11 +2,11 @@ name: {APP-NAME}
 serviceType: managed
 
 project:
-  branch: "[[ .Branch ]]"
-  commit: "[[ .SHA ]]"
+  branch: "main"
+  commit: "..."
 
 image:
   registry: quay.io
-  name: giantswarm/{APP-NAME}
+  name: giantswarm/eso
   tag: v0.0.1
   pullPolicy: IfNotPresent
