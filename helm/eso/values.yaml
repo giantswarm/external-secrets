@@ -12,6 +12,20 @@ giantswarm:
       tag: ""
     pullPolicy: IfNotPresent
 
+  securityContext:
+    eso:
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      runAsUser: 100
+    certController:
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      runAsUser: 100
+    webhook:
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      runAsUser: 100
+
   crds:
     install: true
     resources:

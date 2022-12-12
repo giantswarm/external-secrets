@@ -39,7 +39,7 @@ spec:
       {{- end }}
       containers:
         - name: webhook
-          {{- with .Values.webhook.securityContext }}
+          {{- with .Values.giantswarm.securityContext.webhook }}
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}

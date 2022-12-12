@@ -38,7 +38,7 @@ spec:
       {{- end }}
       containers:
         - name: cert-controller
-          {{- with .Values.certController.securityContext }}
+          {{- with .Values.giantswarm.securityContext.certController }}
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
