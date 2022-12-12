@@ -85,7 +85,7 @@ spec:
           env:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.resources }}
+          {{- with .Values.giantswarm.resources.eso }}
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}

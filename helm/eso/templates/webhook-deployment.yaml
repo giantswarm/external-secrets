@@ -80,7 +80,7 @@ spec:
           env:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.webhook.resources }}
+          {{- with .Values.giantswarm.resources.webhook }}
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}

@@ -72,7 +72,7 @@ spec:
           env:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.certController.resources }}
+          {{- with .Values.giantswarm.resources.certController }}
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}

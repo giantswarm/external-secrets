@@ -12,6 +12,29 @@ giantswarm:
       tag: ""
     pullPolicy: IfNotPresent
 
+  resources:
+    eso:
+      limits:
+        cpu: 100m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
+    certController:
+      limits:
+        cpu: 100m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
+    webhook:
+      limits:
+        cpu: 100m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
+
   securityContext:
     eso:
       allowPrivilegeEscalation: false
@@ -130,18 +153,18 @@ podLabels: {}
 podSecurityContext: {}
 # fsGroup: 2000
 
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-# runAsUser: 1000
+# securityContext: {}
+#   # capabilities:
+#   #   drop:
+#   #   - ALL
+#   # readOnlyRootFilesystem: true
+#   # runAsNonRoot: true
+# # runAsUser: 1000
 
-resources: {}
-  # requests:
-  #   cpu: 10m
-#   memory: 32Mi
+# resources: {}
+#   # requests:
+#   #   cpu: 10m
+# #   memory: 32Mi
 
 prometheus:
   # -- deprecated. will be removed with 0.7.0, use serviceMonitor instead.
@@ -304,18 +327,18 @@ webhook:
   podSecurityContext: {}
   # fsGroup: 2000
 
-  securityContext: {}
-    # capabilities:
-    #   drop:
-    #   - ALL
-    # readOnlyRootFilesystem: true
-    # runAsNonRoot: true
-  # runAsUser: 1000
+#  securityContext: {}
+#    # capabilities:
+#    #   drop:
+#    #   - ALL
+#    # readOnlyRootFilesystem: true
+#    # runAsNonRoot: true
+#  # runAsUser: 1000
 
-  resources: {}
-    # requests:
-    #   cpu: 10m
-  #   memory: 32Mi
+#  resources: {}
+#    # requests:
+#    #   cpu: 10m
+#  #   memory: 32Mi
 
 certController:
   # -- Specifies whether a certificate controller deployment be created.
@@ -412,18 +435,18 @@ certController:
   podSecurityContext: {}
   # fsGroup: 2000
 
-  securityContext: {}
-    # capabilities:
-    #   drop:
-    #   - ALL
-    # readOnlyRootFilesystem: true
-    # runAsNonRoot: true
-  # runAsUser: 1000
+#  securityContext: {}
+#    # capabilities:
+#    #   drop:
+#    #   - ALL
+#    # readOnlyRootFilesystem: true
+#    # runAsNonRoot: true
+#  # runAsUser: 1000
 
-  resources: {}
-    # requests:
-    #   cpu: 10m
-  #   memory: 32Mi
+#  resources: {}
+#    # requests:
+#    #   cpu: 10m
+#  #   memory: 32Mi
 
 # -- Specifies `dnsOptions` to deployment
 dnsConfig: {}
