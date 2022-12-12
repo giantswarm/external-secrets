@@ -3,7 +3,7 @@ name: eso
 description: Tool to install ESO in clusters.
 home: https://github.com/giantswarm/eso
 version: "0.1.0"
-appVersion: "0.7.0"
+appVersion: "v0.7.0"
 # If you have an icon/logo, you should add it to https://github.com/giantswarm/web-assets
 # and set the final URL as a value here and uncomment.
 #icon: https://s.giantswarm.io/app-icons/example/1/light.svg
