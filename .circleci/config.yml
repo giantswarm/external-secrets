@@ -8,10 +8,10 @@ workflows:
       - architect/push-to-app-catalog:
           context: "architect"
           executor: "app-build-suite"
-          name: "package and push ESO chart"
+          name: "package and push external-secrets chart"
           app_catalog: "giantswarm-playground-catalog"
           app_catalog_test: "giantswarm-playground-test-catalog"
-          chart: "eso"
+          chart: "external-secrets"
           # Trigger job on git tag.
           filters:
             tags:
