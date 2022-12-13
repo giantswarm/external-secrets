@@ -1,6 +1,6 @@
 replace-chart-version-with-git: true
 generate-metadata: true
-chart-dir: ./helm/eso
+chart-dir: ./helm/external-secrets
 destination: ./build
 
 # CI overwrites this, check .circleci/config.yaml

@@ -1,7 +1,7 @@
 giantswarm:
   images:
     registry: ghcr.io
-    eso:
+    externalSecrets:
       image: external-secrets/external-secrets
       tag: ""
     certController:
@@ -13,7 +13,7 @@ giantswarm:
     pullPolicy: IfNotPresent
 
   resources:
-    eso:
+    externalSecrets:
       limits:
         cpu: 100m
         memory: 512Mi
@@ -36,7 +36,7 @@ giantswarm:
         memory: 256Mi
 
   securityContext:
-    eso:
+    externalSecrets:
       allowPrivilegeEscalation: false
       readOnlyRootFilesystem: true
       runAsUser: 100

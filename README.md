@@ -1,11 +1,11 @@
-[![CircleCI](https://circleci.com/gh/giantswarm/eso.svg?style=shield)](https://circleci.com/gh/giantswarm/eso)
+[![CircleCI](https://circleci.com/gh/giantswarm/external-secrets.svg?style=shield)](https://circleci.com/gh/giantswarm/external-secrets)
 
 [Read me after cloning this template (GS staff only)](https://intranet.giantswarm.io/docs/dev-and-releng/app-developer-processes/adding_app_to_appcatalog/)
 
-# ESO chart
+# external-secrets chart
 
-Giant Swarm offers an ESO App which can be installed in workload clusters.
-Here we define the ESO chart with its templates and default configuration.
+Giant Swarm offers an `external-secrets` App which can be installed in workload clusters.
+Here we define the `external-secrets` chart with its templates and default configuration.
 
 **What is this app?**
 

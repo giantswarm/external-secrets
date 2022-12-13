@@ -113,12 +113,6 @@
                 "requeueInterval": {
                     "type": "string"
                 },
-                "resources": {
-                    "type": "object"
-                },
-                "securityContext": {
-                    "type": "object"
-                },
                 "serviceAccount": {
                     "type": "object",
                     "properties": {
@@ -254,7 +248,7 @@
                                 }
                             }
                         },
-                        "eso": {
+                        "externalSecrets": {
                             "type": "object",
                             "properties": {
                                 "image": {
@@ -279,6 +273,139 @@
                                 },
                                 "tag": {
                                     "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "resources": {
+                    "type": "object",
+                    "properties": {
+                        "certController": {
+                            "type": "object",
+                            "properties": {
+                                "limits": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "requests": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "externalSecrets": {
+                            "type": "object",
+                            "properties": {
+                                "limits": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "requests": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "webhook": {
+                            "type": "object",
+                            "properties": {
+                                "limits": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "requests": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "securityContext": {
+                    "type": "object",
+                    "properties": {
+                        "certController": {
+                            "type": "object",
+                            "properties": {
+                                "allowPrivilegeEscalation": {
+                                    "type": "boolean"
+                                },
+                                "readOnlyRootFilesystem": {
+                                    "type": "boolean"
+                                },
+                                "runAsUser": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "externalSecrets": {
+                            "type": "object",
+                            "properties": {
+                                "allowPrivilegeEscalation": {
+                                    "type": "boolean"
+                                },
+                                "readOnlyRootFilesystem": {
+                                    "type": "boolean"
+                                },
+                                "runAsUser": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "webhook": {
+                            "type": "object",
+                            "properties": {
+                                "allowPrivilegeEscalation": {
+                                    "type": "boolean"
+                                },
+                                "readOnlyRootFilesystem": {
+                                    "type": "boolean"
+                                },
+                                "runAsUser": {
+                                    "type": "integer"
                                 }
                             }
                         }
@@ -376,17 +503,11 @@
         "replicaCount": {
             "type": "integer"
         },
-        "resources": {
-            "type": "object"
-        },
         "scopedNamespace": {
             "type": "string"
         },
         "scopedRBAC": {
             "type": "boolean"
-        },
-        "securityContext": {
-            "type": "object"
         },
         "serviceAccount": {
             "type": "object",
@@ -559,13 +680,7 @@
                 "replicaCount": {
                     "type": "integer"
                 },
-                "resources": {
-                    "type": "object"
-                },
                 "secretAnnotations": {
-                    "type": "object"
-                },
-                "securityContext": {
                     "type": "object"
                 },
                 "serviceAccount": {
