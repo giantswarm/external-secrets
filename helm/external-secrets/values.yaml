@@ -1,14 +1,14 @@
 giantswarm:
   images:
-    registry: ghcr.io
+    registry: docker.io
     externalSecrets:
-      image: external-secrets/external-secrets
+      image: giantswarm/external-secrets
       tag: ""
     certController:
-      image: external-secrets/external-secrets
+      image: giantswarm/external-secrets
       tag: ""
     webhook:
-      image: external-secrets/external-secrets
+      image: giantswarm/external-secrets
       tag: ""
     pullPolicy: IfNotPresent
 
