@@ -1,4 +1,5 @@
 version: 2.1
+
 orbs:
   architect: giantswarm/architect@4.27.0
 
@@ -12,6 +13,8 @@ workflows:
           app_catalog: "giantswarm-playground-catalog"
           app_catalog_test: "giantswarm-playground-test-catalog"
           chart: "external-secrets"
+          # This is needed for `architect/run-tests-with-ats` to work
+          persist_chart_archive: true
           # Trigger job on git tag.
           filters:
             tags:
