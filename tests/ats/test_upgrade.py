@@ -19,7 +19,7 @@ def test_pods_available_after_upgraded(
             "external-secrets-webhook",
         ],
         "default",
-        90,
+        240,
     )
 
     for d in deployments:

@@ -8,8 +8,6 @@ from pytest_helm_charts.k8s.deployment import wait_for_deployments_to_run
 
 logger = logging.getLogger(__name__)
 
-APP_DEPLOYMENT_TIMEOUT_SEC = 180
-
 
 @pytest.mark.smoke
 def test_api_working(kube_cluster: Cluster) -> None:
@@ -34,7 +32,7 @@ def test_pods_available(kube_cluster: Cluster) -> None:
             "external-secrets-webhook",
         ],
         "default",
-        90,
+        240,
     )
     for d in deployments:
         assert int(d.obj["status"]["readyReplicas"]) > 0
