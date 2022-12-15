@@ -6,15 +6,17 @@
   - `tar -xzf external-secrets-<NEW_VERSION>.tgz`
   - copy over the CRDs from the extracted artifact to `helm/external-secrets/crd-base`
   - remove the wrapping conditions for `installCRDs` from all CRDs yaml files (will remove it from `values.yaml` too)
-    - NOTE: for the cluster scoped store and secrets there is an extra condition, we remove that too
-      (will remove `crds` section from `values.yaml` too)
+    - IMPORTANT NOTE: keep it for the Cluster* CRDs, just align the conditions to only check `crds.createClusterExternalSecret`
+      and `crds.createClusterSecretStore` respectively
 - helper templates
   - copy over upstream `_helpers.tpl` as `_eso_helpers.tpl`
 - generic templates
   - copy over templates
 - values.yaml
   - remove `installCRDs: true`, it will be controlled by `giantswarm.crds.install` instead
-  - remove `crds` section, we install all resources
+  - remove `crds` section, we install all resources with a few exceptions
+    - IMPORTANT NOTE: keep `crds.createClusterExternalSecret`
+    - IMPORTANT NOTE: keep `crds.createClusterSecretStore`
   - moved `.image` under `.giantswarm.images` + remove `.image`
   - moved `.certController.image` under `.giantswarm.images` + remove `.certController.image`
   - moved `.webhook.image` under `.giantswarm.images` + remove `.webhook.image`
