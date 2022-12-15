@@ -4,4 +4,4 @@ upgrade-tests-cluster-type: kind
 # TODO Update at some point when we release the app
 upgrade-tests-app-catalog-url: https://giantswarm.github.io/giantswarm-playground-test-catalog/
 # TODO Update at some point when we release the app
-upgrade-tests-app-version: 0.0.0-c4d5f9b26bc61983a7bd0c8ce4ccd84d4f2c4954
+upgrade-tests-app-version: 0.0.0-07dc0d15aeaa6fc92f64cf259e346e728e4d075f
