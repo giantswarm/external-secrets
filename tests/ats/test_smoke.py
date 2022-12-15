@@ -32,7 +32,7 @@ def test_pods_available(kube_cluster: Cluster) -> None:
             "external-secrets-webhook",
         ],
         "default",
-        3600,
+        300,
     )
     for d in deployments:
         assert int(d.obj["status"]["readyReplicas"]) > 0
