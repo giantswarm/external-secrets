@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2022-12-19
 
+### Added
+
 - Add initial chart to deploy `external-secrets` as a Giant Swarm application
 
 [Unreleased]: https://github.com/giantswarm/external-secrets/compare/v0.1.0...HEAD
