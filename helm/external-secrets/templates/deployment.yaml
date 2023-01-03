@@ -38,12 +38,12 @@ spec:
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}
-          {{- with .Values.securityContext }}
+          {{- with .Values.giantswarm.securityContext.externalSecrets }}
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.giantswarm.images.registry }}/{{ .Values.giantswarm.images.externalSecrets.image }}:{{ .Values.giantswarm.images.externalSecrets.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.giantswarm.images.pullPolicy }}
           {{- if or (.Values.leaderElect) (.Values.scopedNamespace) (.Values.processClusterStore) (.Values.processClusterExternalSecret) (.Values.concurrent) (.Values.extraArgs) }}
           args:
           {{- if .Values.leaderElect }}
@@ -85,7 +85,7 @@ spec:
           env:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.resources }}
+          {{- with .Values.giantswarm.resources.externalSecrets }}
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}

@@ -39,12 +39,12 @@ spec:
       {{- end }}
       containers:
         - name: webhook
-          {{- with .Values.webhook.securityContext }}
+          {{- with .Values.giantswarm.securityContext.webhook }}
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          image: "{{ .Values.webhook.image.repository }}:{{ .Values.webhook.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.webhook.image.pullPolicy }}
+          image: "{{ .Values.giantswarm.images.registry }}/{{ .Values.giantswarm.images.webhook.image }}:{{ .Values.giantswarm.images.webhook.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.giantswarm.images.pullPolicy }}
           args:
           - webhook
           - --port={{ .Values.webhook.port }}
@@ -80,7 +80,7 @@ spec:
           env:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.webhook.resources }}
+          {{- with .Values.giantswarm.resources.webhook }}
           resources:
             {{- toYaml . | nindent 12 }}
           {{- end }}
