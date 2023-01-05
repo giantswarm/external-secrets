@@ -8,24 +8,39 @@
   - remove the wrapping conditions for `installCRDs` from all CRDs yaml files (will remove it from `values.yaml` too)
     - IMPORTANT NOTE: keep it for the Cluster* CRDs, just align the conditions to only check `crds.createClusterExternalSecret`
       and `crds.createClusterSecretStore` respectively
-- helper templates
-  - copy over upstream `_helpers.tpl` as `_eso_helpers.tpl`
-- generic templates
-  - copy over templates
-- values.yaml
-  - remove `installCRDs: true`, it will be controlled by `giantswarm.crds.install` instead
-  - remove `crds` section, we install all resources with a few exceptions
-    - IMPORTANT NOTE: keep `crds.createClusterExternalSecret`
-    - IMPORTANT NOTE: keep `crds.createClusterSecretStore`
-  - moved `.image` under `.giantswarm.images` + remove `.image`
-  - moved `.certController.image` under `.giantswarm.images` + remove `.certController.image`
-  - moved `.webhook.image` under `.giantswarm.images` + remove `.webhook.image`
-  - same for all 3 `securityContext` and `resources`
-  - check / reset all the above fields to the Giant Swarm image, security context, resources, etc. in the templates
-    including, but not limited to:
-    - `helm/external-secrets/templates/deployment.yaml`
-    - `helm/external-secrets/templates/cert-controller-deployment.yaml`
-    - `helm/external-secrets/templates/webhook-deployment.yaml`
+- sync subtree with upstream (based on: https://handbook.giantswarm.io/product/managed-apps/dev-experience/git-subtree/)
+  - pull changes and tags to https://github.com/giantswarm/external-secrets-copy
+  - ```bash
+    # If you don't already have it:
+    git remote add -f --no-tags upstream-copy git@github.com:giantswarm/external-secrets-copy.git
+    
+    # Checkout the target tag and split the subtree to a temporary branch
+    git fetch --no-tags upstream-copy refs/tags/v0.7.0:refs/tags/upstream-v0.7.0
+    git checkout upstream-v0.7.0
+    git subtree split -P deploy/charts/external-secrets -b temp-split-branch
+    
+    # Prepare upgrade branch
+    git checkout main
+    git pull
+    git checkout -b upgrade-to-v0.7.0
+    
+    # Merge subtree
+    git subtree merge --squash -P helm/external-secrets temp-split-branch
+    git notes add -m "upstreamSync: https://github.com/external-secrets/external-secrets/tree/v0.7.0"
+    
+    # Clean up
+    git tag -d upstream-v0.7.0
+    git branch -D temp-split-branch
+    ```
+  - resolve conflicts (if any)
+- helm schema generation
   - generate the values schema with `helm schema-gen helm/external-secrets/values.yaml > helm/external-secrets/values.schema.json`
 - Chart.yaml
   - update the `.appVersion` field
+- fix git tree
+  - squash new commits / changes into a single commit
+    - optimally the pull request has the following commits before merging:
+      - the squash of upstream subdir
+      - the merge commit of subtree
+      - the squashed changes made by us
+- merge (not squash) the pull request to `main`
