@@ -4,5 +4,5 @@ chart-dir: ./helm/external-secrets
 destination: ./build
 
 # CI overwrites this, check .circleci/config.yaml
-catalog-base-url: https://giantswarm.github.io/giantswarm-test-catalog/
+catalog-base-url: https://giantswarm.github.io/giantswarm-catalog/
 ct-config: ./.circleci/ct-config.yaml
