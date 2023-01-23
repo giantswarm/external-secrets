@@ -39,15 +39,15 @@ giantswarm:
     externalSecrets:
       allowPrivilegeEscalation: false
       readOnlyRootFilesystem: true
-      runAsUser: 100
+      runAsUser: 1000
     certController:
       allowPrivilegeEscalation: false
       readOnlyRootFilesystem: true
-      runAsUser: 100
+      runAsUser: 1000
     webhook:
       allowPrivilegeEscalation: false
       readOnlyRootFilesystem: true
-      runAsUser: 100
+      runAsUser: 1000
 
   crds:
     install: true
