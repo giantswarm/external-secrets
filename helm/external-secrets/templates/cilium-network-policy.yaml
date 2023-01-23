@@ -2,11 +2,9 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: {{ template "external-secrets.name" . }}-access-apiserver
+  name: {{ include "external-secrets.fullname" . }}-access-apiserver
   labels:
-    app: {{ template "external-secrets.name" . }}
-    release: {{ .Release.Name }}
-    {{- include "external-secrets.labels" . | indent 4 }}
+    {{- include "external-secrets.labels" . | nindent 4 }}
 spec:
   egress:
   - toEntities:
