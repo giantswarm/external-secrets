@@ -16,7 +16,7 @@ webhooks:
   clientConfig:
     service:
       namespace: {{ .Release.Namespace | quote }}
-      name: {{ include "external-secrets.fullname" . }}-webhook
+      name: {{ include "external-secrets.name" . }}-webhook
       path: /validate-external-secrets-io-v1beta1-secretstore
   admissionReviewVersions: ["v1", "v1beta1"]
   sideEffects: None
@@ -32,7 +32,7 @@ webhooks:
   clientConfig:
     service:
       namespace: {{ .Release.Namespace | quote }}
-      name: {{ include "external-secrets.fullname" . }}-webhook
+      name: {{ include "external-secrets.name" . }}-webhook
       path: /validate-external-secrets-io-v1beta1-clustersecretstore
   admissionReviewVersions: ["v1", "v1beta1"]
   sideEffects: None
@@ -55,7 +55,7 @@ webhooks:
   clientConfig:
     service:
       namespace: {{ .Release.Namespace | quote }}
-      name: {{ include "external-secrets.fullname" . }}-webhook
+      name: {{ include "external-secrets.name" . }}-webhook
       path: /validate-external-secrets-io-v1beta1-externalsecret
   admissionReviewVersions: ["v1", "v1beta1"]
   sideEffects: None

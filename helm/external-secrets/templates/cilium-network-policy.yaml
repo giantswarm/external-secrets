@@ -2,7 +2,7 @@
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
-  name: {{ include "external-secrets.fullname" . }}-access-apiserver
+  name: {{ include "external-secrets.name" . }}-access-apiserver
   labels:
     {{- include "external-secrets.labels" . | nindent 4 }}
 spec:
