@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2023-01-24
+
 ### Added
 
 - Add support for clusters with `cilium` network and prepare for PSP not being available after kubernetes 1.25
@@ -41,7 +43,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add initial chart to deploy `external-secrets` as a Giant Swarm application
 
-[Unreleased]: https://github.com/giantswarm/external-secrets/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/giantswarm/external-secrets/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/giantswarm/external-secrets/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/giantswarm/external-secrets/compare/v0.2.1...v0.2.1
 [0.2.1]: https://github.com/giantswarm/external-secrets/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/giantswarm/external-secrets/compare/v0.1.0...v0.2.0
