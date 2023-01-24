@@ -6,7 +6,7 @@ kind: Role
 kind: ClusterRole
 {{- end }}
 metadata:
-  name: {{ include "external-secrets.fullname" . }}-controller
+  name: {{ include "external-secrets.name" . }}-controller
   {{- if and .Values.scopedNamespace .Values.scopedRBAC }}
   namespace: {{ .Values.scopedNamespace | quote }}
   {{- end }}
@@ -116,7 +116,7 @@ kind: Role
 kind: ClusterRole
 {{- end }}
 metadata:
-  name: {{ include "external-secrets.fullname" . }}-view
+  name: {{ include "external-secrets.name" . }}-view
   {{- if and .Values.scopedNamespace .Values.scopedRBAC }}
   namespace: {{ .Values.scopedNamespace | quote }}
   {{- end }}
@@ -145,7 +145,7 @@ kind: Role
 kind: ClusterRole
 {{- end }}
 metadata:
-  name: {{ include "external-secrets.fullname" . }}-edit
+  name: {{ include "external-secrets.name" . }}-edit
   {{- if and .Values.scopedNamespace .Values.scopedRBAC }}
   namespace: {{ .Values.scopedNamespace | quote }}
   {{- end }}
@@ -175,7 +175,7 @@ kind: RoleBinding
 kind: ClusterRoleBinding
 {{- end }}
 metadata:
-  name: {{ include "external-secrets.fullname" . }}-controller
+  name: {{ include "external-secrets.name" . }}-controller
   {{- if and .Values.scopedNamespace .Values.scopedRBAC }}
   namespace: {{ .Values.scopedNamespace | quote }}
   {{- end }}
@@ -188,7 +188,7 @@ roleRef:
   {{- else }}
   kind: ClusterRole
   {{- end }}
-  name: {{ include "external-secrets.fullname" . }}-controller
+  name: {{ include "external-secrets.name" . }}-controller
 subjects:
   - name: {{ include "external-secrets.serviceAccountName" . }}
     namespace: {{ .Release.Namespace | quote }}
@@ -197,7 +197,7 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: {{ include "external-secrets.fullname" . }}-leaderelection
+  name: {{ include "external-secrets.name" . }}-leaderelection
   namespace: {{ .Release.Namespace | quote }}
   labels:
     {{- include "external-secrets.labels" . | nindent 4 }}
@@ -231,14 +231,14 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: {{ include "external-secrets.fullname" . }}-leaderelection
+  name: {{ include "external-secrets.name" . }}-leaderelection
   namespace: {{ .Release.Namespace | quote }}
   labels:
     {{- include "external-secrets.labels" . | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: {{ include "external-secrets.fullname" . }}-leaderelection
+  name: {{ include "external-secrets.name" . }}-leaderelection
 subjects:
   - kind: ServiceAccount
     name: {{ include "external-secrets.serviceAccountName" . }}

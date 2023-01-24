@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "external-secrets.fullname" . }}-metrics
+  name: {{ include "external-secrets.name" . }}-metrics
   namespace: {{ .Release.Namespace | quote }}
   labels:
     {{- include "external-secrets.selectorLabels" . | nindent 4 }}
@@ -23,7 +23,7 @@ metadata:
 {{- if .Values.serviceMonitor.additionalLabels }}
 {{ toYaml .Values.serviceMonitor.additionalLabels | indent 4 }}
 {{- end }}
-  name: {{ include "external-secrets.fullname" . }}-metrics
+  name: {{ include "external-secrets.name" . }}-metrics
   namespace: {{ .Release.Namespace | quote }}
 spec:
   selector:

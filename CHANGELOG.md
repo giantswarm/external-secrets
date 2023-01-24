@@ -7,9 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add support for clusters with `cilium` network and prepare for PSP not being available after kubernetes 1.25
+
 ### Changed
 
+- Use `external-secrets.name` instead of `external-secrets.fullname` for resource names prefix
 - Update ATS tests to use `v0.2.1` from `giantswarm-catalog`
+- Update `README.md`
 
 ## [0.2.1] - 2023-01-16
 

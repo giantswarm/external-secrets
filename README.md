@@ -1,17 +1,9 @@
 [![CircleCI](https://circleci.com/gh/giantswarm/external-secrets.svg?style=shield)](https://circleci.com/gh/giantswarm/external-secrets)
 
-[Read me after cloning this template (GS staff only)](https://intranet.giantswarm.io/docs/dev-and-releng/app-developer-processes/adding_app_to_appcatalog/)
-
 # external-secrets chart
 
 Giant Swarm offers an `external-secrets` App which can be installed in workload clusters.
 Here we define the `external-secrets` chart with its templates and default configuration.
-
-**What is this app?**
-
-**Why did we add it?**
-
-**Who can use it?**
 
 ## Installing
 
@@ -29,7 +21,24 @@ There are several ways to install this app onto a workload cluster.
 
 ```yaml
 # values.yaml
+crds:
+  createClusterExternalSecret: true
+  createClusterSecretStore: true
+```
 
+### Templating
+
+You can use the [official Giant Swarm kubectl plug-in](https://github.com/giantswarm/kubectl-gs/) to template the
+App CR and related resources.
+
+```shell
+kubectl gs template app \
+  --catalog giantswarm-catalog \
+  --name external-secrets \
+  --version 0.2.1 \
+  --target-namespace org-example \
+  --cluster-name abc123 \
+  --user-configmap values.yaml
 ```
 
 ### Sample App CR and ConfigMap for the management cluster
@@ -37,34 +46,46 @@ There are several ways to install this app onto a workload cluster.
 If you have access to the Kubernetes API on the management cluster, you could create
 the App CR and ConfigMap directly.
 
-Here is an example that would install the app to
-workload cluster `abc12`:
+Here is an example that would install the app to workload cluster `abc12`:
 
 ```yaml
-# appCR.yaml
-
+# app.yaml
+---
+apiVersion: application.giantswarm.io/v1alpha1
+kind: App
+metadata:
+  name: external-secrets
+  namespace: abc123
+spec:
+  catalog: giantswarm-catalog
+  kubeConfig:
+    inCluster: false
+  name: external-secrets
+  namespace: org-example
+  userConfig:
+    configMap:
+      name: external-secrets-userconfig-abc123
+      namespace: abc123
+  version: 0.2.1
 ```
 
 ```yaml
 # user-values-configmap.yaml
-
+---
+apiVersion: v1
+data:
+  values: |+
+    crds:
+      createClusterExternalSecret: true
+      createClusterSecretStore: true
+kind: ConfigMap
+metadata:
+  name: external-secrets-userconfig-abc123
+  namespace: abc123
 ```
 
 See our [full reference on how to configure apps](https://docs.giantswarm.io/app-platform/app-configuration/) for more details.
 
-## Compatibility
-
-This app has been tested to work with the following workload cluster release versions:
-
-- _add release version_
-
-## Limitations
-
-Some apps have restrictions on how they can be deployed.
-Not following these limitations will most likely result in a broken deployment.
-
-- _add limitation_
-
 ## Credit
 
-- {APP HELM REPOSITORY}
+- https://github.com/external-secrets/external-secrets

@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "external-secrets.fullname" . }}-webhook
+  name: {{ include "external-secrets.name" . }}-webhook
   namespace: {{ .Release.Namespace | quote }}
   labels:
     {{- include "external-secrets-webhook.labels" . | nindent 4 }}
@@ -48,7 +48,7 @@ spec:
           args:
           - webhook
           - --port={{ .Values.webhook.port }}
-          - --dns-name={{ include "external-secrets.fullname" . }}-webhook.{{ .Release.Namespace }}.svc
+          - --dns-name={{ include "external-secrets.name" . }}-webhook.{{ .Release.Namespace }}.svc
           - --cert-dir={{ .Values.webhook.certDir }}
           - --check-interval={{ .Values.webhook.certCheckInterval }}
           - --metrics-addr=:{{ .Values.webhook.prometheus.service.port }}
@@ -94,7 +94,7 @@ spec:
       volumes:
         - name: certs
           secret:
-            secretName: {{ include "external-secrets.fullname" . }}-webhook
+            secretName: {{ include "external-secrets.name" . }}-webhook
       {{- if .Values.webhook.extraVolumes }}
       {{- toYaml .Values.webhook.extraVolumes | nindent 8 }}
       {{- end }}
