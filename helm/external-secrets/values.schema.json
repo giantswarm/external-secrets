@@ -407,6 +407,17 @@
                             }
                         }
                     }
+                },
+                "verticalPodAutoscaler": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "force": {
+                            "type": "boolean"
+                        }
+                    }
                 }
             }
         },
