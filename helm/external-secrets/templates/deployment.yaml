@@ -85,10 +85,8 @@ spec:
           env:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.giantswarm.resources.externalSecrets }}
           resources:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
+            {{ include "resource.externalSecrets.resources" . | nindent 12 }}
           {{- if .Values.extraVolumeMounts }}
           volumeMounts:
           {{- toYaml .Values.extraVolumeMounts | nindent 12 }}
