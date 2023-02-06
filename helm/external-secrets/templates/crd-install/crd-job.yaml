@@ -39,7 +39,7 @@ spec:
           # in the pod's logs.
 
           # Experiment based on: https://github.com/crossplane/crossplane/blob/master/design/one-pager-crd-scaling.md#client-side-throttling
-          kubectl -v=6 apply -f /data/ 2>&1
+          kubectl --cache-dir="" -v=6 apply -f /data/ 2>&1
           sleep 60
         securityContext:
           readOnlyRootFilesystem: true
