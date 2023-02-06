@@ -38,7 +38,9 @@ spec:
           # piping stderr to stdout means kubectl's errors are surfaced
           # in the pod's logs.
 
-          kubectl --cache-dir "" -v 5 apply -f /data/ 2>&1
+          # Experiment based on: https://github.com/crossplane/crossplane/blob/master/design/one-pager-crd-scaling.md#client-side-throttling
+          kubectl -v=6 apply -f /data/ 2>&1
+          sleep 60
         securityContext:
           readOnlyRootFilesystem: true
         volumeMounts:
