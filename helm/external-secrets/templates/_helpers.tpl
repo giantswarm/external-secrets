@@ -55,3 +55,34 @@ app.kubernetes.io/instance: {{ .Release.Name | quote }}
 {{- define "controllerVolumeName" -}}
 {{- printf "%s-controller-%s-volume" (include "name" .) .volumeName -}}
 {{- end -}}
+
+{{- define "resource.vpa.enabled" -}}
+{{- if and (or (.Capabilities.APIVersions.Has "autoscaling.k8s.io/v1") (.Values.giantswarm.verticalPodAutoscaler.force)) (.Values.giantswarm.verticalPodAutoscaler.enabled) }}true{{ else }}false{{ end }}
+{{- end -}}
+
+{{- define "resource.externalSecrets.resources" -}}
+requests:
+{{ toYaml .Values.giantswarm.resources.externalSecrets.requests | indent 2 -}}
+{{ if eq (include "resource.vpa.enabled" .) "false" }}
+limits:
+{{ toYaml .Values.giantswarm.resources.externalSecrets.limits | indent 2 -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "resource.certController.resources" -}}
+requests:
+{{ toYaml .Values.giantswarm.resources.certController.requests | indent 2 -}}
+{{ if eq (include "resource.vpa.enabled" .) "false" }}
+limits:
+{{ toYaml .Values.giantswarm.resources.certController.limits | indent 2 -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "resource.webhook.resources" -}}
+requests:
+{{ toYaml .Values.giantswarm.resources.webhook.requests | indent 2 -}}
+{{ if eq (include "resource.vpa.enabled" .) "false" }}
+limits:
+{{ toYaml .Values.giantswarm.resources.webhook.limits | indent 2 -}}
+{{- end -}}
+{{- end -}}

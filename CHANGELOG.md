@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add support for `VPA` for core, cert-controller and webhook deployments, enabled by default
+
 ## [0.3.0] - 2023-01-24
 
 ### Added

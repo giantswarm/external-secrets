@@ -72,10 +72,8 @@ spec:
           env:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.giantswarm.resources.certController }}
           resources:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
+            {{ include "resource.certController.resources" . | nindent 12 }}
           {{- if .Values.certController.extraVolumeMounts }}
           volumeMounts:
           {{- toYaml .Values.certController.extraVolumeMounts | nindent 12 }}
