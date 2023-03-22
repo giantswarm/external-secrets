@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.4.2] - 2023-03-22
 
+## [0.4.2] - 2023-03-22
+
 ### Fixed
 
 - The VPA for `external-secrets` erroneously picks up the `kubectl` pod created by the CRD installer job and changes the resource requirements for it potentially causing OOM kill for it
@@ -60,6 +62,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add initial chart to deploy `external-secrets` as a Giant Swarm application
 
 [Unreleased]: https://github.com/giantswarm/external-secrets/compare/v0.4.2...HEAD
+[0.4.2]: https://github.com/giantswarm/external-secrets/compare/v0.4.2...v0.4.2
 [0.4.2]: https://github.com/giantswarm/external-secrets/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/giantswarm/external-secrets/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/giantswarm/external-secrets/compare/v0.3.0...v0.4.0
