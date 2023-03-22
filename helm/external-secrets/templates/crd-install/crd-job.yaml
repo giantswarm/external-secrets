@@ -27,7 +27,7 @@ spec:
       - key: node-role.kubernetes.io/master
         effect: NoSchedule
       containers:
-      - name: kubectl
+      - name: {{ .Values.giantswarm.crds.podName }}
         image: "{{ .Values.giantswarm.images.registry }}/giantswarm/docker-kubectl:1.23.6"
         command:
         - sh
