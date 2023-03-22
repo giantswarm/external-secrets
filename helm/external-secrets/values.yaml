@@ -57,6 +57,7 @@ giantswarm:
 
   crds:
     install: true
+    podName: kubectl
     resources:
       requests:
         memory: "256Mi"

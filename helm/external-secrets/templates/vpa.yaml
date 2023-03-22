@@ -21,6 +21,8 @@ spec:
           cpu: {{ .Values.giantswarm.resources.externalSecrets.requests.cpu }}
           memory: {{ .Values.giantswarm.resources.externalSecrets.requests.memory }}
         mode: Auto
+      - containerName: {{ .Values.giantswarm.crds.podName }}
+        mode: "Off"
   targetRef:
     apiVersion: apps/v1
     kind: Deployment

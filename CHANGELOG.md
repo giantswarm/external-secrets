@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- The VPA for `external-secrets` erroneously picks up the `kubectl` pod created by the CRD installer job and changes the resource requirements for it potentially causing OOM kill for it
+
 ## [0.4.1] - 2023-03-07
 
 - Add cluster and world to CiliumNetworkPolicy
