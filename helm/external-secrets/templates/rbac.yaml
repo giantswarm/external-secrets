@@ -6,7 +6,7 @@ kind: Role
 kind: ClusterRole
 {{- end }}
 metadata:
-  name: {{ include "external-secrets.name" . }}-controller
+  name: {{ include "external-secrets.fullname" . }}-controller
   {{- if and .Values.scopedNamespace .Values.scopedRBAC }}
   namespace: {{ .Values.scopedNamespace | quote }}
   {{- end }}
@@ -49,11 +49,12 @@ rules:
   - apiGroups:
     - "generators.external-secrets.io"
     resources:
-    - "fakes"
-    - "passwords"
     - "acraccesstokens"
-    - "gcraccesstokens"
     - "ecrauthorizationtokens"
+    - "fakes"
+    - "gcraccesstokens"
+    - "passwords"
+    - "vaultdynamicsecrets"
     verbs:
     - "get"
     - "list"
@@ -116,7 +117,7 @@ kind: Role
 kind: ClusterRole
 {{- end }}
 metadata:
-  name: {{ include "external-secrets.name" . }}-view
+  name: {{ include "external-secrets.fullname" . }}-view
   {{- if and .Values.scopedNamespace .Values.scopedRBAC }}
   namespace: {{ .Values.scopedNamespace | quote }}
   {{- end }}
@@ -145,7 +146,7 @@ kind: Role
 kind: ClusterRole
 {{- end }}
 metadata:
-  name: {{ include "external-secrets.name" . }}-edit
+  name: {{ include "external-secrets.fullname" . }}-edit
   {{- if and .Values.scopedNamespace .Values.scopedRBAC }}
   namespace: {{ .Values.scopedNamespace | quote }}
   {{- end }}
@@ -175,7 +176,7 @@ kind: RoleBinding
 kind: ClusterRoleBinding
 {{- end }}
 metadata:
-  name: {{ include "external-secrets.name" . }}-controller
+  name: {{ include "external-secrets.fullname" . }}-controller
   {{- if and .Values.scopedNamespace .Values.scopedRBAC }}
   namespace: {{ .Values.scopedNamespace | quote }}
   {{- end }}
@@ -188,7 +189,7 @@ roleRef:
   {{- else }}
   kind: ClusterRole
   {{- end }}
-  name: {{ include "external-secrets.name" . }}-controller
+  name: {{ include "external-secrets.fullname" . }}-controller
 subjects:
   - name: {{ include "external-secrets.serviceAccountName" . }}
     namespace: {{ .Release.Namespace | quote }}
@@ -197,7 +198,7 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: {{ include "external-secrets.name" . }}-leaderelection
+  name: {{ include "external-secrets.fullname" . }}-leaderelection
   namespace: {{ .Release.Namespace | quote }}
   labels:
     {{- include "external-secrets.labels" . | nindent 4 }}
@@ -231,14 +232,14 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: {{ include "external-secrets.name" . }}-leaderelection
+  name: {{ include "external-secrets.fullname" . }}-leaderelection
   namespace: {{ .Release.Namespace | quote }}
   labels:
     {{- include "external-secrets.labels" . | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: {{ include "external-secrets.name" . }}-leaderelection
+  name: {{ include "external-secrets.fullname" . }}-leaderelection
 subjects:
   - kind: ServiceAccount
     name: {{ include "external-secrets.serviceAccountName" . }}
