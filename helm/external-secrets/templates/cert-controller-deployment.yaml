@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "external-secrets.fullname" . }}-cert-controller
+  name: {{ include "external-secrets.name" . }}-cert-controller
   namespace: {{ .Release.Namespace | quote }}
   labels:
     {{- include "external-secrets-cert-controller.labels" . | nindent 4 }}
@@ -12,7 +12,7 @@ metadata:
   {{- end }}
 spec:
   replicas: {{ .Values.certController.replicaCount }}
-  revisionHistoryLimit: {{ .Values.certController.revisionHistoryLimit }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   selector:
     matchLabels:
       {{- include "external-secrets-cert-controller.selectorLabels" . | nindent 6 }}
@@ -40,18 +40,18 @@ spec:
       {{- end }}
       containers:
         - name: cert-controller
-          {{- with .Values.certController.securityContext }}
+          {{- with .Values.giantswarm.securityContext.certController }}
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          image: "{{ .Values.certController.image.repository }}:{{ .Values.certController.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.certController.image.pullPolicy }}
+          image: "{{ .Values.giantswarm.images.registry }}/{{ .Values.giantswarm.images.certController.image }}:{{ .Values.giantswarm.images.certController.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.giantswarm.images.pullPolicy }}
           args:
           - certcontroller
           - --crd-requeue-interval={{ .Values.certController.requeueInterval }}
-          - --service-name={{ include "external-secrets.fullname" . }}-webhook
+          - --service-name={{ include "external-secrets.name" . }}-webhook
           - --service-namespace={{ .Release.Namespace }}
-          - --secret-name={{ include "external-secrets.fullname" . }}-webhook
+          - --secret-name={{ include "external-secrets.name" . }}-webhook
           - --secret-namespace={{ .Release.Namespace }}
           {{ if not .Values.crds.createClusterSecretStore -}}
           - --crd-names=externalsecrets.external-secrets.io
@@ -78,10 +78,8 @@ spec:
           env:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.certController.resources }}
           resources:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
+            {{ include "resource.certController.resources" . | nindent 12 }}
           {{- if .Values.certController.extraVolumeMounts }}
           volumeMounts:
           {{- toYaml .Values.certController.extraVolumeMounts | nindent 12 }}

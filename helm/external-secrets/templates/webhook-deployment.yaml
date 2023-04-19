@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "external-secrets.fullname" . }}-webhook
+  name: {{ include "external-secrets.name" . }}-webhook
   namespace: {{ .Release.Namespace | quote }}
   labels:
     {{- include "external-secrets-webhook.labels" . | nindent 4 }}
@@ -41,16 +41,16 @@ spec:
       {{- end }}
       containers:
         - name: webhook
-          {{- with .Values.webhook.securityContext }}
+          {{- with .Values.giantswarm.securityContext.webhook }}
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          image: "{{ .Values.webhook.image.repository }}:{{ .Values.webhook.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.webhook.image.pullPolicy }}
+          image: "{{ .Values.giantswarm.images.registry }}/{{ .Values.giantswarm.images.webhook.image }}:{{ .Values.giantswarm.images.webhook.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.giantswarm.images.pullPolicy }}
           args:
           - webhook
           - --port={{ .Values.webhook.port }}
-          - --dns-name={{ include "external-secrets.fullname" . }}-webhook.{{ .Release.Namespace }}.svc
+          - --dns-name={{ include "external-secrets.name" . }}-webhook.{{ .Release.Namespace }}.svc
           - --cert-dir={{ .Values.webhook.certDir }}
           - --check-interval={{ .Values.webhook.certCheckInterval }}
           - --metrics-addr=:{{ .Values.webhook.prometheus.service.port }}
@@ -82,10 +82,8 @@ spec:
           env:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- with .Values.webhook.resources }}
           resources:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
+            {{ include "resource.webhook.resources" . | nindent 12 }}
           volumeMounts:
             - name: certs
               mountPath: {{ .Values.webhook.certDir }}
@@ -96,7 +94,7 @@ spec:
       volumes:
         - name: certs
           secret:
-            secretName: {{ include "external-secrets.fullname" . }}-webhook
+            secretName: {{ include "external-secrets.name" . }}-webhook
       {{- if .Values.webhook.extraVolumes }}
       {{- toYaml .Values.webhook.extraVolumes | nindent 8 }}
       {{- end }}

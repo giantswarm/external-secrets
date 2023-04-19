@@ -1,0 +1,88 @@
+{{ if eq (include "resource.vpa.enabled" .) "true" }}
+---
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: {{ template "external-secrets.name" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+spec:
+  resourcePolicy:
+    containerPolicies:
+      - containerName: {{ .Chart.Name }}
+        controlledResources:
+          - cpu
+          - memory
+        maxAllowed:
+          cpu: {{ .Values.giantswarm.resources.externalSecrets.limits.cpu }}
+          memory: {{ .Values.giantswarm.resources.externalSecrets.limits.memory }}
+        minAllowed:
+          cpu: {{ .Values.giantswarm.resources.externalSecrets.requests.cpu }}
+          memory: {{ .Values.giantswarm.resources.externalSecrets.requests.memory }}
+        mode: Auto
+      - containerName: {{ .Values.giantswarm.crds.podName }}
+        mode: "Off"
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ template "external-secrets.name" . }}
+  updatePolicy:
+    updateMode: Auto
+---
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: {{ template "external-secrets.name" . }}-cert-controller
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+spec:
+  resourcePolicy:
+    containerPolicies:
+      - containerName: cert-controller
+        controlledResources:
+          - cpu
+          - memory
+        maxAllowed:
+          cpu: {{ .Values.giantswarm.resources.certController.limits.cpu }}
+          memory: {{ .Values.giantswarm.resources.certController.limits.memory }}
+        minAllowed:
+          cpu: {{ .Values.giantswarm.resources.certController.requests.cpu }}
+          memory: {{ .Values.giantswarm.resources.certController.requests.memory }}
+        mode: Auto
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ template "external-secrets.name" . }}-cert-controller
+  updatePolicy:
+    updateMode: Auto
+---
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: {{ template "external-secrets.name" . }}-webhook
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "labels.common" . | nindent 4 }}
+spec:
+  resourcePolicy:
+    containerPolicies:
+      - containerName: webhook
+        controlledResources:
+          - cpu
+          - memory
+        maxAllowed:
+          cpu: {{ .Values.giantswarm.resources.webhook.limits.cpu }}
+          memory: {{ .Values.giantswarm.resources.webhook.limits.memory }}
+        minAllowed:
+          cpu: {{ .Values.giantswarm.resources.webhook.requests.cpu }}
+          memory: {{ .Values.giantswarm.resources.webhook.requests.memory }}
+        mode: Auto
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ template "external-secrets.name" . }}-webhook
+  updatePolicy:
+    updateMode: Auto
+{{ end }}
