@@ -9,7 +9,7 @@ keywords:
   - kubernetes-external-secrets
   - secrets
 home: https://github.com/giantswarm/external-secrets
-icon: https://raw.githubusercontent.com/external-secrets/external-secrets/main/assets/eso-logo-large.png
+icon: https://s.giantswarm.io/app-icons/external-secrets/1/light.svg
 annotations:
   application.giantswarm.io/team: "honeybadger"
   config.giantswarm.io/version: 1.x.x
