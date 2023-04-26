@@ -68,11 +68,19 @@ giantswarm:
 
 replicaCount: 1
 
+# -- Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy)
+revisionHistoryLimit: 10
+
 crds:
   # -- If true, create CRDs for Cluster External Secret.
   createClusterExternalSecret: true
   # -- If true, create CRDs for Cluster Secret Store.
   createClusterSecretStore: true
+  # -- If true, create CRDs for Push Secret.
+  createPushSecret: false
+  annotations: {}
+  conversion:
+    enabled: true
 
 imagePullSecrets: []
 nameOverride: ""
@@ -85,6 +93,10 @@ leaderElect: false
 # -- If set external secrets will filter matching
 # Secret Stores with the appropriate controller values.
 controllerClass: ""
+
+# -- If true external secrets will use recommended kubernetes
+# annotations as prometheus metric labels.
+extendedMetricLabels: false
 
 # -- If set external secrets are only reconciled in the
 # provided namespace
@@ -110,6 +122,8 @@ concurrent: 1
 serviceAccount:
   # -- Specifies whether a service account should be created.
   create: true
+  # -- Automounts the service account token in all containers of the pod
+  automount: true
   # -- Annotations to add to the service account.
   annotations: {}
   # -- Extra Labels to add to the service account.
@@ -134,6 +148,9 @@ extraVolumes: []
 ## -- Extra volumes to mount to the container.
 extraVolumeMounts: []
 
+## -- Extra containers to add to the pod.
+extraContainers: []
+
 # -- Annotations to add to Deployment
 deploymentAnnotations: {}
 
@@ -143,7 +160,19 @@ podAnnotations: {}
 podLabels: {}
 
 podSecurityContext: {}
-# fsGroup: 2000
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+resources: {}
+  # requests:
+  #   cpu: 10m
+  #   memory: 32Mi
 
 prometheus:
   # -- deprecated. will be removed with 0.7.0, use serviceMonitor instead.
@@ -156,6 +185,9 @@ serviceMonitor:
   # -- Specifies whether to create a ServiceMonitor resource for collecting Prometheus metrics
   enabled: false
 
+  # -- namespace where you want to install ServiceMonitors
+  namespace: ""
+
   # -- Additional labels
   additionalLabels: {}
 
@@ -164,6 +196,25 @@ serviceMonitor:
 
   # -- Timeout if metrics can't be retrieved in given time interval
   scrapeTimeout: 25s
+
+  # -- Let prometheus add an exported_ prefix to conflicting labels
+  honorLabels: false
+  # -- Metric relabel configs to apply to samples before ingestion. [Metric Relabeling](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs)
+  metricRelabelings: []
+  # - action: replace
+  #   regex: (.*)
+  #   replacement: $1
+  #   sourceLabels:
+  #   - exported_namespace
+  #   targetLabel: namespace
+  # -- Relabel configs to apply to samples before ingestion. [Relabeling](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config)
+  relabelings: []
+  # - sourceLabels: [__meta_kubernetes_pod_node_name]
+  #   separator: ;
+  #   regex: ^(.*)$
+  #   targetLabel: nodename
+  #   replacement: $1
+  #   action: replace
 
 metrics:
   service:
@@ -179,6 +230,8 @@ metrics:
 nodeSelector: {}
 
 tolerations: []
+
+topologySpreadConstraints: []
 
 affinity: {}
 
@@ -199,8 +252,12 @@ webhook:
   # -- Specifices the lookaheadInterval for certificate validity
   lookaheadInterval: ""
   replicaCount: 1
+
+  # -- Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy)
+  revisionHistoryLimit: 10
+
   certDir: /tmp/certs
-  # -- specifies whether validating webhooks should be created with failurePolicy: Fail or Ignore
+  # -- Specifies whether validating webhooks should be created with failurePolicy: Fail or Ignore
   failurePolicy: Fail
   # -- Specifies if webhook pod should use hostNetwork or not.
   hostNetwork: false
@@ -210,11 +267,13 @@ webhook:
   # -- The port the webhook will listen to
   port: 10250
   rbac:
-    # -- Specifies whether role and rolebinding resources should be created.
+  # -- Specifies whether role and rolebinding resources should be created.
     create: true
   serviceAccount:
     # -- Specifies whether a service account should be created.
     create: true
+    # -- Automounts the service account token in all containers of the pod
+    automount: true
     # -- Annotations to add to the service account.
     annotations: {}
     # -- Extra Labels to add to the service account.
@@ -299,7 +358,18 @@ webhook:
   podLabels: {}
 
   podSecurityContext: {}
-  # fsGroup: 2000
+    # fsGroup: 2000
+  securityContext: {}
+      # capabilities:
+      #   drop:
+      #   - ALL
+      # readOnlyRootFilesystem: true
+      # runAsNonRoot: true
+      # runAsUser: 1000
+  resources: {}
+      # requests:
+      #   cpu: 10m
+      #   memory: 32Mi
 
 certController:
   # -- Specifies whether a certificate controller deployment be created.
@@ -315,6 +385,8 @@ certController:
   serviceAccount:
     # -- Specifies whether a service account should be created.
     create: true
+    # -- Automounts the service account token in all containers of the pod
+    automount: true
     # -- Annotations to add to the service account.
     annotations: {}
     # -- Extra Labels to add to the service account.
@@ -391,6 +463,18 @@ certController:
 
   podSecurityContext: {}
   # fsGroup: 2000
+  #
+  securityContext: {}
+      # capabilities:
+      #   drop:
+      #   - ALL
+      # readOnlyRootFilesystem: true
+      # runAsNonRoot: true
+      # runAsUser: 1000
+  resources: {}
+      # requests:
+      #   cpu: 10m
+      #   memory: 32Mi
 
 # -- Specifies `dnsOptions` to deployment
 dnsConfig: {}

@@ -11,7 +11,7 @@ metadata:
     {{- include "crdInstallAnnotations" . | nindent 4 }}
   labels:
     app.kubernetes.io/component: {{ include "crdInstall" . | quote }}
-    {{- include "labels.selector" . | nindent 4 }}
+    {{- include "external-secrets.selectorLabels" . | nindent 4 }}
     role: {{ include "crdInstallSelector" . | quote }}
 spec:
   egress:
@@ -30,13 +30,13 @@ metadata:
     {{- include "crdInstallAnnotations" . | nindent 4 }}
   labels:
     app.kubernetes.io/component: {{ include "crdInstall" . | quote }}
-    {{- include "labels.selector" . | nindent 4 }}
+    {{- include "external-secrets.selectorLabels" . | nindent 4 }}
     role: {{ include "crdInstallSelector" . | quote }}
 spec:
   podSelector:
     matchLabels:
       app.kubernetes.io/component: {{ include "crdInstall" . | quote }}
-      {{- include "labels.selector" . | nindent 6 }}
+      {{- include "external-secrets.selectorLabels" . | nindent 6 }}
   # allow egress traffic to the Kubernetes API
   egress:
     - ports:

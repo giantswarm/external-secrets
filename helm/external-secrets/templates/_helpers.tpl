@@ -2,41 +2,130 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "name" -}}
-{{- .Chart.Name | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
+{{- define "external-secrets.name" -}}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Create a default fully qualified app name.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+If release name contains chart name it will be used as a full name.
+*/}}
+{{- define "external-secrets.fullname" -}}
+{{- if .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- $name := default .Chart.Name .Values.nameOverride }}
+{{- if contains $name .Release.Name }}
+{{- .Release.Name | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
+{{- end }}
+{{- end }}
+{{- end }}
 
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "chart" -}}
-{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
-{{- end -}}
+{{- define "external-secrets.chart" -}}
+{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
+{{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "labels.common" -}}
-{{ include "labels.selector" . }}
-app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
+{{- define "external-secrets.labels" -}}
+helm.sh/chart: {{ include "external-secrets.chart" . }}
+{{ include "external-secrets.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
 application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
-helm.sh/chart: {{ include "chart" . | quote }}
-{{- end -}}
+{{- end }}
+
+{{- define "external-secrets-webhook.labels" -}}
+helm.sh/chart: {{ include "external-secrets.chart" . }}
+{{ include "external-secrets-webhook.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{- define "external-secrets-webhook-metrics.labels" -}}
+{{ include "external-secrets-webhook.selectorLabels" . }}
+app.kubernetes.io/metrics: "webhook"
+{{- end }}
+
+{{- define "external-secrets-cert-controller.labels" -}}
+helm.sh/chart: {{ include "external-secrets.chart" . }}
+{{ include "external-secrets-cert-controller.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{- define "external-secrets-cert-controller-metrics.labels" -}}
+{{ include "external-secrets-cert-controller.selectorLabels" . }}
+app.kubernetes.io/metrics: "cert-controller"
+{{- end }}
 
 {{/*
 Selector labels
 */}}
-{{- define "labels.selector" -}}
-app.kubernetes.io/name: {{ include "name" . | quote }}
-app.kubernetes.io/instance: {{ .Release.Name | quote }}
-{{- end -}}
+{{- define "external-secrets.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "external-secrets.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+{{- define "external-secrets-webhook.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "external-secrets.name" . }}-webhook
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+{{- define "external-secrets-cert-controller.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "external-secrets.name" . }}-cert-controller
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "external-secrets.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "external-secrets.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "external-secrets-webhook.serviceAccountName" -}}
+{{- if .Values.webhook.serviceAccount.create }}
+{{- default "external-secrets-webhook" .Values.webhook.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.webhook.serviceAccount.name }}
+{{- end }}
+{{- end }}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "external-secrets-cert-controller.serviceAccountName" -}}
+{{- if .Values.certController.serviceAccount.create }}
+{{- default "external-secrets-cert-controller" .Values.certController.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.certController.serviceAccount.name }}
+{{- end }}
+{{- end }}
 
 {{- define "crdInstall" -}}
-{{- printf "%s-%s" ( include "name" . ) "crd-install" | replace "+" "_" | trimSuffix "-" -}}
+{{- printf "%s-%s" ( include "external-secrets.name" . ) "crd-install" | replace "+" "_" | trimSuffix "-" -}}
 {{- end -}}
 
 {{- define "crdInstallJob" -}}
-{{- printf "%s-%s-%s" ( include "name" . ) "crd-install" .Chart.AppVersion | replace "+" "_" | replace "." "-" | trimSuffix "-" | trunc 63 -}}
+{{- printf "%s-%s-%s" ( include "external-secrets.name" . ) "crd-install" .Chart.AppVersion | replace "+" "_" | replace "." "-" | trimSuffix "-" | trunc 63 -}}
 {{- end -}}
 
 {{- define "crdInstallAnnotations" -}}
@@ -86,3 +175,4 @@ limits:
 {{ toYaml .Values.giantswarm.resources.webhook.limits | indent 2 -}}
 {{- end -}}
 {{- end -}}
+
