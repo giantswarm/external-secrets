@@ -6,7 +6,7 @@ metadata:
   name: {{ template "external-secrets.name" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "labels.common" . | nindent 4 }}
+    {{- include "external-secrets.labels" . | nindent 4 }}
 spec:
   resourcePolicy:
     containerPolicies:
@@ -36,7 +36,7 @@ metadata:
   name: {{ template "external-secrets.name" . }}-cert-controller
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "labels.common" . | nindent 4 }}
+    {{- include "external-secrets.labels" . | nindent 4 }}
 spec:
   resourcePolicy:
     containerPolicies:
@@ -64,7 +64,7 @@ metadata:
   name: {{ template "external-secrets.name" . }}-webhook
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "labels.common" . | nindent 4 }}
+    {{- include "external-secrets.labels" . | nindent 4 }}
 spec:
   resourcePolicy:
     containerPolicies:
