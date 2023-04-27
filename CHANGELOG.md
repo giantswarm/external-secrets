@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.5.0] - 2023-04-27
 
+## Update ESO to v0.8.1
+
 ## [0.4.3] - 2023-04-26
 
 ### Updated
