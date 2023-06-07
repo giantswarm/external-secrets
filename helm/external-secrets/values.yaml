@@ -185,7 +185,7 @@ podSecurityContext: {}
   # fsGroup: 2000
 
 # Moved to giantswarm.securityContext.externalSecrets
-#securityContext: {}
+# securityContext: {}
 
 resources: {}
   # requests:
