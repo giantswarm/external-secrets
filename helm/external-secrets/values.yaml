@@ -44,16 +44,34 @@ giantswarm:
   securityContext:
     externalSecrets:
       allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+          - ALL
       readOnlyRootFilesystem: true
+      runAsNonRoot: true
       runAsUser: 1000
+      seccompProfile:
+        type: RuntimeDefault
     certController:
       allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+          - ALL
       readOnlyRootFilesystem: true
+      runAsNonRoot: true
       runAsUser: 1000
+      seccompProfile:
+        type: RuntimeDefault
     webhook:
       allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+          - ALL
       readOnlyRootFilesystem: true
+      runAsNonRoot: true
       runAsUser: 1000
+      seccompProfile:
+        type: RuntimeDefault
 
   crds:
     install: true
@@ -136,6 +154,10 @@ rbac:
   # -- Specifies whether role and rolebinding resources should be created.
   create: true
 
+  servicebindings:
+    # -- Specifies whether a clusterrole to give servicebindings read access should be created.
+    create: true
+
 ## -- Extra environment variables to add to container.
 extraEnv: []
 
@@ -162,13 +184,9 @@ podLabels: {}
 podSecurityContext: {}
   # fsGroup: 2000
 
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+# Moved to giantswarm.securityContext.externalSecrets
+#securityContext: {}
+
 resources: {}
   # requests:
   #   cpu: 10m
@@ -244,6 +262,9 @@ podDisruptionBudget:
   minAvailable: 1
   # maxUnavailable: 1
 
+# -- Run the controller on the host network
+hostNetwork: false
+
 webhook:
   # -- Specifies whether a webhook deployment be created.
   create: true
@@ -284,6 +305,8 @@ webhook:
   nodeSelector: {}
 
   tolerations: []
+
+  topologySpreadConstraints: []
 
   affinity: {}
 
@@ -358,14 +381,9 @@ webhook:
   podLabels: {}
 
   podSecurityContext: {}
-    # fsGroup: 2000
-  securityContext: {}
-      # capabilities:
-      #   drop:
-      #   - ALL
-      # readOnlyRootFilesystem: true
-      # runAsNonRoot: true
-      # runAsUser: 1000
+  # Moved to giantswarm.securityContext.webhook
+  # securityContext: {}
+
   resources: {}
       # requests:
       #   cpu: 10m
@@ -398,7 +416,12 @@ certController:
 
   tolerations: []
 
+  topologySpreadConstraints: []
+
   affinity: {}
+
+  # -- Run the certController on the host network
+  hostNetwork: false
 
   # -- Pod priority class name.
   priorityClassName: ""
@@ -462,15 +485,9 @@ certController:
   podLabels: {}
 
   podSecurityContext: {}
-  # fsGroup: 2000
-  #
-  securityContext: {}
-      # capabilities:
-      #   drop:
-      #   - ALL
-      # readOnlyRootFilesystem: true
-      # runAsNonRoot: true
-      # runAsUser: 1000
+  # Moved to giantswarm.securityContext.certController
+  # securityContext: {}
+
   resources: {}
       # requests:
       #   cpu: 10m

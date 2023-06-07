@@ -71,8 +71,13 @@ metadata:
 {{- if .Values.serviceMonitor.additionalLabels }}
 {{ toYaml .Values.serviceMonitor.additionalLabels | indent 4 }}
 {{- end }}
+<<<<<<< HEAD
   name: {{ include "external-secrets.name" . }}-webhook-metrics
   namespace: {{ .Release.Namespace | quote }}
+=======
+  name: {{ include "external-secrets.fullname" . }}-webhook-metrics
+  namespace: {{ .Values.serviceMonitor.namespace | default .Release.Namespace | quote }}
+>>>>>>> 6361e8019cccfd9f5584224006cce84009edcf75
 spec:
   selector:
     matchLabels:
@@ -120,8 +125,13 @@ metadata:
 {{- if .Values.serviceMonitor.additionalLabels }}
 {{ toYaml .Values.serviceMonitor.additionalLabels | indent 4 }}
 {{- end }}
+<<<<<<< HEAD
   name: {{ include "external-secrets.name" . }}-cert-controller-metrics
   namespace: {{ .Release.Namespace | quote }}
+=======
+  name: {{ include "external-secrets.fullname" . }}-cert-controller-metrics
+  namespace: {{ .Values.serviceMonitor.namespace | default .Release.Namespace | quote }}
+>>>>>>> 6361e8019cccfd9f5584224006cce84009edcf75
 spec:
   selector:
     matchLabels:
