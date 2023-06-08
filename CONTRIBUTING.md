@@ -33,6 +33,8 @@
     git branch -D temp-split-branch
     ```
   - resolve conflicts (if any)
+- please make sure that `{{ include "external-secrets.name" . }}` is used consistently instead of `{{ include "external-secrets.fullName" . }}`
+  - reason is that it is better user experience and safe because we restrict the app to be cluster singleton
 - helm schema generation
   - generate the values schema with `helm schema-gen helm/external-secrets/values.yaml > helm/external-secrets/values.schema.json`
 - Chart.yaml

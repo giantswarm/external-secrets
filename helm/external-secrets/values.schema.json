@@ -1,2969 +1,879 @@
 {
-    "$schema": "https://json-schema.org/draft/2019-09/schema",
-    "$id": "http://example.com/example.json",
+    "$schema": "http://json-schema.org/schema#",
     "type": "object",
-    "default": {},
-    "title": "Root Schema",
-    "required": [
-        "giantswarm",
-        "replicaCount",
-        "revisionHistoryLimit",
-        "crds",
-        "imagePullSecrets",
-        "nameOverride",
-        "fullnameOverride",
-        "leaderElect",
-        "controllerClass",
-        "extendedMetricLabels",
-        "scopedNamespace",
-        "scopedRBAC",
-        "processClusterExternalSecret",
-        "processClusterStore",
-        "createOperator",
-        "concurrent",
-        "serviceAccount",
-        "rbac",
-        "extraEnv",
-        "extraArgs",
-        "extraVolumes",
-        "extraVolumeMounts",
-        "extraContainers",
-        "deploymentAnnotations",
-        "podAnnotations",
-        "podLabels",
-        "podSecurityContext",
-        "securityContext",
-        "resources",
-        "prometheus",
-        "serviceMonitor",
-        "metrics",
-        "nodeSelector",
-        "tolerations",
-        "topologySpreadConstraints",
-        "affinity",
-        "priorityClassName",
-        "podDisruptionBudget",
-        "webhook",
-        "certController",
-        "dnsConfig"
-    ],
     "properties": {
-        "giantswarm": {
-            "type": "object",
-            "default": {},
-            "title": "The giantswarm Schema",
-            "required": [
-                "images",
-                "verticalPodAutoscaler",
-                "resources",
-                "securityContext",
-                "crds"
-            ],
-            "properties": {
-                "images": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The images Schema",
-                    "required": [
-                        "registry",
-                        "externalSecrets",
-                        "certController",
-                        "webhook",
-                        "pullPolicy"
-                    ],
-                    "properties": {
-                        "registry": {
-                            "type": "string",
-                            "default": "",
-                            "title": "The registry Schema",
-                            "examples": [
-                                "docker.io"
-                            ]
-                        },
-                        "externalSecrets": {
-                            "type": "object",
-                            "default": {},
-                            "title": "The externalSecrets Schema",
-                            "required": [
-                                "image",
-                                "tag"
-                            ],
-                            "properties": {
-                                "image": {
-                                    "type": "string",
-                                    "default": "",
-                                    "title": "The image Schema",
-                                    "examples": [
-                                        "giantswarm/external-secrets"
-                                    ]
-                                },
-                                "tag": {
-                                    "type": "string",
-                                    "default": "",
-                                    "title": "The tag Schema",
-                                    "examples": [
-                                        ""
-                                    ]
-                                }
-                            },
-                            "examples": [{
-                                "image": "giantswarm/external-secrets",
-                                "tag": ""
-                            }]
-                        },
-                        "certController": {
-                            "type": "object",
-                            "default": {},
-                            "title": "The certController Schema",
-                            "required": [
-                                "image",
-                                "tag"
-                            ],
-                            "properties": {
-                                "image": {
-                                    "type": "string",
-                                    "default": "",
-                                    "title": "The image Schema",
-                                    "examples": [
-                                        "giantswarm/external-secrets"
-                                    ]
-                                },
-                                "tag": {
-                                    "type": "string",
-                                    "default": "",
-                                    "title": "The tag Schema",
-                                    "examples": [
-                                        ""
-                                    ]
-                                }
-                            },
-                            "examples": [{
-                                "image": "giantswarm/external-secrets",
-                                "tag": ""
-                            }]
-                        },
-                        "webhook": {
-                            "type": "object",
-                            "default": {},
-                            "title": "The webhook Schema",
-                            "required": [
-                                "image",
-                                "tag"
-                            ],
-                            "properties": {
-                                "image": {
-                                    "type": "string",
-                                    "default": "",
-                                    "title": "The image Schema",
-                                    "examples": [
-                                        "giantswarm/external-secrets"
-                                    ]
-                                },
-                                "tag": {
-                                    "type": "string",
-                                    "default": "",
-                                    "title": "The tag Schema",
-                                    "examples": [
-                                        ""
-                                    ]
-                                }
-                            },
-                            "examples": [{
-                                "image": "giantswarm/external-secrets",
-                                "tag": ""
-                            }]
-                        },
-                        "pullPolicy": {
-                            "type": "string",
-                            "default": "",
-                            "title": "The pullPolicy Schema",
-                            "examples": [
-                                "IfNotPresent"
-                            ]
-                        }
-                    },
-                    "examples": [{
-                        "registry": "docker.io",
-                        "externalSecrets": {
-                            "image": "giantswarm/external-secrets",
-                            "tag": ""
-                        },
-                        "certController": {
-                            "image": "giantswarm/external-secrets",
-                            "tag": ""
-                        },
-                        "webhook": {
-                            "image": "giantswarm/external-secrets",
-                            "tag": ""
-                        },
-                        "pullPolicy": "IfNotPresent"
-                    }]
-                },
-                "verticalPodAutoscaler": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The verticalPodAutoscaler Schema",
-                    "required": [
-                        "enabled",
-                        "force"
-                    ],
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean",
-                            "default": false,
-                            "title": "The enabled Schema",
-                            "examples": [
-                                true
-                            ]
-                        },
-                        "force": {
-                            "type": "boolean",
-                            "default": false,
-                            "title": "The force Schema",
-                            "examples": [
-                                false
-                            ]
-                        }
-                    },
-                    "examples": [{
-                        "enabled": true,
-                        "force": false
-                    }]
-                },
-                "resources": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The resources Schema",
-                    "required": [
-                        "externalSecrets",
-                        "certController",
-                        "webhook"
-                    ],
-                    "properties": {
-                        "externalSecrets": {
-                            "type": "object",
-                            "default": {},
-                            "title": "The externalSecrets Schema",
-                            "required": [
-                                "limits",
-                                "requests"
-                            ],
-                            "properties": {
-                                "limits": {
-                                    "type": "object",
-                                    "default": {},
-                                    "title": "The limits Schema",
-                                    "required": [
-                                        "cpu",
-                                        "memory"
-                                    ],
-                                    "properties": {
-                                        "cpu": {
-                                            "type": "string",
-                                            "default": "",
-                                            "title": "The cpu Schema",
-                                            "examples": [
-                                                "100m"
-                                            ]
-                                        },
-                                        "memory": {
-                                            "type": "string",
-                                            "default": "",
-                                            "title": "The memory Schema",
-                                            "examples": [
-                                                "512Mi"
-                                            ]
-                                        }
-                                    },
-                                    "examples": [{
-                                        "cpu": "100m",
-                                        "memory": "512Mi"
-                                    }]
-                                },
-                                "requests": {
-                                    "type": "object",
-                                    "default": {},
-                                    "title": "The requests Schema",
-                                    "required": [
-                                        "cpu",
-                                        "memory"
-                                    ],
-                                    "properties": {
-                                        "cpu": {
-                                            "type": "string",
-                                            "default": "",
-                                            "title": "The cpu Schema",
-                                            "examples": [
-                                                "100m"
-                                            ]
-                                        },
-                                        "memory": {
-                                            "type": "string",
-                                            "default": "",
-                                            "title": "The memory Schema",
-                                            "examples": [
-                                                "256Mi"
-                                            ]
-                                        }
-                                    },
-                                    "examples": [{
-                                        "cpu": "100m",
-                                        "memory": "256Mi"
-                                    }]
-                                }
-                            },
-                            "examples": [{
-                                "limits": {
-                                    "cpu": "100m",
-                                    "memory": "512Mi"
-                                },
-                                "requests": {
-                                    "cpu": "100m",
-                                    "memory": "256Mi"
-                                }
-                            }]
-                        },
-                        "certController": {
-                            "type": "object",
-                            "default": {},
-                            "title": "The certController Schema",
-                            "required": [
-                                "limits",
-                                "requests"
-                            ],
-                            "properties": {
-                                "limits": {
-                                    "type": "object",
-                                    "default": {},
-                                    "title": "The limits Schema",
-                                    "required": [
-                                        "cpu",
-                                        "memory"
-                                    ],
-                                    "properties": {
-                                        "cpu": {
-                                            "type": "string",
-                                            "default": "",
-                                            "title": "The cpu Schema",
-                                            "examples": [
-                                                "100m"
-                                            ]
-                                        },
-                                        "memory": {
-                                            "type": "string",
-                                            "default": "",
-                                            "title": "The memory Schema",
-                                            "examples": [
-                                                "512Mi"
-                                            ]
-                                        }
-                                    },
-                                    "examples": [{
-                                        "cpu": "100m",
-                                        "memory": "512Mi"
-                                    }]
-                                },
-                                "requests": {
-                                    "type": "object",
-                                    "default": {},
-                                    "title": "The requests Schema",
-                                    "required": [
-                                        "cpu",
-                                        "memory"
-                                    ],
-                                    "properties": {
-                                        "cpu": {
-                                            "type": "string",
-                                            "default": "",
-                                            "title": "The cpu Schema",
-                                            "examples": [
-                                                "100m"
-                                            ]
-                                        },
-                                        "memory": {
-                                            "type": "string",
-                                            "default": "",
-                                            "title": "The memory Schema",
-                                            "examples": [
-                                                "256Mi"
-                                            ]
-                                        }
-                                    },
-                                    "examples": [{
-                                        "cpu": "100m",
-                                        "memory": "256Mi"
-                                    }]
-                                }
-                            },
-                            "examples": [{
-                                "limits": {
-                                    "cpu": "100m",
-                                    "memory": "512Mi"
-                                },
-                                "requests": {
-                                    "cpu": "100m",
-                                    "memory": "256Mi"
-                                }
-                            }]
-                        },
-                        "webhook": {
-                            "type": "object",
-                            "default": {},
-                            "title": "The webhook Schema",
-                            "required": [
-                                "limits",
-                                "requests"
-                            ],
-                            "properties": {
-                                "limits": {
-                                    "type": "object",
-                                    "default": {},
-                                    "title": "The limits Schema",
-                                    "required": [
-                                        "cpu",
-                                        "memory"
-                                    ],
-                                    "properties": {
-                                        "cpu": {
-                                            "type": "string",
-                                            "default": "",
-                                            "title": "The cpu Schema",
-                                            "examples": [
-                                                "100m"
-                                            ]
-                                        },
-                                        "memory": {
-                                            "type": "string",
-                                            "default": "",
-                                            "title": "The memory Schema",
-                                            "examples": [
-                                                "512Mi"
-                                            ]
-                                        }
-                                    },
-                                    "examples": [{
-                                        "cpu": "100m",
-                                        "memory": "512Mi"
-                                    }]
-                                },
-                                "requests": {
-                                    "type": "object",
-                                    "default": {},
-                                    "title": "The requests Schema",
-                                    "required": [
-                                        "cpu",
-                                        "memory"
-                                    ],
-                                    "properties": {
-                                        "cpu": {
-                                            "type": "string",
-                                            "default": "",
-                                            "title": "The cpu Schema",
-                                            "examples": [
-                                                "100m"
-                                            ]
-                                        },
-                                        "memory": {
-                                            "type": "string",
-                                            "default": "",
-                                            "title": "The memory Schema",
-                                            "examples": [
-                                                "256Mi"
-                                            ]
-                                        }
-                                    },
-                                    "examples": [{
-                                        "cpu": "100m",
-                                        "memory": "256Mi"
-                                    }]
-                                }
-                            },
-                            "examples": [{
-                                "limits": {
-                                    "cpu": "100m",
-                                    "memory": "512Mi"
-                                },
-                                "requests": {
-                                    "cpu": "100m",
-                                    "memory": "256Mi"
-                                }
-                            }]
-                        }
-                    },
-                    "examples": [{
-                        "externalSecrets": {
-                            "limits": {
-                                "cpu": "100m",
-                                "memory": "512Mi"
-                            },
-                            "requests": {
-                                "cpu": "100m",
-                                "memory": "256Mi"
-                            }
-                        },
-                        "certController": {
-                            "limits": {
-                                "cpu": "100m",
-                                "memory": "512Mi"
-                            },
-                            "requests": {
-                                "cpu": "100m",
-                                "memory": "256Mi"
-                            }
-                        },
-                        "webhook": {
-                            "limits": {
-                                "cpu": "100m",
-                                "memory": "512Mi"
-                            },
-                            "requests": {
-                                "cpu": "100m",
-                                "memory": "256Mi"
-                            }
-                        }
-                    }]
-                },
-                "securityContext": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The securityContext Schema",
-                    "required": [
-                        "externalSecrets",
-                        "certController",
-                        "webhook"
-                    ],
-                    "properties": {
-                        "externalSecrets": {
-                            "type": "object",
-                            "default": {},
-                            "title": "The externalSecrets Schema",
-                            "required": [
-                                "allowPrivilegeEscalation",
-                                "readOnlyRootFilesystem",
-                                "runAsUser"
-                            ],
-                            "properties": {
-                                "allowPrivilegeEscalation": {
-                                    "type": "boolean",
-                                    "default": false,
-                                    "title": "The allowPrivilegeEscalation Schema",
-                                    "examples": [
-                                        false
-                                    ]
-                                },
-                                "readOnlyRootFilesystem": {
-                                    "type": "boolean",
-                                    "default": false,
-                                    "title": "The readOnlyRootFilesystem Schema",
-                                    "examples": [
-                                        true
-                                    ]
-                                },
-                                "runAsUser": {
-                                    "type": "integer",
-                                    "default": 0,
-                                    "title": "The runAsUser Schema",
-                                    "examples": [
-                                        1000
-                                    ]
-                                }
-                            },
-                            "examples": [{
-                                "allowPrivilegeEscalation": false,
-                                "readOnlyRootFilesystem": true,
-                                "runAsUser": 1000
-                            }]
-                        },
-                        "certController": {
-                            "type": "object",
-                            "default": {},
-                            "title": "The certController Schema",
-                            "required": [
-                                "allowPrivilegeEscalation",
-                                "readOnlyRootFilesystem",
-                                "runAsUser"
-                            ],
-                            "properties": {
-                                "allowPrivilegeEscalation": {
-                                    "type": "boolean",
-                                    "default": false,
-                                    "title": "The allowPrivilegeEscalation Schema",
-                                    "examples": [
-                                        false
-                                    ]
-                                },
-                                "readOnlyRootFilesystem": {
-                                    "type": "boolean",
-                                    "default": false,
-                                    "title": "The readOnlyRootFilesystem Schema",
-                                    "examples": [
-                                        true
-                                    ]
-                                },
-                                "runAsUser": {
-                                    "type": "integer",
-                                    "default": 0,
-                                    "title": "The runAsUser Schema",
-                                    "examples": [
-                                        1000
-                                    ]
-                                }
-                            },
-                            "examples": [{
-                                "allowPrivilegeEscalation": false,
-                                "readOnlyRootFilesystem": true,
-                                "runAsUser": 1000
-                            }]
-                        },
-                        "webhook": {
-                            "type": "object",
-                            "default": {},
-                            "title": "The webhook Schema",
-                            "required": [
-                                "allowPrivilegeEscalation",
-                                "readOnlyRootFilesystem",
-                                "runAsUser"
-                            ],
-                            "properties": {
-                                "allowPrivilegeEscalation": {
-                                    "type": "boolean",
-                                    "default": false,
-                                    "title": "The allowPrivilegeEscalation Schema",
-                                    "examples": [
-                                        false
-                                    ]
-                                },
-                                "readOnlyRootFilesystem": {
-                                    "type": "boolean",
-                                    "default": false,
-                                    "title": "The readOnlyRootFilesystem Schema",
-                                    "examples": [
-                                        true
-                                    ]
-                                },
-                                "runAsUser": {
-                                    "type": "integer",
-                                    "default": 0,
-                                    "title": "The runAsUser Schema",
-                                    "examples": [
-                                        1000
-                                    ]
-                                }
-                            },
-                            "examples": [{
-                                "allowPrivilegeEscalation": false,
-                                "readOnlyRootFilesystem": true,
-                                "runAsUser": 1000
-                            }]
-                        }
-                    },
-                    "examples": [{
-                        "externalSecrets": {
-                            "allowPrivilegeEscalation": false,
-                            "readOnlyRootFilesystem": true,
-                            "runAsUser": 1000
-                        },
-                        "certController": {
-                            "allowPrivilegeEscalation": false,
-                            "readOnlyRootFilesystem": true,
-                            "runAsUser": 1000
-                        },
-                        "webhook": {
-                            "allowPrivilegeEscalation": false,
-                            "readOnlyRootFilesystem": true,
-                            "runAsUser": 1000
-                        }
-                    }]
-                },
-                "crds": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The crds Schema",
-                    "required": [
-                        "install",
-                        "podName",
-                        "resources"
-                    ],
-                    "properties": {
-                        "install": {
-                            "type": "boolean",
-                            "default": false,
-                            "title": "The install Schema",
-                            "examples": [
-                                true
-                            ]
-                        },
-                        "podName": {
-                            "type": "string",
-                            "default": "",
-                            "title": "The podName Schema",
-                            "examples": [
-                                "kubectl"
-                            ]
-                        },
-                        "resources": {
-                            "type": "object",
-                            "default": {},
-                            "title": "The resources Schema",
-                            "required": [
-                                "requests",
-                                "limits"
-                            ],
-                            "properties": {
-                                "requests": {
-                                    "type": "object",
-                                    "default": {},
-                                    "title": "The requests Schema",
-                                    "required": [
-                                        "memory",
-                                        "cpu"
-                                    ],
-                                    "properties": {
-                                        "memory": {
-                                            "type": "string",
-                                            "default": "",
-                                            "title": "The memory Schema",
-                                            "examples": [
-                                                "256Mi"
-                                            ]
-                                        },
-                                        "cpu": {
-                                            "type": "string",
-                                            "default": "",
-                                            "title": "The cpu Schema",
-                                            "examples": [
-                                                "250m"
-                                            ]
-                                        }
-                                    },
-                                    "examples": [{
-                                        "memory": "256Mi",
-                                        "cpu": "250m"
-                                    }]
-                                },
-                                "limits": {
-                                    "type": "object",
-                                    "default": {},
-                                    "title": "The limits Schema",
-                                    "required": [
-                                        "memory",
-                                        "cpu"
-                                    ],
-                                    "properties": {
-                                        "memory": {
-                                            "type": "string",
-                                            "default": "",
-                                            "title": "The memory Schema",
-                                            "examples": [
-                                                "512Mi"
-                                            ]
-                                        },
-                                        "cpu": {
-                                            "type": "string",
-                                            "default": "",
-                                            "title": "The cpu Schema",
-                                            "examples": [
-                                                "500m"
-                                            ]
-                                        }
-                                    },
-                                    "examples": [{
-                                        "memory": "512Mi",
-                                        "cpu": "500m"
-                                    }]
-                                }
-                            },
-                            "examples": [{
-                                "requests": {
-                                    "memory": "256Mi",
-                                    "cpu": "250m"
-                                },
-                                "limits": {
-                                    "memory": "512Mi",
-                                    "cpu": "500m"
-                                }
-                            }]
-                        }
-                    },
-                    "examples": [{
-                        "install": true,
-                        "podName": "kubectl",
-                        "resources": {
-                            "requests": {
-                                "memory": "256Mi",
-                                "cpu": "250m"
-                            },
-                            "limits": {
-                                "memory": "512Mi",
-                                "cpu": "500m"
-                            }
-                        }
-                    }]
-                }
-            },
-            "examples": [{
-                "images": {
-                    "registry": "docker.io",
-                    "externalSecrets": {
-                        "image": "giantswarm/external-secrets",
-                        "tag": ""
-                    },
-                    "certController": {
-                        "image": "giantswarm/external-secrets",
-                        "tag": ""
-                    },
-                    "webhook": {
-                        "image": "giantswarm/external-secrets",
-                        "tag": ""
-                    },
-                    "pullPolicy": "IfNotPresent"
-                },
-                "verticalPodAutoscaler": {
-                    "enabled": true,
-                    "force": false
-                },
-                "resources": {
-                    "externalSecrets": {
-                        "limits": {
-                            "cpu": "100m",
-                            "memory": "512Mi"
-                        },
-                        "requests": {
-                            "cpu": "100m",
-                            "memory": "256Mi"
-                        }
-                    },
-                    "certController": {
-                        "limits": {
-                            "cpu": "100m",
-                            "memory": "512Mi"
-                        },
-                        "requests": {
-                            "cpu": "100m",
-                            "memory": "256Mi"
-                        }
-                    },
-                    "webhook": {
-                        "limits": {
-                            "cpu": "100m",
-                            "memory": "512Mi"
-                        },
-                        "requests": {
-                            "cpu": "100m",
-                            "memory": "256Mi"
-                        }
-                    }
-                },
-                "securityContext": {
-                    "externalSecrets": {
-                        "allowPrivilegeEscalation": false,
-                        "readOnlyRootFilesystem": true,
-                        "runAsUser": 1000
-                    },
-                    "certController": {
-                        "allowPrivilegeEscalation": false,
-                        "readOnlyRootFilesystem": true,
-                        "runAsUser": 1000
-                    },
-                    "webhook": {
-                        "allowPrivilegeEscalation": false,
-                        "readOnlyRootFilesystem": true,
-                        "runAsUser": 1000
-                    }
-                },
-                "crds": {
-                    "install": true,
-                    "podName": "kubectl",
-                    "resources": {
-                        "requests": {
-                            "memory": "256Mi",
-                            "cpu": "250m"
-                        },
-                        "limits": {
-                            "memory": "512Mi",
-                            "cpu": "500m"
-                        }
-                    }
-                }
-            }]
-        },
-        "replicaCount": {
-            "type": "integer",
-            "default": 0,
-            "title": "The replicaCount Schema",
-            "examples": [
-                1
-            ]
-        },
-        "revisionHistoryLimit": {
-            "type": "integer",
-            "default": 0,
-            "title": "The revisionHistoryLimit Schema",
-            "examples": [
-                10
-            ]
-        },
-        "crds": {
-            "type": "object",
-            "default": {},
-            "title": "The crds Schema",
-            "required": [
-                "createClusterExternalSecret",
-                "createClusterSecretStore",
-                "createPushSecret",
-                "annotations",
-                "conversion"
-            ],
-            "properties": {
-                "createClusterExternalSecret": {
-                    "type": "boolean",
-                    "default": false,
-                    "title": "The createClusterExternalSecret Schema",
-                    "examples": [
-                        true
-                    ]
-                },
-                "createClusterSecretStore": {
-                    "type": "boolean",
-                    "default": false,
-                    "title": "The createClusterSecretStore Schema",
-                    "examples": [
-                        true
-                    ]
-                },
-                "createPushSecret": {
-                    "type": "boolean",
-                    "default": false,
-                    "title": "The createPushSecret Schema",
-                    "examples": [
-                        false
-                    ]
-                },
-                "annotations": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The annotations Schema",
-                    "required": [],
-                    "properties": {},
-                    "examples": [{}]
-                },
-                "conversion": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The conversion Schema",
-                    "required": [
-                        "enabled"
-                    ],
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean",
-                            "default": false,
-                            "title": "The enabled Schema",
-                            "examples": [
-                                true
-                            ]
-                        }
-                    },
-                    "examples": [{
-                        "enabled": true
-                    }]
-                }
-            },
-            "examples": [{
-                "createClusterExternalSecret": true,
-                "createClusterSecretStore": true,
-                "createPushSecret": false,
-                "annotations": {},
-                "conversion": {
-                    "enabled": true
-                }
-            }]
-        },
-        "imagePullSecrets": {
-            "type": "array",
-            "default": [],
-            "title": "The imagePullSecrets Schema",
-            "items": {},
-            "examples": [
-                []
-            ]
-        },
-        "nameOverride": {
-            "type": "string",
-            "default": "",
-            "title": "The nameOverride Schema",
-            "examples": [
-                ""
-            ]
-        },
-        "fullnameOverride": {
-            "type": "string",
-            "default": "",
-            "title": "The fullnameOverride Schema",
-            "examples": [
-                ""
-            ]
-        },
-        "leaderElect": {
-            "type": "boolean",
-            "default": false,
-            "title": "The leaderElect Schema",
-            "examples": [
-                false
-            ]
-        },
-        "controllerClass": {
-            "type": "string",
-            "default": "",
-            "title": "The controllerClass Schema",
-            "examples": [
-                ""
-            ]
-        },
-        "extendedMetricLabels": {
-            "type": "boolean",
-            "default": false,
-            "title": "The extendedMetricLabels Schema",
-            "examples": [
-                false
-            ]
-        },
-        "scopedNamespace": {
-            "type": "string",
-            "default": "",
-            "title": "The scopedNamespace Schema",
-            "examples": [
-                ""
-            ]
-        },
-        "scopedRBAC": {
-            "type": "boolean",
-            "default": false,
-            "title": "The scopedRBAC Schema",
-            "examples": [
-                false
-            ]
-        },
-        "processClusterExternalSecret": {
-            "type": "boolean",
-            "default": false,
-            "title": "The processClusterExternalSecret Schema",
-            "examples": [
-                true
-            ]
-        },
-        "processClusterStore": {
-            "type": "boolean",
-            "default": false,
-            "title": "The processClusterStore Schema",
-            "examples": [
-                true
-            ]
-        },
-        "createOperator": {
-            "type": "boolean",
-            "default": false,
-            "title": "The createOperator Schema",
-            "examples": [
-                true
-            ]
-        },
-        "concurrent": {
-            "type": "integer",
-            "default": 0,
-            "title": "The concurrent Schema",
-            "examples": [
-                1
-            ]
-        },
-        "serviceAccount": {
-            "type": "object",
-            "default": {},
-            "title": "The serviceAccount Schema",
-            "required": [
-                "create",
-                "automount",
-                "annotations",
-                "extraLabels",
-                "name"
-            ],
-            "properties": {
-                "create": {
-                    "type": "boolean",
-                    "default": false,
-                    "title": "The create Schema",
-                    "examples": [
-                        true
-                    ]
-                },
-                "automount": {
-                    "type": "boolean",
-                    "default": false,
-                    "title": "The automount Schema",
-                    "examples": [
-                        true
-                    ]
-                },
-                "annotations": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The annotations Schema",
-                    "required": [],
-                    "properties": {},
-                    "examples": [{}]
-                },
-                "extraLabels": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The extraLabels Schema",
-                    "required": [],
-                    "properties": {},
-                    "examples": [{}]
-                },
-                "name": {
-                    "type": "string",
-                    "default": "",
-                    "title": "The name Schema",
-                    "examples": [
-                        ""
-                    ]
-                }
-            },
-            "examples": [{
-                "create": true,
-                "automount": true,
-                "annotations": {},
-                "extraLabels": {},
-                "name": ""
-            }]
-        },
-        "rbac": {
-            "type": "object",
-            "default": {},
-            "title": "The rbac Schema",
-            "required": [
-                "create"
-            ],
-            "properties": {
-                "create": {
-                    "type": "boolean",
-                    "default": false,
-                    "title": "The create Schema",
-                    "examples": [
-                        true
-                    ]
-                }
-            },
-            "examples": [{
-                "create": true
-            }]
-        },
-        "extraEnv": {
-            "type": "array",
-            "default": [],
-            "title": "The extraEnv Schema",
-            "items": {},
-            "examples": [
-                []
-            ]
-        },
-        "extraArgs": {
-            "type": "object",
-            "default": {},
-            "title": "The extraArgs Schema",
-            "required": [],
-            "properties": {},
-            "examples": [{}]
-        },
-        "extraVolumes": {
-            "type": "array",
-            "default": [],
-            "title": "The extraVolumes Schema",
-            "items": {},
-            "examples": [
-                []
-            ]
-        },
-        "extraVolumeMounts": {
-            "type": "array",
-            "default": [],
-            "title": "The extraVolumeMounts Schema",
-            "items": {},
-            "examples": [
-                []
-            ]
-        },
-        "extraContainers": {
-            "type": "array",
-            "default": [],
-            "title": "The extraContainers Schema",
-            "items": {},
-            "examples": [
-                []
-            ]
-        },
-        "deploymentAnnotations": {
-            "type": "object",
-            "default": {},
-            "title": "The deploymentAnnotations Schema",
-            "required": [],
-            "properties": {},
-            "examples": [{}]
-        },
-        "podAnnotations": {
-            "type": "object",
-            "default": {},
-            "title": "The podAnnotations Schema",
-            "required": [],
-            "properties": {},
-            "examples": [{}]
-        },
-        "podLabels": {
-            "type": "object",
-            "default": {},
-            "title": "The podLabels Schema",
-            "required": [],
-            "properties": {},
-            "examples": [{}]
-        },
-        "podSecurityContext": {
-            "type": "object",
-            "default": {},
-            "title": "The podSecurityContext Schema",
-            "required": [],
-            "properties": {},
-            "examples": [{}]
-        },
-        "securityContext": {
-            "type": "object",
-            "default": {},
-            "title": "The securityContext Schema",
-            "required": [],
-            "properties": {},
-            "examples": [{}]
-        },
-        "resources": {
-            "type": "object",
-            "default": {},
-            "title": "The resources Schema",
-            "required": [],
-            "properties": {},
-            "examples": [{}]
-        },
-        "prometheus": {
-            "type": "object",
-            "default": {},
-            "title": "The prometheus Schema",
-            "required": [
-                "enabled",
-                "service"
-            ],
-            "properties": {
-                "enabled": {
-                    "type": "boolean",
-                    "default": false,
-                    "title": "The enabled Schema",
-                    "examples": [
-                        false
-                    ]
-                },
-                "service": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The service Schema",
-                    "required": [
-                        "port"
-                    ],
-                    "properties": {
-                        "port": {
-                            "type": "integer",
-                            "default": 0,
-                            "title": "The port Schema",
-                            "examples": [
-                                8080
-                            ]
-                        }
-                    },
-                    "examples": [{
-                        "port": 8080
-                    }]
-                }
-            },
-            "examples": [{
-                "enabled": false,
-                "service": {
-                    "port": 8080
-                }
-            }]
-        },
-        "serviceMonitor": {
-            "type": "object",
-            "default": {},
-            "title": "The serviceMonitor Schema",
-            "required": [
-                "enabled",
-                "namespace",
-                "additionalLabels",
-                "interval",
-                "scrapeTimeout",
-                "honorLabels",
-                "metricRelabelings",
-                "relabelings"
-            ],
-            "properties": {
-                "enabled": {
-                    "type": "boolean",
-                    "default": false,
-                    "title": "The enabled Schema",
-                    "examples": [
-                        false
-                    ]
-                },
-                "namespace": {
-                    "type": "string",
-                    "default": "",
-                    "title": "The namespace Schema",
-                    "examples": [
-                        ""
-                    ]
-                },
-                "additionalLabels": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The additionalLabels Schema",
-                    "required": [],
-                    "properties": {},
-                    "examples": [{}]
-                },
-                "interval": {
-                    "type": "string",
-                    "default": "",
-                    "title": "The interval Schema",
-                    "examples": [
-                        "30s"
-                    ]
-                },
-                "scrapeTimeout": {
-                    "type": "string",
-                    "default": "",
-                    "title": "The scrapeTimeout Schema",
-                    "examples": [
-                        "25s"
-                    ]
-                },
-                "honorLabels": {
-                    "type": "boolean",
-                    "default": false,
-                    "title": "The honorLabels Schema",
-                    "examples": [
-                        false
-                    ]
-                },
-                "metricRelabelings": {
-                    "type": "array",
-                    "default": [],
-                    "title": "The metricRelabelings Schema",
-                    "items": {},
-                    "examples": [
-                        []
-                    ]
-                },
-                "relabelings": {
-                    "type": "array",
-                    "default": [],
-                    "title": "The relabelings Schema",
-                    "items": {},
-                    "examples": [
-                        []
-                    ]
-                }
-            },
-            "examples": [{
-                "enabled": false,
-                "namespace": "",
-                "additionalLabels": {},
-                "interval": "30s",
-                "scrapeTimeout": "25s",
-                "honorLabels": false,
-                "metricRelabelings": [],
-                "relabelings": []
-            }]
-        },
-        "metrics": {
-            "type": "object",
-            "default": {},
-            "title": "The metrics Schema",
-            "required": [
-                "service"
-            ],
-            "properties": {
-                "service": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The service Schema",
-                    "required": [
-                        "enabled",
-                        "port",
-                        "annotations"
-                    ],
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean",
-                            "default": false,
-                            "title": "The enabled Schema",
-                            "examples": [
-                                false
-                            ]
-                        },
-                        "port": {
-                            "type": "integer",
-                            "default": 0,
-                            "title": "The port Schema",
-                            "examples": [
-                                8080
-                            ]
-                        },
-                        "annotations": {
-                            "type": "object",
-                            "default": {},
-                            "title": "The annotations Schema",
-                            "required": [],
-                            "properties": {},
-                            "examples": [{}]
-                        }
-                    },
-                    "examples": [{
-                        "enabled": false,
-                        "port": 8080,
-                        "annotations": {}
-                    }]
-                }
-            },
-            "examples": [{
-                "service": {
-                    "enabled": false,
-                    "port": 8080,
-                    "annotations": {}
-                }
-            }]
-        },
-        "nodeSelector": {
-            "type": "object",
-            "default": {},
-            "title": "The nodeSelector Schema",
-            "required": [],
-            "properties": {},
-            "examples": [{}]
-        },
-        "tolerations": {
-            "type": "array",
-            "default": [],
-            "title": "The tolerations Schema",
-            "items": {},
-            "examples": [
-                []
-            ]
-        },
-        "topologySpreadConstraints": {
-            "type": "array",
-            "default": [],
-            "title": "The topologySpreadConstraints Schema",
-            "items": {},
-            "examples": [
-                []
-            ]
-        },
         "affinity": {
-            "type": "object",
-            "default": {},
-            "title": "The affinity Schema",
-            "required": [],
-            "properties": {},
-            "examples": [{}]
+            "type": "object"
         },
-        "priorityClassName": {
-            "type": "string",
-            "default": "",
-            "title": "The priorityClassName Schema",
-            "examples": [
-                ""
-            ]
-        },
-        "podDisruptionBudget": {
+        "certController": {
             "type": "object",
-            "default": {},
-            "title": "The podDisruptionBudget Schema",
-            "required": [
-                "enabled",
-                "minAvailable"
-            ],
             "properties": {
-                "enabled": {
-                    "type": "boolean",
-                    "default": false,
-                    "title": "The enabled Schema",
-                    "examples": [
-                        false
-                    ]
+                "affinity": {
+                    "type": "object"
                 },
-                "minAvailable": {
-                    "type": "integer",
-                    "default": 0,
-                    "title": "The minAvailable Schema",
-                    "examples": [
-                        1
-                    ]
-                }
-            },
-            "examples": [{
-                "enabled": false,
-                "minAvailable": 1
-            }]
-        },
-        "webhook": {
-            "type": "object",
-            "default": {},
-            "title": "The webhook Schema",
-            "required": [
-                "create",
-                "certCheckInterval",
-                "lookaheadInterval",
-                "replicaCount",
-                "revisionHistoryLimit",
-                "certDir",
-                "failurePolicy",
-                "hostNetwork",
-                "imagePullSecrets",
-                "nameOverride",
-                "fullnameOverride",
-                "port",
-                "rbac",
-                "serviceAccount",
-                "nodeSelector",
-                "tolerations",
-                "affinity",
-                "priorityClassName",
-                "podDisruptionBudget",
-                "prometheus",
-                "serviceMonitor",
-                "metrics",
-                "readinessProbe",
-                "extraEnv",
-                "extraArgs",
-                "extraVolumes",
-                "extraVolumeMounts",
-                "secretAnnotations",
-                "deploymentAnnotations",
-                "podAnnotations",
-                "podLabels",
-                "podSecurityContext",
-                "securityContext",
-                "resources"
-            ],
-            "properties": {
                 "create": {
-                    "type": "boolean",
-                    "default": false,
-                    "title": "The create Schema",
-                    "examples": [
-                        true
-                    ]
+                    "type": "boolean"
                 },
-                "certCheckInterval": {
-                    "type": "string",
-                    "default": "",
-                    "title": "The certCheckInterval Schema",
-                    "examples": [
-                        "5m"
-                    ]
+                "deploymentAnnotations": {
+                    "type": "object"
                 },
-                "lookaheadInterval": {
-                    "type": "string",
-                    "default": "",
-                    "title": "The lookaheadInterval Schema",
-                    "examples": [
-                        ""
-                    ]
+                "extraArgs": {
+                    "type": "object"
                 },
-                "replicaCount": {
-                    "type": "integer",
-                    "default": 0,
-                    "title": "The replicaCount Schema",
-                    "examples": [
-                        1
-                    ]
+                "extraEnv": {
+                    "type": "array"
                 },
-                "revisionHistoryLimit": {
-                    "type": "integer",
-                    "default": 0,
-                    "title": "The revisionHistoryLimit Schema",
-                    "examples": [
-                        10
-                    ]
+                "extraVolumeMounts": {
+                    "type": "array"
                 },
-                "certDir": {
-                    "type": "string",
-                    "default": "",
-                    "title": "The certDir Schema",
-                    "examples": [
-                        "/tmp/certs"
-                    ]
+                "extraVolumes": {
+                    "type": "array"
                 },
-                "failurePolicy": {
-                    "type": "string",
-                    "default": "",
-                    "title": "The failurePolicy Schema",
-                    "examples": [
-                        "Fail"
-                    ]
+                "fullnameOverride": {
+                    "type": "string"
                 },
                 "hostNetwork": {
-                    "type": "boolean",
-                    "default": false,
-                    "title": "The hostNetwork Schema",
-                    "examples": [
-                        false
-                    ]
+                    "type": "boolean"
                 },
                 "imagePullSecrets": {
-                    "type": "array",
-                    "default": [],
-                    "title": "The imagePullSecrets Schema",
-                    "items": {},
-                    "examples": [
-                        []
-                    ]
+                    "type": "array"
+                },
+                "metrics": {
+                    "type": "object",
+                    "properties": {
+                        "service": {
+                            "type": "object",
+                            "properties": {
+                                "annotations": {
+                                    "type": "object"
+                                },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "port": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
                 },
                 "nameOverride": {
-                    "type": "string",
-                    "default": "",
-                    "title": "The nameOverride Schema",
-                    "examples": [
-                        ""
-                    ]
-                },
-                "fullnameOverride": {
-                    "type": "string",
-                    "default": "",
-                    "title": "The fullnameOverride Schema",
-                    "examples": [
-                        ""
-                    ]
-                },
-                "port": {
-                    "type": "integer",
-                    "default": 0,
-                    "title": "The port Schema",
-                    "examples": [
-                        10250
-                    ]
-                },
-                "rbac": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The rbac Schema",
-                    "required": [
-                        "create"
-                    ],
-                    "properties": {
-                        "create": {
-                            "type": "boolean",
-                            "default": false,
-                            "title": "The create Schema",
-                            "examples": [
-                                true
-                            ]
-                        }
-                    },
-                    "examples": [{
-                        "create": true
-                    }]
-                },
-                "serviceAccount": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The serviceAccount Schema",
-                    "required": [
-                        "create",
-                        "automount",
-                        "annotations",
-                        "extraLabels",
-                        "name"
-                    ],
-                    "properties": {
-                        "create": {
-                            "type": "boolean",
-                            "default": false,
-                            "title": "The create Schema",
-                            "examples": [
-                                true
-                            ]
-                        },
-                        "automount": {
-                            "type": "boolean",
-                            "default": false,
-                            "title": "The automount Schema",
-                            "examples": [
-                                true
-                            ]
-                        },
-                        "annotations": {
-                            "type": "object",
-                            "default": {},
-                            "title": "The annotations Schema",
-                            "required": [],
-                            "properties": {},
-                            "examples": [{}]
-                        },
-                        "extraLabels": {
-                            "type": "object",
-                            "default": {},
-                            "title": "The extraLabels Schema",
-                            "required": [],
-                            "properties": {},
-                            "examples": [{}]
-                        },
-                        "name": {
-                            "type": "string",
-                            "default": "",
-                            "title": "The name Schema",
-                            "examples": [
-                                ""
-                            ]
-                        }
-                    },
-                    "examples": [{
-                        "create": true,
-                        "automount": true,
-                        "annotations": {},
-                        "extraLabels": {},
-                        "name": ""
-                    }]
+                    "type": "string"
                 },
                 "nodeSelector": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The nodeSelector Schema",
-                    "required": [],
-                    "properties": {},
-                    "examples": [{}]
-                },
-                "tolerations": {
-                    "type": "array",
-                    "default": [],
-                    "title": "The tolerations Schema",
-                    "items": {},
-                    "examples": [
-                        []
-                    ]
-                },
-                "affinity": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The affinity Schema",
-                    "required": [],
-                    "properties": {},
-                    "examples": [{}]
-                },
-                "priorityClassName": {
-                    "type": "string",
-                    "default": "",
-                    "title": "The priorityClassName Schema",
-                    "examples": [
-                        ""
-                    ]
-                },
-                "podDisruptionBudget": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The podDisruptionBudget Schema",
-                    "required": [
-                        "enabled",
-                        "minAvailable"
-                    ],
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean",
-                            "default": false,
-                            "title": "The enabled Schema",
-                            "examples": [
-                                false
-                            ]
-                        },
-                        "minAvailable": {
-                            "type": "integer",
-                            "default": 0,
-                            "title": "The minAvailable Schema",
-                            "examples": [
-                                1
-                            ]
-                        }
-                    },
-                    "examples": [{
-                        "enabled": false,
-                        "minAvailable": 1
-                    }]
-                },
-                "prometheus": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The prometheus Schema",
-                    "required": [
-                        "enabled",
-                        "service"
-                    ],
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean",
-                            "default": false,
-                            "title": "The enabled Schema",
-                            "examples": [
-                                false
-                            ]
-                        },
-                        "service": {
-                            "type": "object",
-                            "default": {},
-                            "title": "The service Schema",
-                            "required": [
-                                "port"
-                            ],
-                            "properties": {
-                                "port": {
-                                    "type": "integer",
-                                    "default": 0,
-                                    "title": "The port Schema",
-                                    "examples": [
-                                        8080
-                                    ]
-                                }
-                            },
-                            "examples": [{
-                                "port": 8080
-                            }]
-                        }
-                    },
-                    "examples": [{
-                        "enabled": false,
-                        "service": {
-                            "port": 8080
-                        }
-                    }]
-                },
-                "serviceMonitor": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The serviceMonitor Schema",
-                    "required": [
-                        "enabled",
-                        "additionalLabels",
-                        "interval",
-                        "scrapeTimeout"
-                    ],
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean",
-                            "default": false,
-                            "title": "The enabled Schema",
-                            "examples": [
-                                false
-                            ]
-                        },
-                        "additionalLabels": {
-                            "type": "object",
-                            "default": {},
-                            "title": "The additionalLabels Schema",
-                            "required": [],
-                            "properties": {},
-                            "examples": [{}]
-                        },
-                        "interval": {
-                            "type": "string",
-                            "default": "",
-                            "title": "The interval Schema",
-                            "examples": [
-                                "30s"
-                            ]
-                        },
-                        "scrapeTimeout": {
-                            "type": "string",
-                            "default": "",
-                            "title": "The scrapeTimeout Schema",
-                            "examples": [
-                                "25s"
-                            ]
-                        }
-                    },
-                    "examples": [{
-                        "enabled": false,
-                        "additionalLabels": {},
-                        "interval": "30s",
-                        "scrapeTimeout": "25s"
-                    }]
-                },
-                "metrics": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The metrics Schema",
-                    "required": [
-                        "service"
-                    ],
-                    "properties": {
-                        "service": {
-                            "type": "object",
-                            "default": {},
-                            "title": "The service Schema",
-                            "required": [
-                                "enabled",
-                                "port",
-                                "annotations"
-                            ],
-                            "properties": {
-                                "enabled": {
-                                    "type": "boolean",
-                                    "default": false,
-                                    "title": "The enabled Schema",
-                                    "examples": [
-                                        false
-                                    ]
-                                },
-                                "port": {
-                                    "type": "integer",
-                                    "default": 0,
-                                    "title": "The port Schema",
-                                    "examples": [
-                                        8080
-                                    ]
-                                },
-                                "annotations": {
-                                    "type": "object",
-                                    "default": {},
-                                    "title": "The annotations Schema",
-                                    "required": [],
-                                    "properties": {},
-                                    "examples": [{}]
-                                }
-                            },
-                            "examples": [{
-                                "enabled": false,
-                                "port": 8080,
-                                "annotations": {}
-                            }]
-                        }
-                    },
-                    "examples": [{
-                        "service": {
-                            "enabled": false,
-                            "port": 8080,
-                            "annotations": {}
-                        }
-                    }]
-                },
-                "readinessProbe": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The readinessProbe Schema",
-                    "required": [
-                        "address",
-                        "port"
-                    ],
-                    "properties": {
-                        "address": {
-                            "type": "string",
-                            "default": "",
-                            "title": "The address Schema",
-                            "examples": [
-                                ""
-                            ]
-                        },
-                        "port": {
-                            "type": "integer",
-                            "default": 0,
-                            "title": "The port Schema",
-                            "examples": [
-                                8081
-                            ]
-                        }
-                    },
-                    "examples": [{
-                        "address": "",
-                        "port": 8081
-                    }]
-                },
-                "extraEnv": {
-                    "type": "array",
-                    "default": [],
-                    "title": "The extraEnv Schema",
-                    "items": {},
-                    "examples": [
-                        []
-                    ]
-                },
-                "extraArgs": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The extraArgs Schema",
-                    "required": [],
-                    "properties": {},
-                    "examples": [{}]
-                },
-                "extraVolumes": {
-                    "type": "array",
-                    "default": [],
-                    "title": "The extraVolumes Schema",
-                    "items": {},
-                    "examples": [
-                        []
-                    ]
-                },
-                "extraVolumeMounts": {
-                    "type": "array",
-                    "default": [],
-                    "title": "The extraVolumeMounts Schema",
-                    "items": {},
-                    "examples": [
-                        []
-                    ]
-                },
-                "secretAnnotations": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The secretAnnotations Schema",
-                    "required": [],
-                    "properties": {},
-                    "examples": [{}]
-                },
-                "deploymentAnnotations": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The deploymentAnnotations Schema",
-                    "required": [],
-                    "properties": {},
-                    "examples": [{}]
+                    "type": "object"
                 },
                 "podAnnotations": {
+                    "type": "object"
+                },
+                "podDisruptionBudget": {
                     "type": "object",
-                    "default": {},
-                    "title": "The podAnnotations Schema",
-                    "required": [],
-                    "properties": {},
-                    "examples": [{}]
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "minAvailable": {
+                            "type": "integer"
+                        }
+                    }
                 },
                 "podLabels": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The podLabels Schema",
-                    "required": [],
-                    "properties": {},
-                    "examples": [{}]
+                    "type": "object"
                 },
                 "podSecurityContext": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The podSecurityContext Schema",
-                    "required": [],
-                    "properties": {},
-                    "examples": [{}]
+                    "type": "object"
                 },
-                "securityContext": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The securityContext Schema",
-                    "required": [],
-                    "properties": {},
-                    "examples": [{}]
-                },
-                "resources": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The resources Schema",
-                    "required": [],
-                    "properties": {},
-                    "examples": [{}]
-                }
-            },
-            "examples": [{
-                "create": true,
-                "certCheckInterval": "5m",
-                "lookaheadInterval": "",
-                "replicaCount": 1,
-                "revisionHistoryLimit": 10,
-                "certDir": "/tmp/certs",
-                "failurePolicy": "Fail",
-                "hostNetwork": false,
-                "imagePullSecrets": [],
-                "nameOverride": "",
-                "fullnameOverride": "",
-                "port": 10250,
-                "rbac": {
-                    "create": true
-                },
-                "serviceAccount": {
-                    "create": true,
-                    "automount": true,
-                    "annotations": {},
-                    "extraLabels": {},
-                    "name": ""
-                },
-                "nodeSelector": {},
-                "tolerations": [],
-                "affinity": {},
-                "priorityClassName": "",
-                "podDisruptionBudget": {
-                    "enabled": false,
-                    "minAvailable": 1
+                "priorityClassName": {
+                    "type": "string"
                 },
                 "prometheus": {
-                    "enabled": false,
-                    "service": {
-                        "port": 8080
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "service": {
+                            "type": "object",
+                            "properties": {
+                                "port": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
                     }
                 },
-                "serviceMonitor": {
-                    "enabled": false,
-                    "additionalLabels": {},
-                    "interval": "30s",
-                    "scrapeTimeout": "25s"
-                },
-                "metrics": {
-                    "service": {
-                        "enabled": false,
-                        "port": 8080,
-                        "annotations": {}
+                "rbac": {
+                    "type": "object",
+                    "properties": {
+                        "create": {
+                            "type": "boolean"
+                        }
                     }
-                },
-                "readinessProbe": {
-                    "address": "",
-                    "port": 8081
-                },
-                "extraEnv": [],
-                "extraArgs": {},
-                "extraVolumes": [],
-                "extraVolumeMounts": [],
-                "secretAnnotations": {},
-                "deploymentAnnotations": {},
-                "podAnnotations": {},
-                "podLabels": {},
-                "podSecurityContext": {},
-                "securityContext": {},
-                "resources": {}
-            }]
-        },
-        "certController": {
-            "type": "object",
-            "default": {},
-            "title": "The certController Schema",
-            "required": [
-                "create",
-                "requeueInterval",
-                "replicaCount",
-                "imagePullSecrets",
-                "nameOverride",
-                "fullnameOverride",
-                "rbac",
-                "serviceAccount",
-                "nodeSelector",
-                "tolerations",
-                "affinity",
-                "priorityClassName",
-                "podDisruptionBudget",
-                "prometheus",
-                "serviceMonitor",
-                "metrics",
-                "extraEnv",
-                "extraArgs",
-                "extraVolumes",
-                "extraVolumeMounts",
-                "deploymentAnnotations",
-                "podAnnotations",
-                "podLabels",
-                "podSecurityContext",
-                "securityContext",
-                "resources"
-            ],
-            "properties": {
-                "create": {
-                    "type": "boolean",
-                    "default": false,
-                    "title": "The create Schema",
-                    "examples": [
-                        true
-                    ]
-                },
-                "requeueInterval": {
-                    "type": "string",
-                    "default": "",
-                    "title": "The requeueInterval Schema",
-                    "examples": [
-                        "5m"
-                    ]
                 },
                 "replicaCount": {
-                    "type": "integer",
-                    "default": 0,
-                    "title": "The replicaCount Schema",
-                    "examples": [
-                        1
-                    ]
+                    "type": "integer"
                 },
-                "imagePullSecrets": {
-                    "type": "array",
-                    "default": [],
-                    "title": "The imagePullSecrets Schema",
-                    "items": {},
-                    "examples": [
-                        []
-                    ]
+                "requeueInterval": {
+                    "type": "string"
                 },
-                "nameOverride": {
-                    "type": "string",
-                    "default": "",
-                    "title": "The nameOverride Schema",
-                    "examples": [
-                        ""
-                    ]
-                },
-                "fullnameOverride": {
-                    "type": "string",
-                    "default": "",
-                    "title": "The fullnameOverride Schema",
-                    "examples": [
-                        ""
-                    ]
-                },
-                "rbac": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The rbac Schema",
-                    "required": [
-                        "create"
-                    ],
-                    "properties": {
-                        "create": {
-                            "type": "boolean",
-                            "default": false,
-                            "title": "The create Schema",
-                            "examples": [
-                                true
-                            ]
-                        }
-                    },
-                    "examples": [{
-                        "create": true
-                    }]
+                "resources": {
+                    "type": "object"
                 },
                 "serviceAccount": {
                     "type": "object",
-                    "default": {},
-                    "title": "The serviceAccount Schema",
-                    "required": [
-                        "create",
-                        "automount",
-                        "annotations",
-                        "extraLabels",
-                        "name"
-                    ],
                     "properties": {
-                        "create": {
-                            "type": "boolean",
-                            "default": false,
-                            "title": "The create Schema",
-                            "examples": [
-                                true
-                            ]
+                        "annotations": {
+                            "type": "object"
                         },
                         "automount": {
-                            "type": "boolean",
-                            "default": false,
-                            "title": "The automount Schema",
-                            "examples": [
-                                true
-                            ]
+                            "type": "boolean"
                         },
-                        "annotations": {
-                            "type": "object",
-                            "default": {},
-                            "title": "The annotations Schema",
-                            "required": [],
-                            "properties": {},
-                            "examples": [{}]
+                        "create": {
+                            "type": "boolean"
                         },
                         "extraLabels": {
-                            "type": "object",
-                            "default": {},
-                            "title": "The extraLabels Schema",
-                            "required": [],
-                            "properties": {},
-                            "examples": [{}]
+                            "type": "object"
                         },
                         "name": {
-                            "type": "string",
-                            "default": "",
-                            "title": "The name Schema",
-                            "examples": [
-                                ""
-                            ]
+                            "type": "string"
                         }
-                    },
-                    "examples": [{
-                        "create": true,
-                        "automount": true,
-                        "annotations": {},
-                        "extraLabels": {},
-                        "name": ""
-                    }]
-                },
-                "nodeSelector": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The nodeSelector Schema",
-                    "required": [],
-                    "properties": {},
-                    "examples": [{}]
-                },
-                "tolerations": {
-                    "type": "array",
-                    "default": [],
-                    "title": "The tolerations Schema",
-                    "items": {},
-                    "examples": [
-                        []
-                    ]
-                },
-                "affinity": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The affinity Schema",
-                    "required": [],
-                    "properties": {},
-                    "examples": [{}]
-                },
-                "priorityClassName": {
-                    "type": "string",
-                    "default": "",
-                    "title": "The priorityClassName Schema",
-                    "examples": [
-                        ""
-                    ]
-                },
-                "podDisruptionBudget": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The podDisruptionBudget Schema",
-                    "required": [
-                        "enabled",
-                        "minAvailable"
-                    ],
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean",
-                            "default": false,
-                            "title": "The enabled Schema",
-                            "examples": [
-                                false
-                            ]
-                        },
-                        "minAvailable": {
-                            "type": "integer",
-                            "default": 0,
-                            "title": "The minAvailable Schema",
-                            "examples": [
-                                1
-                            ]
-                        }
-                    },
-                    "examples": [{
-                        "enabled": false,
-                        "minAvailable": 1
-                    }]
-                },
-                "prometheus": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The prometheus Schema",
-                    "required": [
-                        "enabled",
-                        "service"
-                    ],
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean",
-                            "default": false,
-                            "title": "The enabled Schema",
-                            "examples": [
-                                false
-                            ]
-                        },
-                        "service": {
-                            "type": "object",
-                            "default": {},
-                            "title": "The service Schema",
-                            "required": [
-                                "port"
-                            ],
-                            "properties": {
-                                "port": {
-                                    "type": "integer",
-                                    "default": 0,
-                                    "title": "The port Schema",
-                                    "examples": [
-                                        8080
-                                    ]
-                                }
-                            },
-                            "examples": [{
-                                "port": 8080
-                            }]
-                        }
-                    },
-                    "examples": [{
-                        "enabled": false,
-                        "service": {
-                            "port": 8080
-                        }
-                    }]
+                    }
                 },
                 "serviceMonitor": {
                     "type": "object",
-                    "default": {},
-                    "title": "The serviceMonitor Schema",
-                    "required": [
-                        "enabled",
-                        "additionalLabels",
-                        "interval",
-                        "scrapeTimeout"
-                    ],
                     "properties": {
-                        "enabled": {
-                            "type": "boolean",
-                            "default": false,
-                            "title": "The enabled Schema",
-                            "examples": [
-                                false
-                            ]
-                        },
                         "additionalLabels": {
-                            "type": "object",
-                            "default": {},
-                            "title": "The additionalLabels Schema",
-                            "required": [],
-                            "properties": {},
-                            "examples": [{}]
+                            "type": "object"
+                        },
+                        "enabled": {
+                            "type": "boolean"
                         },
                         "interval": {
-                            "type": "string",
-                            "default": "",
-                            "title": "The interval Schema",
-                            "examples": [
-                                "30s"
-                            ]
+                            "type": "string"
                         },
                         "scrapeTimeout": {
-                            "type": "string",
-                            "default": "",
-                            "title": "The scrapeTimeout Schema",
-                            "examples": [
-                                "25s"
-                            ]
+                            "type": "string"
                         }
-                    },
-                    "examples": [{
-                        "enabled": false,
-                        "additionalLabels": {},
-                        "interval": "30s",
-                        "scrapeTimeout": "25s"
-                    }]
+                    }
                 },
-                "metrics": {
+                "tolerations": {
+                    "type": "array"
+                },
+                "topologySpreadConstraints": {
+                    "type": "array"
+                }
+            }
+        },
+        "concurrent": {
+            "type": "integer"
+        },
+        "controllerClass": {
+            "type": "string"
+        },
+        "crds": {
+            "type": "object",
+            "properties": {
+                "annotations": {
+                    "type": "object"
+                },
+                "conversion": {
                     "type": "object",
-                    "default": {},
-                    "title": "The metrics Schema",
-                    "required": [
-                        "service"
-                    ],
                     "properties": {
-                        "service": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "createClusterExternalSecret": {
+                    "type": "boolean"
+                },
+                "createClusterSecretStore": {
+                    "type": "boolean"
+                },
+                "createPushSecret": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "createOperator": {
+            "type": "boolean"
+        },
+        "deploymentAnnotations": {
+            "type": "object"
+        },
+        "dnsConfig": {
+            "type": "object"
+        },
+        "extendedMetricLabels": {
+            "type": "boolean"
+        },
+        "extraArgs": {
+            "type": "object"
+        },
+        "extraContainers": {
+            "type": "array"
+        },
+        "extraEnv": {
+            "type": "array"
+        },
+        "extraVolumeMounts": {
+            "type": "array"
+        },
+        "extraVolumes": {
+            "type": "array"
+        },
+        "fullnameOverride": {
+            "type": "string"
+        },
+        "giantswarm": {
+            "type": "object",
+            "properties": {
+                "crds": {
+                    "type": "object",
+                    "properties": {
+                        "install": {
+                            "type": "boolean"
+                        },
+                        "podName": {
+                            "type": "string"
+                        },
+                        "resources": {
                             "type": "object",
-                            "default": {},
-                            "title": "The service Schema",
-                            "required": [
-                                "enabled",
-                                "port",
-                                "annotations"
-                            ],
                             "properties": {
-                                "enabled": {
-                                    "type": "boolean",
-                                    "default": false,
-                                    "title": "The enabled Schema",
-                                    "examples": [
-                                        false
-                                    ]
-                                },
-                                "port": {
-                                    "type": "integer",
-                                    "default": 0,
-                                    "title": "The port Schema",
-                                    "examples": [
-                                        8080
-                                    ]
-                                },
-                                "annotations": {
+                                "limits": {
                                     "type": "object",
-                                    "default": {},
-                                    "title": "The annotations Schema",
-                                    "required": [],
-                                    "properties": {},
-                                    "examples": [{}]
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "requests": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
                                 }
-                            },
-                            "examples": [{
-                                "enabled": false,
-                                "port": 8080,
-                                "annotations": {}
-                            }]
+                            }
                         }
-                    },
-                    "examples": [{
-                        "service": {
-                            "enabled": false,
-                            "port": 8080,
-                            "annotations": {}
+                    }
+                },
+                "images": {
+                    "type": "object",
+                    "properties": {
+                        "certController": {
+                            "type": "object",
+                            "properties": {
+                                "image": {
+                                    "type": "string"
+                                },
+                                "tag": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "externalSecrets": {
+                            "type": "object",
+                            "properties": {
+                                "image": {
+                                    "type": "string"
+                                },
+                                "tag": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "pullPolicy": {
+                            "type": "string"
+                        },
+                        "registry": {
+                            "type": "string"
+                        },
+                        "webhook": {
+                            "type": "object",
+                            "properties": {
+                                "image": {
+                                    "type": "string"
+                                },
+                                "tag": {
+                                    "type": "string"
+                                }
+                            }
                         }
-                    }]
+                    }
                 },
-                "extraEnv": {
-                    "type": "array",
-                    "default": [],
-                    "title": "The extraEnv Schema",
-                    "items": {},
-                    "examples": [
-                        []
-                    ]
-                },
-                "extraArgs": {
+                "resources": {
                     "type": "object",
-                    "default": {},
-                    "title": "The extraArgs Schema",
-                    "required": [],
-                    "properties": {},
-                    "examples": [{}]
-                },
-                "extraVolumes": {
-                    "type": "array",
-                    "default": [],
-                    "title": "The extraVolumes Schema",
-                    "items": {},
-                    "examples": [
-                        []
-                    ]
-                },
-                "extraVolumeMounts": {
-                    "type": "array",
-                    "default": [],
-                    "title": "The extraVolumeMounts Schema",
-                    "items": {},
-                    "examples": [
-                        []
-                    ]
-                },
-                "deploymentAnnotations": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The deploymentAnnotations Schema",
-                    "required": [],
-                    "properties": {},
-                    "examples": [{}]
-                },
-                "podAnnotations": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The podAnnotations Schema",
-                    "required": [],
-                    "properties": {},
-                    "examples": [{}]
-                },
-                "podLabels": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The podLabels Schema",
-                    "required": [],
-                    "properties": {},
-                    "examples": [{}]
-                },
-                "podSecurityContext": {
-                    "type": "object",
-                    "default": {},
-                    "title": "The podSecurityContext Schema",
-                    "required": [],
-                    "properties": {},
-                    "examples": [{}]
+                    "properties": {
+                        "certController": {
+                            "type": "object",
+                            "properties": {
+                                "limits": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "requests": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "externalSecrets": {
+                            "type": "object",
+                            "properties": {
+                                "limits": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "requests": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "webhook": {
+                            "type": "object",
+                            "properties": {
+                                "limits": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "requests": {
+                                    "type": "object",
+                                    "properties": {
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "memory": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 },
                 "securityContext": {
                     "type": "object",
-                    "default": {},
-                    "title": "The securityContext Schema",
-                    "required": [],
-                    "properties": {},
-                    "examples": [{}]
+                    "properties": {
+                        "certController": {
+                            "type": "object",
+                            "properties": {
+                                "allowPrivilegeEscalation": {
+                                    "type": "boolean"
+                                },
+                                "capabilities": {
+                                    "type": "object",
+                                    "properties": {
+                                        "drop": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "readOnlyRootFilesystem": {
+                                    "type": "boolean"
+                                },
+                                "runAsNonRoot": {
+                                    "type": "boolean"
+                                },
+                                "runAsUser": {
+                                    "type": "integer"
+                                },
+                                "seccompProfile": {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "externalSecrets": {
+                            "type": "object",
+                            "properties": {
+                                "allowPrivilegeEscalation": {
+                                    "type": "boolean"
+                                },
+                                "capabilities": {
+                                    "type": "object",
+                                    "properties": {
+                                        "drop": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "readOnlyRootFilesystem": {
+                                    "type": "boolean"
+                                },
+                                "runAsNonRoot": {
+                                    "type": "boolean"
+                                },
+                                "runAsUser": {
+                                    "type": "integer"
+                                },
+                                "seccompProfile": {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "webhook": {
+                            "type": "object",
+                            "properties": {
+                                "allowPrivilegeEscalation": {
+                                    "type": "boolean"
+                                },
+                                "capabilities": {
+                                    "type": "object",
+                                    "properties": {
+                                        "drop": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "readOnlyRootFilesystem": {
+                                    "type": "boolean"
+                                },
+                                "runAsNonRoot": {
+                                    "type": "boolean"
+                                },
+                                "runAsUser": {
+                                    "type": "integer"
+                                },
+                                "seccompProfile": {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 },
-                "resources": {
+                "verticalPodAutoscaler": {
                     "type": "object",
-                    "default": {},
-                    "title": "The resources Schema",
-                    "required": [],
-                    "properties": {},
-                    "examples": [{}]
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "force": {
+                            "type": "boolean"
+                        }
+                    }
                 }
-            },
-            "examples": [{
-                "create": true,
-                "requeueInterval": "5m",
-                "replicaCount": 1,
-                "imagePullSecrets": [],
-                "nameOverride": "",
-                "fullnameOverride": "",
-                "rbac": {
-                    "create": true
-                },
-                "serviceAccount": {
-                    "create": true,
-                    "automount": true,
-                    "annotations": {},
-                    "extraLabels": {},
-                    "name": ""
-                },
-                "nodeSelector": {},
-                "tolerations": [],
-                "affinity": {},
-                "priorityClassName": "",
-                "podDisruptionBudget": {
-                    "enabled": false,
-                    "minAvailable": 1
-                },
-                "prometheus": {
-                    "enabled": false,
-                    "service": {
-                        "port": 8080
-                    }
-                },
-                "serviceMonitor": {
-                    "enabled": false,
-                    "additionalLabels": {},
-                    "interval": "30s",
-                    "scrapeTimeout": "25s"
-                },
-                "metrics": {
-                    "service": {
-                        "enabled": false,
-                        "port": 8080,
-                        "annotations": {}
-                    }
-                },
-                "extraEnv": [],
-                "extraArgs": {},
-                "extraVolumes": [],
-                "extraVolumeMounts": [],
-                "deploymentAnnotations": {},
-                "podAnnotations": {},
-                "podLabels": {},
-                "podSecurityContext": {},
-                "securityContext": {},
-                "resources": {}
-            }]
+            }
         },
-        "dnsConfig": {
+        "hostNetwork": {
+            "type": "boolean"
+        },
+        "imagePullSecrets": {
+            "type": "array"
+        },
+        "leaderElect": {
+            "type": "boolean"
+        },
+        "metrics": {
             "type": "object",
-            "default": {},
-            "title": "The dnsConfig Schema",
-            "required": [],
-            "properties": {},
-            "examples": [{}]
-        }
-    },
-    "examples": [{
-        "giantswarm": {
-            "images": {
-                "registry": "docker.io",
-                "externalSecrets": {
-                    "image": "giantswarm/external-secrets",
-                    "tag": ""
-                },
-                "certController": {
-                    "image": "giantswarm/external-secrets",
-                    "tag": ""
-                },
-                "webhook": {
-                    "image": "giantswarm/external-secrets",
-                    "tag": ""
-                },
-                "pullPolicy": "IfNotPresent"
-            },
-            "verticalPodAutoscaler": {
-                "enabled": true,
-                "force": false
-            },
-            "resources": {
-                "externalSecrets": {
-                    "limits": {
-                        "cpu": "100m",
-                        "memory": "512Mi"
-                    },
-                    "requests": {
-                        "cpu": "100m",
-                        "memory": "256Mi"
-                    }
-                },
-                "certController": {
-                    "limits": {
-                        "cpu": "100m",
-                        "memory": "512Mi"
-                    },
-                    "requests": {
-                        "cpu": "100m",
-                        "memory": "256Mi"
-                    }
-                },
-                "webhook": {
-                    "limits": {
-                        "cpu": "100m",
-                        "memory": "512Mi"
-                    },
-                    "requests": {
-                        "cpu": "100m",
-                        "memory": "256Mi"
-                    }
-                }
-            },
-            "securityContext": {
-                "externalSecrets": {
-                    "allowPrivilegeEscalation": false,
-                    "readOnlyRootFilesystem": true,
-                    "runAsUser": 1000
-                },
-                "certController": {
-                    "allowPrivilegeEscalation": false,
-                    "readOnlyRootFilesystem": true,
-                    "runAsUser": 1000
-                },
-                "webhook": {
-                    "allowPrivilegeEscalation": false,
-                    "readOnlyRootFilesystem": true,
-                    "runAsUser": 1000
-                }
-            },
-            "crds": {
-                "install": true,
-                "podName": "kubectl",
-                "resources": {
-                    "requests": {
-                        "memory": "256Mi",
-                        "cpu": "250m"
-                    },
-                    "limits": {
-                        "memory": "512Mi",
-                        "cpu": "500m"
+            "properties": {
+                "service": {
+                    "type": "object",
+                    "properties": {
+                        "annotations": {
+                            "type": "object"
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "port": {
+                            "type": "integer"
+                        }
                     }
                 }
             }
         },
-        "replicaCount": 1,
-        "revisionHistoryLimit": 10,
-        "crds": {
-            "createClusterExternalSecret": true,
-            "createClusterSecretStore": true,
-            "createPushSecret": false,
-            "annotations": {},
-            "conversion": {
-                "enabled": true
+        "nameOverride": {
+            "type": "string"
+        },
+        "nodeSelector": {
+            "type": "object"
+        },
+        "podAnnotations": {
+            "type": "object"
+        },
+        "podDisruptionBudget": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "minAvailable": {
+                    "type": "integer"
+                }
             }
         },
-        "imagePullSecrets": [],
-        "nameOverride": "",
-        "fullnameOverride": "",
-        "leaderElect": false,
-        "controllerClass": "",
-        "extendedMetricLabels": false,
-        "scopedNamespace": "",
-        "scopedRBAC": false,
-        "processClusterExternalSecret": true,
-        "processClusterStore": true,
-        "createOperator": true,
-        "concurrent": 1,
-        "serviceAccount": {
-            "create": true,
-            "automount": true,
-            "annotations": {},
-            "extraLabels": {},
-            "name": ""
+        "podLabels": {
+            "type": "object"
+        },
+        "podSecurityContext": {
+            "type": "object"
+        },
+        "priorityClassName": {
+            "type": "string"
+        },
+        "processClusterExternalSecret": {
+            "type": "boolean"
+        },
+        "processClusterStore": {
+            "type": "boolean"
+        },
+        "prometheus": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "service": {
+                    "type": "object",
+                    "properties": {
+                        "port": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
         },
         "rbac": {
-            "create": true
+            "type": "object",
+            "properties": {
+                "create": {
+                    "type": "boolean"
+                },
+                "servicebindings": {
+                    "type": "object",
+                    "properties": {
+                        "create": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            }
         },
-        "extraEnv": [],
-        "extraArgs": {},
-        "extraVolumes": [],
-        "extraVolumeMounts": [],
-        "extraContainers": [],
-        "deploymentAnnotations": {},
-        "podAnnotations": {},
-        "podLabels": {},
-        "podSecurityContext": {},
-        "securityContext": {},
-        "resources": {},
-        "prometheus": {
-            "enabled": false,
-            "service": {
-                "port": 8080
+        "replicaCount": {
+            "type": "integer"
+        },
+        "resources": {
+            "type": "object"
+        },
+        "revisionHistoryLimit": {
+            "type": "integer"
+        },
+        "scopedNamespace": {
+            "type": "string"
+        },
+        "scopedRBAC": {
+            "type": "boolean"
+        },
+        "serviceAccount": {
+            "type": "object",
+            "properties": {
+                "annotations": {
+                    "type": "object"
+                },
+                "automount": {
+                    "type": "boolean"
+                },
+                "create": {
+                    "type": "boolean"
+                },
+                "extraLabels": {
+                    "type": "object"
+                },
+                "name": {
+                    "type": "string"
+                }
             }
         },
         "serviceMonitor": {
-            "enabled": false,
-            "namespace": "",
-            "additionalLabels": {},
-            "interval": "30s",
-            "scrapeTimeout": "25s",
-            "honorLabels": false,
-            "metricRelabelings": [],
-            "relabelings": []
-        },
-        "metrics": {
-            "service": {
-                "enabled": false,
-                "port": 8080,
-                "annotations": {}
+            "type": "object",
+            "properties": {
+                "additionalLabels": {
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "honorLabels": {
+                    "type": "boolean"
+                },
+                "interval": {
+                    "type": "string"
+                },
+                "metricRelabelings": {
+                    "type": "array"
+                },
+                "namespace": {
+                    "type": "string"
+                },
+                "relabelings": {
+                    "type": "array"
+                },
+                "scrapeTimeout": {
+                    "type": "string"
+                }
             }
         },
-        "nodeSelector": {},
-        "tolerations": [],
-        "topologySpreadConstraints": [],
-        "affinity": {},
-        "priorityClassName": "",
-        "podDisruptionBudget": {
-            "enabled": false,
-            "minAvailable": 1
+        "tolerations": {
+            "type": "array"
+        },
+        "topologySpreadConstraints": {
+            "type": "array"
         },
         "webhook": {
-            "create": true,
-            "certCheckInterval": "5m",
-            "lookaheadInterval": "",
-            "replicaCount": 1,
-            "revisionHistoryLimit": 10,
-            "certDir": "/tmp/certs",
-            "failurePolicy": "Fail",
-            "hostNetwork": false,
-            "imagePullSecrets": [],
-            "nameOverride": "",
-            "fullnameOverride": "",
-            "port": 10250,
-            "rbac": {
-                "create": true
-            },
-            "serviceAccount": {
-                "create": true,
-                "automount": true,
-                "annotations": {},
-                "extraLabels": {},
-                "name": ""
-            },
-            "nodeSelector": {},
-            "tolerations": [],
-            "affinity": {},
-            "priorityClassName": "",
-            "podDisruptionBudget": {
-                "enabled": false,
-                "minAvailable": 1
-            },
-            "prometheus": {
-                "enabled": false,
-                "service": {
-                    "port": 8080
+            "type": "object",
+            "properties": {
+                "affinity": {
+                    "type": "object"
+                },
+                "certCheckInterval": {
+                    "type": "string"
+                },
+                "certDir": {
+                    "type": "string"
+                },
+                "create": {
+                    "type": "boolean"
+                },
+                "deploymentAnnotations": {
+                    "type": "object"
+                },
+                "extraArgs": {
+                    "type": "object"
+                },
+                "extraEnv": {
+                    "type": "array"
+                },
+                "extraVolumeMounts": {
+                    "type": "array"
+                },
+                "extraVolumes": {
+                    "type": "array"
+                },
+                "failurePolicy": {
+                    "type": "string"
+                },
+                "fullnameOverride": {
+                    "type": "string"
+                },
+                "hostNetwork": {
+                    "type": "boolean"
+                },
+                "imagePullSecrets": {
+                    "type": "array"
+                },
+                "lookaheadInterval": {
+                    "type": "string"
+                },
+                "metrics": {
+                    "type": "object",
+                    "properties": {
+                        "service": {
+                            "type": "object",
+                            "properties": {
+                                "annotations": {
+                                    "type": "object"
+                                },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
+                                "port": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                },
+                "nameOverride": {
+                    "type": "string"
+                },
+                "nodeSelector": {
+                    "type": "object"
+                },
+                "podAnnotations": {
+                    "type": "object"
+                },
+                "podDisruptionBudget": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "minAvailable": {
+                            "type": "integer"
+                        }
+                    }
+                },
+                "podLabels": {
+                    "type": "object"
+                },
+                "podSecurityContext": {
+                    "type": "object"
+                },
+                "port": {
+                    "type": "integer"
+                },
+                "priorityClassName": {
+                    "type": "string"
+                },
+                "prometheus": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "service": {
+                            "type": "object",
+                            "properties": {
+                                "port": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                },
+                "rbac": {
+                    "type": "object",
+                    "properties": {
+                        "create": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "readinessProbe": {
+                    "type": "object",
+                    "properties": {
+                        "address": {
+                            "type": "string"
+                        },
+                        "port": {
+                            "type": "integer"
+                        }
+                    }
+                },
+                "replicaCount": {
+                    "type": "integer"
+                },
+                "resources": {
+                    "type": "object"
+                },
+                "revisionHistoryLimit": {
+                    "type": "integer"
+                },
+                "secretAnnotations": {
+                    "type": "object"
+                },
+                "serviceAccount": {
+                    "type": "object",
+                    "properties": {
+                        "annotations": {
+                            "type": "object"
+                        },
+                        "automount": {
+                            "type": "boolean"
+                        },
+                        "create": {
+                            "type": "boolean"
+                        },
+                        "extraLabels": {
+                            "type": "object"
+                        },
+                        "name": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "serviceMonitor": {
+                    "type": "object",
+                    "properties": {
+                        "additionalLabels": {
+                            "type": "object"
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "interval": {
+                            "type": "string"
+                        },
+                        "scrapeTimeout": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "tolerations": {
+                    "type": "array"
+                },
+                "topologySpreadConstraints": {
+                    "type": "array"
                 }
-            },
-            "serviceMonitor": {
-                "enabled": false,
-                "additionalLabels": {},
-                "interval": "30s",
-                "scrapeTimeout": "25s"
-            },
-            "metrics": {
-                "service": {
-                    "enabled": false,
-                    "port": 8080,
-                    "annotations": {}
-                }
-            },
-            "readinessProbe": {
-                "address": "",
-                "port": 8081
-            },
-            "extraEnv": [],
-            "extraArgs": {},
-            "extraVolumes": [],
-            "extraVolumeMounts": [],
-            "secretAnnotations": {},
-            "deploymentAnnotations": {},
-            "podAnnotations": {},
-            "podLabels": {},
-            "podSecurityContext": {},
-            "securityContext": {},
-            "resources": {}
-        },
-        "certController": {
-            "create": true,
-            "requeueInterval": "5m",
-            "replicaCount": 1,
-            "imagePullSecrets": [],
-            "nameOverride": "",
-            "fullnameOverride": "",
-            "rbac": {
-                "create": true
-            },
-            "serviceAccount": {
-                "create": true,
-                "automount": true,
-                "annotations": {},
-                "extraLabels": {},
-                "name": ""
-            },
-            "nodeSelector": {},
-            "tolerations": [],
-            "affinity": {},
-            "priorityClassName": "",
-            "podDisruptionBudget": {
-                "enabled": false,
-                "minAvailable": 1
-            },
-            "prometheus": {
-                "enabled": false,
-                "service": {
-                    "port": 8080
-                }
-            },
-            "serviceMonitor": {
-                "enabled": false,
-                "additionalLabels": {},
-                "interval": "30s",
-                "scrapeTimeout": "25s"
-            },
-            "metrics": {
-                "service": {
-                    "enabled": false,
-                    "port": 8080,
-                    "annotations": {}
-                }
-            },
-            "extraEnv": [],
-            "extraArgs": {},
-            "extraVolumes": [],
-            "extraVolumeMounts": [],
-            "deploymentAnnotations": {},
-            "podAnnotations": {},
-            "podLabels": {},
-            "podSecurityContext": {},
-            "securityContext": {},
-            "resources": {}
-        },
-        "dnsConfig": {}
-    }]
-} 
+            }
+        }
+    }
+}

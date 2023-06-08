@@ -92,7 +92,7 @@ Create the name of the service account to use
 */}}
 {{- define "external-secrets.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "external-secrets.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "external-secrets.name" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
