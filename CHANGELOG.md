@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added `NetworkPolicy` by default when Cilium is not available
+
+### Changed
+
+- Install `PushSecret` CRD by default to follow upstream
+
 ## [0.6.0] - 2023-06-08
 
 ### Added
