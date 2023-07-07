@@ -37,9 +37,6 @@ spec:
         - ipBlock:
             cidr: {{ . }}
     {{- end }}
-  # deny ingress traffic
-  ingress: []
   policyTypes:
     - Egress
-    - Ingress
 {{- end }}
