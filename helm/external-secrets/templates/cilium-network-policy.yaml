@@ -11,6 +11,10 @@ spec:
     - kube-apiserver
     - cluster
     - world
+  ingress:
+  - fromEntities:
+    - kube-apiserver
+    - cluster
   endpointSelector: {}
 {{- else }}
 kind: NetworkPolicy
