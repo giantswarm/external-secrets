@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.3] - 2023-07-13
+
 ## [0.6.2] - 2023-07-07
 
 ## [0.6.1] - 2023-06-12
@@ -100,7 +102,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add initial chart to deploy `external-secrets` as a Giant Swarm application
 
-[Unreleased]: https://github.com/giantswarm/external-secrets/compare/v0.6.2...HEAD
+[Unreleased]: https://github.com/giantswarm/external-secrets/compare/v0.6.3...HEAD
+[0.6.3]: https://github.com/giantswarm/external-secrets/compare/v0.6.2...v0.6.3
 [0.6.2]: https://github.com/giantswarm/external-secrets/compare/v0.6.1...v0.6.2
 [0.6.1]: https://github.com/giantswarm/external-secrets/compare/v0.6.0...v0.6.1
 [0.6.0]: https://github.com/giantswarm/external-secrets/compare/v0.5.0...v0.6.0
