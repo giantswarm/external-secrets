@@ -25,6 +25,6 @@ spec:
         - cluster
   endpointSelector:
     matchLabels:
-      {{- include "external-secrets.selectorLabels" . | indent 6 }}
+{{ include "external-secrets.selectorLabels" . | indent 6 }}
 {{- end }}
 {{- end }}
