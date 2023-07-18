@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Split original and cilium network policies instead of excluding each other by condition where cilium was preferred if CRDs for it were present
+
 ## [0.6.3] - 2023-07-13
 
 ## [0.6.2] - 2023-07-07

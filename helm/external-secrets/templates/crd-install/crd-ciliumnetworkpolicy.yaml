@@ -1,0 +1,30 @@
+{{- if .Values.giantswarm.crds.install }}
+{{- if .Capabilities.APIVersions.Has "cilium.io/v2/CiliumNetworkPolicy" }}
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: {{ include "crdInstall" . }}
+  namespace: {{ .Release.Namespace | quote }}
+  annotations:
+    # create hook dependencies in the right order
+    "helm.sh/hook-weight": "-7"
+    {{- include "crdInstallAnnotations" . | nindent 4 }}
+  labels:
+    app.kubernetes.io/component: {{ include "crdInstall" . | quote }}
+    {{- include "external-secrets.selectorLabels" . | nindent 4 }}
+    role: {{ include "crdInstallSelector" . | quote }}
+spec:
+  egress:
+    - toEntities:
+        - kube-apiserver
+        - cluster
+        - world
+  ingress:
+    - fromEntities:
+        - kube-apiserver
+        - cluster
+  endpointSelector:
+    matchLabels:
+{{ include "external-secrets.selectorLabels" . | indent 6 }}
+{{- end }}
+{{- end }}
