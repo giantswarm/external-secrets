@@ -11,6 +11,8 @@ spec:
     matchLabels:
       {{- include "common.selectorLabels" . | nindent 6 }}
   # allow egress traffic to the Kubernetes API
+  ingress:
+  - {}
   egress:
     - ports:
         - port: 443
@@ -24,5 +26,6 @@ spec:
             cidr: {{ . }}
     {{- end }}
   policyTypes:
+    - Ingress
     - Egress
 {{ end }}
