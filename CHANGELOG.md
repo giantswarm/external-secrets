@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed selector labels for Cilium network policy
+
 ## [0.6.5] - 2023-08-01
 
 ## [0.6.4] - 2023-07-18
