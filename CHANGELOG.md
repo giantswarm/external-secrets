@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2023-11-10
+
 ### Changed
 
 - Add a switch for PSP CR installation.
@@ -120,7 +122,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add initial chart to deploy `external-secrets` as a Giant Swarm application
 
-[Unreleased]: https://github.com/giantswarm/external-secrets/compare/v0.6.6...HEAD
+[Unreleased]: https://github.com/giantswarm/external-secrets/compare/v0.7.0...HEAD
+[0.7.0]: https://github.com/giantswarm/external-secrets/compare/v0.6.6...v0.7.0
 [0.6.6]: https://github.com/giantswarm/external-secrets/compare/v0.6.5...v0.6.6
 [0.6.5]: https://github.com/giantswarm/external-secrets/compare/v0.6.4...v0.6.5
 [0.6.4]: https://github.com/giantswarm/external-secrets/compare/v0.6.3...v0.6.4
