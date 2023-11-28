@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0] - 2023-11-28
+
 ### Added
 
 - Add PolicyExceptions for Deployments and CRD install Job.
@@ -126,7 +128,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add initial chart to deploy `external-secrets` as a Giant Swarm application
 
-[Unreleased]: https://github.com/giantswarm/external-secrets/compare/v0.7.0...HEAD
+[Unreleased]: https://github.com/giantswarm/external-secrets/compare/v0.8.0...HEAD
+[0.8.0]: https://github.com/giantswarm/external-secrets/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/giantswarm/external-secrets/compare/v0.6.6...v0.7.0
 [0.6.6]: https://github.com/giantswarm/external-secrets/compare/v0.6.5...v0.6.6
 [0.6.5]: https://github.com/giantswarm/external-secrets/compare/v0.6.4...v0.6.5
