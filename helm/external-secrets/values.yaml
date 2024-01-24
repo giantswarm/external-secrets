@@ -496,5 +496,6 @@ certController:
 # -- Specifies `dnsOptions` to deployment
 dnsConfig: {}
 
-podSecurityStandards:
-  enforced: false
+global:
+  podSecurityStandards:
+    enforced: false
