@@ -1,5 +1,5 @@
 {{ if .Capabilities.APIVersions.Has "kyverno.io/v2alpha1/PolicyException" }}
-apiVersion: kyverno.io/v2alpha1
+apiVersion: kyverno.io/v2beta1
 kind: PolicyException
 metadata:
   name: {{ include "external-secrets.name" . }}-crd
@@ -22,33 +22,32 @@ spec:
     ruleNames:
     - run-as-non-root
     - autogen-run-as-non-root
-    - autogen-cronjob-run-as-non-root
   - policyName: restrict-volume-types
     ruleNames:
     - restricted-volumes
     - autogen-restricted-volumes
-    - autogen-cronjob-restricted-volumes
   - policyName: disallow-capabilities-strict
     ruleNames:
     - require-drop-all
     - adding-capabilities-strict
     - autogen-require-drop-all
-    - autogen-cronjob-require-drop-all
     - autogen-adding-capabilities-strict
-    - autogen-cronjob-adding-capabilities-strict
   - policyName: restrict-seccomp-strict
     ruleNames:
+    - check-seccomp-strict
     - autogen-check-seccomp-strict
   - policyName: disallow-privilege-escalation
     ruleNames:
+    - privilege-escalation
     - autogen-privilege-escalation
   match:
     any:
     - resources:
         kinds:
         - Job
+        - Pod
         names:
-          - "external-secrets*"
+        - external-secrets*
         namespaces:
         - "{{ .Release.Namespace }}"
 {{- end }}
