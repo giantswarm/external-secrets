@@ -36,6 +36,12 @@ spec:
     - autogen-cronjob-require-drop-all
     - autogen-adding-capabilities-strict
     - autogen-cronjob-adding-capabilities-strict
+  - policyName: restrict-seccomp-strict
+    ruleNames:
+    - autogen-check-seccomp-strict
+  - policyName: disallow-privilege-escalation
+    ruleNames:
+    - autogen-privilege-escalation
   match:
     any:
     - resources:
