@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.3] - 2024-02-20
+
 ### Fixed
 
 - Fixed Kyverno policy exception for the CRD installer job
@@ -138,7 +140,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add initial chart to deploy `external-secrets` as a Giant Swarm application
 
-[Unreleased]: https://github.com/giantswarm/external-secrets/compare/v0.8.2...HEAD
+[Unreleased]: https://github.com/giantswarm/external-secrets/compare/v0.8.3...HEAD
+[0.8.3]: https://github.com/giantswarm/external-secrets/compare/v0.8.2...v0.8.3
 [0.8.2]: https://github.com/giantswarm/external-secrets/compare/v0.8.1...v0.8.2
 [0.8.1]: https://github.com/giantswarm/external-secrets/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/giantswarm/external-secrets/compare/v0.7.0...v0.8.0
