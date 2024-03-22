@@ -42,6 +42,9 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
+{{- with .Values.commonLabels }}
+{{ toYaml . }}
+{{- end }}
 {{- end }}
 
 {{- define "external-secrets-webhook.labels" -}}
@@ -51,11 +54,17 @@ helm.sh/chart: {{ include "external-secrets.chart" . }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- with .Values.commonLabels }}
+{{ toYaml . }}
+{{- end }}
 {{- end }}
 
 {{- define "external-secrets-webhook-metrics.labels" -}}
 {{ include "external-secrets-webhook.selectorLabels" . }}
 app.kubernetes.io/metrics: "webhook"
+{{- with .Values.commonLabels }}
+{{ toYaml . }}
+{{- end }}
 {{- end }}
 
 {{- define "external-secrets-cert-controller.labels" -}}
@@ -65,11 +74,17 @@ helm.sh/chart: {{ include "external-secrets.chart" . }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- with .Values.commonLabels }}
+{{ toYaml . }}
+{{- end }}
 {{- end }}
 
 {{- define "external-secrets-cert-controller-metrics.labels" -}}
 {{ include "external-secrets-cert-controller.selectorLabels" . }}
 app.kubernetes.io/metrics: "cert-controller"
+{{- with .Values.commonLabels }}
+{{ toYaml . }}
+{{- end }}
 {{- end }}
 
 {{/*
@@ -123,6 +138,7 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
+<<<<<<< HEAD
 {{- define "crdInstall" -}}
 {{- printf "%s-%s" ( include "external-secrets.name" . ) "crd-install" | replace "+" "_" | trimSuffix "-" -}}
 {{- end -}}
@@ -179,3 +195,15 @@ limits:
 {{- end -}}
 {{- end -}}
 
+=======
+{{/*
+Determine the image to use, including if using a flavour.
+*/}}
+{{- define "external-secrets.image" -}}
+{{- if .image.flavour -}}
+{{ printf "%s:%s-%s" .image.repository (.image.tag | default .chartAppVersion) .image.flavour }}
+{{- else }}
+{{ printf "%s:%s" .image.repository (.image.tag | default .chartAppVersion) }}
+{{- end }}
+{{- end }}
+>>>>>>> 1bf3479eb069014c5260ab63835e839b394de9bf
