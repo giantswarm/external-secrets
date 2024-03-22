@@ -41,6 +41,14 @@
                 "metrics": {
                     "type": "object",
                     "properties": {
+                        "listen": {
+                            "type": "object",
+                            "properties": {
+                                "port": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
                         "service": {
                             "type": "object",
                             "properties": {
@@ -86,27 +94,22 @@
                 "priorityClassName": {
                     "type": "string"
                 },
-                "prometheus": {
-                    "type": "object",
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean"
-                        },
-                        "service": {
-                            "type": "object",
-                            "properties": {
-                                "port": {
-                                    "type": "integer"
-                                }
-                            }
-                        }
-                    }
-                },
                 "rbac": {
                     "type": "object",
                     "properties": {
                         "create": {
                             "type": "boolean"
+                        }
+                    }
+                },
+                "readinessProbe": {
+                    "type": "object",
+                    "properties": {
+                        "address": {
+                            "type": "string"
+                        },
+                        "port": {
+                            "type": "integer"
                         }
                     }
                 },
@@ -139,23 +142,6 @@
                         }
                     }
                 },
-                "serviceMonitor": {
-                    "type": "object",
-                    "properties": {
-                        "additionalLabels": {
-                            "type": "object"
-                        },
-                        "enabled": {
-                            "type": "boolean"
-                        },
-                        "interval": {
-                            "type": "string"
-                        },
-                        "scrapeTimeout": {
-                            "type": "string"
-                        }
-                    }
-                },
                 "tolerations": {
                     "type": "array"
                 },
@@ -163,6 +149,9 @@
                     "type": "array"
                 }
             }
+        },
+        "commonLabels": {
+            "type": "object"
         },
         "concurrent": {
             "type": "integer"
@@ -547,6 +536,14 @@
         "metrics": {
             "type": "object",
             "properties": {
+                "listen": {
+                    "type": "object",
+                    "properties": {
+                        "port": {
+                            "type": "integer"
+                        }
+                    }
+                },
                 "service": {
                     "type": "object",
                     "properties": {
@@ -589,6 +586,9 @@
         "podSecurityContext": {
             "type": "object"
         },
+        "podSpecExtra": {
+            "type": "object"
+        },
         "priorityClassName": {
             "type": "string"
         },
@@ -598,21 +598,8 @@
         "processClusterStore": {
             "type": "boolean"
         },
-        "prometheus": {
-            "type": "object",
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "service": {
-                    "type": "object",
-                    "properties": {
-                        "port": {
-                            "type": "integer"
-                        }
-                    }
-                }
-            }
+        "processPushSecret": {
+            "type": "boolean"
         },
         "rbac": {
             "type": "object",
@@ -712,6 +699,48 @@
                 "certDir": {
                     "type": "string"
                 },
+                "certManager": {
+                    "type": "object",
+                    "properties": {
+                        "addInjectorAnnotations": {
+                            "type": "boolean"
+                        },
+                        "cert": {
+                            "type": "object",
+                            "properties": {
+                                "annotations": {
+                                    "type": "object"
+                                },
+                                "create": {
+                                    "type": "boolean"
+                                },
+                                "duration": {
+                                    "type": "string"
+                                },
+                                "issuerRef": {
+                                    "type": "object",
+                                    "properties": {
+                                        "group": {
+                                            "type": "string"
+                                        },
+                                        "kind": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "renewBefore": {
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
+                },
                 "create": {
                     "type": "boolean"
                 },
@@ -748,6 +777,14 @@
                 "metrics": {
                     "type": "object",
                     "properties": {
+                        "listen": {
+                            "type": "object",
+                            "properties": {
+                                "port": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
                         "service": {
                             "type": "object",
                             "properties": {
@@ -796,22 +833,6 @@
                 "priorityClassName": {
                     "type": "string"
                 },
-                "prometheus": {
-                    "type": "object",
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean"
-                        },
-                        "service": {
-                            "type": "object",
-                            "properties": {
-                                "port": {
-                                    "type": "integer"
-                                }
-                            }
-                        }
-                    }
-                },
                 "rbac": {
                     "type": "object",
                     "properties": {
@@ -859,23 +880,6 @@
                             "type": "object"
                         },
                         "name": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "serviceMonitor": {
-                    "type": "object",
-                    "properties": {
-                        "additionalLabels": {
-                            "type": "object"
-                        },
-                        "enabled": {
-                            "type": "boolean"
-                        },
-                        "interval": {
-                            "type": "string"
-                        },
-                        "scrapeTimeout": {
                             "type": "string"
                         }
                     }
