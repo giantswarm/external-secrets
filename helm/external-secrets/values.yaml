@@ -76,6 +76,7 @@ giantswarm:
   crds:
     install: true
     podName: kubectl
+    policyExceptionNamespace: ""
     resources:
       requests:
         memory: "256Mi"
