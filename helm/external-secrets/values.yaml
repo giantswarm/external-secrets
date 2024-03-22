@@ -76,7 +76,6 @@ giantswarm:
   crds:
     install: true
     podName: kubectl
-    policyExceptionNamespace: ""
     resources:
       requests:
         memory: "256Mi"
@@ -84,6 +83,8 @@ giantswarm:
       limits:
         memory: "512Mi"
         cpu: "500m"
+
+  policyExceptionNamespace: ""
 
 replicaCount: 1
 

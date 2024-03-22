@@ -299,6 +299,9 @@
                         }
                     }
                 },
+                "policyExceptionNamespace": {
+                    "type": "string"
+                },
                 "resources": {
                     "type": "object",
                     "properties": {
