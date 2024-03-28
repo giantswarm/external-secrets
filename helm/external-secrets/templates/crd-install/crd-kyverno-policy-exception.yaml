@@ -3,7 +3,7 @@ apiVersion: kyverno.io/v2alpha1
 kind: PolicyException
 metadata:
   name: {{ include "external-secrets.name" . }}-crd
-  namespace: "{{ .Release.Namespace }}"
+  namespace: "{{ .Values.giantswarm.policyExceptionNamespace | default .Release.Namespace }}"
   annotations:
     # create hook dependencies in the right order
     "helm.sh/hook-weight": "-3"

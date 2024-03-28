@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Upgrading to the `v0.9.13` version.
+
 ## [0.8.4] - 2024-02-28
 
 - Fix policy exception
