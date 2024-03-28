@@ -138,7 +138,6 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
-<<<<<<< HEAD
 {{- define "crdInstall" -}}
 {{- printf "%s-%s" ( include "external-secrets.name" . ) "crd-install" | replace "+" "_" | trimSuffix "-" -}}
 {{- end -}}
@@ -194,16 +193,3 @@ limits:
 {{ toYaml .Values.giantswarm.resources.webhook.limits | indent 2 -}}
 {{- end -}}
 {{- end -}}
-
-=======
-{{/*
-Determine the image to use, including if using a flavour.
-*/}}
-{{- define "external-secrets.image" -}}
-{{- if .image.flavour -}}
-{{ printf "%s:%s-%s" .image.repository (.image.tag | default .chartAppVersion) .image.flavour }}
-{{- else }}
-{{ printf "%s:%s" .image.repository (.image.tag | default .chartAppVersion) }}
-{{- end }}
-{{- end }}
->>>>>>> 1bf3479eb069014c5260ab63835e839b394de9bf
