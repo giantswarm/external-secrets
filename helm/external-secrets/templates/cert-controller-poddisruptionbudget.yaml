@@ -2,8 +2,16 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
+<<<<<<< HEAD
   name: {{ include "external-secrets.name" . }}-cert-controller-pdb
   namespace: {{ .Release.Namespace | quote }}
+||||||| 6361e801
+  name: {{ include "external-secrets.fullname" . }}-cert-controller-pdb
+  namespace: {{ .Release.Namespace | quote }}
+=======
+  name: {{ include "external-secrets.fullname" . }}-cert-controller-pdb
+  namespace: {{ template "external-secrets.namespace" . }}
+>>>>>>> 7038e0fcc5dba6dd8deab143fea1c8b335eaeabe
   labels:
     {{- include "external-secrets-cert-controller.labels" . | nindent 4 }}
 spec:

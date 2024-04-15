@@ -5,6 +5,7 @@ metadata:
   name: secretstore-validate
   labels:
     external-secrets.io/component: webhook
+<<<<<<< HEAD
     {{- with .Values.commonLabels }}
     {{ toYaml . | nindent 4 }}
     {{- end }}
@@ -12,6 +13,16 @@ metadata:
   annotations:
     cert-manager.io/inject-ca-from: {{ .Release.Namespace }}/{{ include "external-secrets.name" . }}-webhook
   {{- end }}
+||||||| 6361e801
+=======
+    {{- with .Values.commonLabels }}
+    {{ toYaml . | nindent 4 }}
+    {{- end }}
+  {{- if and .Values.webhook.certManager.enabled .Values.webhook.certManager.addInjectorAnnotations }}
+  annotations:
+    cert-manager.io/inject-ca-from: {{ template "external-secrets.namespace" . }}/{{ include "external-secrets.fullname" . }}-webhook
+  {{- end }}
+>>>>>>> 7038e0fcc5dba6dd8deab143fea1c8b335eaeabe
 webhooks:
 - name: "validate.secretstore.external-secrets.io"
   rules:
@@ -22,8 +33,16 @@ webhooks:
     scope:       "Namespaced"
   clientConfig:
     service:
+<<<<<<< HEAD
       namespace: {{ .Release.Namespace | quote }}
       name: {{ include "external-secrets.name" . }}-webhook
+||||||| 6361e801
+      namespace: {{ .Release.Namespace | quote }}
+      name: {{ include "external-secrets.fullname" . }}-webhook
+=======
+      namespace: {{ template "external-secrets.namespace" . }}
+      name: {{ include "external-secrets.fullname" . }}-webhook
+>>>>>>> 7038e0fcc5dba6dd8deab143fea1c8b335eaeabe
       path: /validate-external-secrets-io-v1beta1-secretstore
   admissionReviewVersions: ["v1", "v1beta1"]
   sideEffects: None
@@ -38,8 +57,16 @@ webhooks:
     scope:       "Cluster"
   clientConfig:
     service:
+<<<<<<< HEAD
       namespace: {{ .Release.Namespace | quote }}
       name: {{ include "external-secrets.name" . }}-webhook
+||||||| 6361e801
+      namespace: {{ .Release.Namespace | quote }}
+      name: {{ include "external-secrets.fullname" . }}-webhook
+=======
+      namespace: {{ template "external-secrets.namespace" . }}
+      name: {{ include "external-secrets.fullname" . }}-webhook
+>>>>>>> 7038e0fcc5dba6dd8deab143fea1c8b335eaeabe
       path: /validate-external-secrets-io-v1beta1-clustersecretstore
   admissionReviewVersions: ["v1", "v1beta1"]
   sideEffects: None
@@ -51,6 +78,7 @@ metadata:
   name: externalsecret-validate
   labels:
     external-secrets.io/component: webhook
+<<<<<<< HEAD
     {{- with .Values.commonLabels }}
     {{ toYaml . | nindent 4 }}
     {{- end }}
@@ -58,6 +86,16 @@ metadata:
   annotations:
     cert-manager.io/inject-ca-from: {{ .Release.Namespace }}/{{ include "external-secrets.name" . }}-webhook
   {{- end }}
+||||||| 6361e801
+=======
+    {{- with .Values.commonLabels }}
+    {{ toYaml . | nindent 4 }}
+    {{- end }}
+  {{- if and .Values.webhook.certManager.enabled .Values.webhook.certManager.addInjectorAnnotations }}
+  annotations:
+    cert-manager.io/inject-ca-from: {{ template "external-secrets.namespace" . }}/{{ include "external-secrets.fullname" . }}-webhook
+  {{- end }}
+>>>>>>> 7038e0fcc5dba6dd8deab143fea1c8b335eaeabe
 webhooks:
 - name: "validate.externalsecret.external-secrets.io"
   rules:
@@ -68,8 +106,16 @@ webhooks:
     scope:       "Namespaced"
   clientConfig:
     service:
+<<<<<<< HEAD
       namespace: {{ .Release.Namespace | quote }}
       name: {{ include "external-secrets.name" . }}-webhook
+||||||| 6361e801
+      namespace: {{ .Release.Namespace | quote }}
+      name: {{ include "external-secrets.fullname" . }}-webhook
+=======
+      namespace: {{ template "external-secrets.namespace" . }}
+      name: {{ include "external-secrets.fullname" . }}-webhook
+>>>>>>> 7038e0fcc5dba6dd8deab143fea1c8b335eaeabe
       path: /validate-external-secrets-io-v1beta1-externalsecret
   admissionReviewVersions: ["v1", "v1beta1"]
   sideEffects: None

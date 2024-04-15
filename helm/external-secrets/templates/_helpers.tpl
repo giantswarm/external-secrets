@@ -25,6 +25,17 @@ If release name contains chart name it will be used as a full name.
 {{- end }}
 
 {{/*
+Define namespace of chart, useful for multi-namespace deployments
+*/}}
+{{- define "external-secrets.namespace" -}}
+{{- if .Values.namespaceOverride }}
+{{- .Values.namespaceOverride }}
+{{- else }}
+{{- .Release.Namespace }}
+{{- end }}
+{{- end }}
+
+{{/*
 Create chart name and version as used by the chart label.
 */}}
 {{- define "external-secrets.chart" -}}
@@ -41,10 +52,17 @@ helm.sh/chart: {{ include "external-secrets.chart" . }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+<<<<<<< HEAD
 application.giantswarm.io/team: {{ index .Chart.Annotations "application.giantswarm.io/team" | quote }}
 {{- with .Values.commonLabels }}
 {{ toYaml . }}
 {{- end }}
+||||||| 6361e801
+=======
+{{- with .Values.commonLabels }}
+{{ toYaml . }}
+{{- end }}
+>>>>>>> 7038e0fcc5dba6dd8deab143fea1c8b335eaeabe
 {{- end }}
 
 {{- define "external-secrets-webhook.labels" -}}
@@ -138,6 +156,7 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
+<<<<<<< HEAD
 {{- define "crdInstall" -}}
 {{- printf "%s-%s" ( include "external-secrets.name" . ) "crd-install" | replace "+" "_" | trimSuffix "-" -}}
 {{- end -}}
@@ -193,3 +212,16 @@ limits:
 {{ toYaml .Values.giantswarm.resources.webhook.limits | indent 2 -}}
 {{- end -}}
 {{- end -}}
+||||||| 6361e801
+=======
+{{/*
+Determine the image to use, including if using a flavour.
+*/}}
+{{- define "external-secrets.image" -}}
+{{- if .image.flavour -}}
+{{ printf "%s:%s-%s" .image.repository (.image.tag | default .chartAppVersion) .image.flavour }}
+{{- else }}
+{{ printf "%s:%s" .image.repository (.image.tag | default .chartAppVersion) }}
+{{- end }}
+{{- end }}
+>>>>>>> 7038e0fcc5dba6dd8deab143fea1c8b335eaeabe
