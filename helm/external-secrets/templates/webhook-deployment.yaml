@@ -2,16 +2,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-<<<<<<< HEAD
-  name: {{ include "external-secrets.name" . }}-webhook
-  namespace: {{ .Release.Namespace | quote }}
-||||||| 6361e801
-  name: {{ include "external-secrets.fullname" . }}-webhook
-  namespace: {{ .Release.Namespace | quote }}
-=======
   name: {{ include "external-secrets.fullname" . }}-webhook
   namespace: {{ template "external-secrets.namespace" . }}
->>>>>>> 7038e0fcc5dba6dd8deab143fea1c8b335eaeabe
   labels:
     {{- include "external-secrets-webhook.labels" . | nindent 4 }}
   {{- with .Values.webhook.deploymentAnnotations }}
@@ -53,26 +45,12 @@ spec:
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-<<<<<<< HEAD
           image: "{{ .Values.giantswarm.images.registry }}/{{ .Values.giantswarm.images.webhook.image }}:{{ .Values.giantswarm.images.webhook.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.giantswarm.images.pullPolicy }}
-||||||| 6361e801
-          image: "{{ .Values.webhook.image.repository }}:{{ .Values.webhook.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.webhook.image.pullPolicy }}
-=======
-          image: {{ include "external-secrets.image" (dict "chartAppVersion" .Chart.AppVersion "image" .Values.webhook.image) | trim }}
-          imagePullPolicy: {{ .Values.webhook.image.pullPolicy }}
->>>>>>> 7038e0fcc5dba6dd8deab143fea1c8b335eaeabe
           args:
           - webhook
           - --port={{ .Values.webhook.port }}
-<<<<<<< HEAD
-          - --dns-name={{ include "external-secrets.name" . }}-webhook.{{ .Release.Namespace }}.svc
-||||||| 6361e801
-          - --dns-name={{ include "external-secrets.fullname" . }}-webhook.{{ .Release.Namespace }}.svc
-=======
           - --dns-name={{ include "external-secrets.fullname" . }}-webhook.{{ template "external-secrets.namespace" . }}.svc
->>>>>>> 7038e0fcc5dba6dd8deab143fea1c8b335eaeabe
           - --cert-dir={{ .Values.webhook.certDir }}
           - --check-interval={{ .Values.webhook.certCheckInterval }}
           - --metrics-addr=:{{ .Values.webhook.metrics.listen.port }}
@@ -116,7 +94,7 @@ spec:
       volumes:
         - name: certs
           secret:
-            secretName: {{ include "external-secrets.name" . }}-webhook
+            secretName: {{ include "external-secrets.fullname" . }}-webhook
       {{- if .Values.webhook.extraVolumes }}
       {{- toYaml .Values.webhook.extraVolumes | nindent 8 }}
       {{- end }}

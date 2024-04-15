@@ -5,14 +5,4 @@ or ClusterSecretStore resource (for example, by creating a 'vault' SecretStore).
 
 More information on the different types of SecretStores and how to configure them
 can be found in our Github: {{ .Chart.Home }}
-<<<<<<< HEAD
 
-||||||| 6361e801
-
-{{ if  .Values.prometheus.enabled -}}
-deprecation warning:
-> The flag `prometheus.enabled` is deprecated and will be removed in the next release.
-  Please migrate to using servicemonitor instead.
-{{ end }}
-=======
->>>>>>> 7038e0fcc5dba6dd8deab143fea1c8b335eaeabe

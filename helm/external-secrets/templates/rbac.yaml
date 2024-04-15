@@ -229,16 +229,8 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-<<<<<<< HEAD
-  name: {{ include "external-secrets.name" . }}-leaderelection
-  namespace: {{ .Release.Namespace | quote }}
-||||||| 6361e801
-  name: {{ include "external-secrets.fullname" . }}-leaderelection
-  namespace: {{ .Release.Namespace | quote }}
-=======
   name: {{ include "external-secrets.fullname" . }}-leaderelection
   namespace: {{ template "external-secrets.namespace" . }}
->>>>>>> 7038e0fcc5dba6dd8deab143fea1c8b335eaeabe
   labels:
     {{- include "external-secrets.labels" . | nindent 4 }}
 rules:
@@ -271,16 +263,8 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-<<<<<<< HEAD
-  name: {{ include "external-secrets.name" . }}-leaderelection
-  namespace: {{ .Release.Namespace | quote }}
-||||||| 6361e801
-  name: {{ include "external-secrets.fullname" . }}-leaderelection
-  namespace: {{ .Release.Namespace | quote }}
-=======
   name: {{ include "external-secrets.fullname" . }}-leaderelection
   namespace: {{ template "external-secrets.namespace" . }}
->>>>>>> 7038e0fcc5dba6dd8deab143fea1c8b335eaeabe
   labels:
     {{- include "external-secrets.labels" . | nindent 4 }}
 roleRef:

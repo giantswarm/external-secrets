@@ -7,8 +7,8 @@ FILE=Chart.yaml
 CRD_PATH=$CHART_PATH/crd-base
 FILE_PATH=$CHART_PATH/$FILE
 
-# wget https://github.com/external-secrets/external-secrets/releases/download/helm-chart-"${VER}"/external-secrets-"${VER}".tgz -O /tmp/external-secrets.tgz
-# tar zvxf /tmp/external-secrets.tgz -C /tmp
+wget https://github.com/external-secrets/external-secrets/releases/download/helm-chart-"${VER}"/external-secrets-"${VER}".tgz -O /tmp/external-secrets.tgz
+tar zvxf /tmp/external-secrets.tgz -C /tmp
 cp /tmp/external-secrets/templates/crds/* "$CRD_PATH"
 
 for f in "$CRD_PATH"/cluster*.yaml; do
@@ -21,7 +21,5 @@ for f in $(ls -I "cluster*.yaml" "$CRD_PATH"); do
 	sed -i '1d; $d' "$CRD_PATH/$f"
 done
 
-# echo "Patching $FILE with upstream versions info"
-
-# yq ".appVersion = \"$VER\"" -i "$FILE_PATH"
-# yq ".upstreamChartVersion = \"$VER\"" -i "$FILE_PATH"
+echo "Patching $FILE with upstream versions info"
+yq ".upstreamChartVersion = \"$VER\"" -i "$FILE_PATH"
