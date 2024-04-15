@@ -21,7 +21,7 @@ for f in $(ls -I "cluster*.yaml" "$CRD_PATH"); do
 	sed -i '1d; $d' "$CRD_PATH/$f"
 done
 
-echo "Patching $FILE with upstream versions info"
+# echo "Patching $FILE with upstream versions info"
 
-yq ".appVersion = \"$VER\"" -i "$FILE_PATH"
-yq ".upstreamChartVersion = \"$VER\"" -i "$FILE_PATH"
+# yq ".appVersion = \"$VER\"" -i "$FILE_PATH"
+# yq ".upstreamChartVersion = \"$VER\"" -i "$FILE_PATH"
