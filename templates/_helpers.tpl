@@ -24,6 +24,17 @@ If release name contains chart name it will be used as a full name.
 {{- end }}
 
 {{/*
+Define namespace of chart, useful for multi-namespace deployments
+*/}}
+{{- define "external-secrets.namespace" -}}
+{{- if .Values.namespaceOverride }}
+{{- .Values.namespaceOverride }}
+{{- else }}
+{{- .Release.Namespace }}
+{{- end }}
+{{- end }}
+
+{{/*
 Create chart name and version as used by the chart label.
 */}}
 {{- define "external-secrets.chart" -}}
@@ -40,6 +51,9 @@ helm.sh/chart: {{ include "external-secrets.chart" . }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- with .Values.commonLabels }}
+{{ toYaml . }}
+{{- end }}
 {{- end }}
 
 {{- define "external-secrets-webhook.labels" -}}
@@ -49,11 +63,17 @@ helm.sh/chart: {{ include "external-secrets.chart" . }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- with .Values.commonLabels }}
+{{ toYaml . }}
+{{- end }}
 {{- end }}
 
 {{- define "external-secrets-webhook-metrics.labels" -}}
 {{ include "external-secrets-webhook.selectorLabels" . }}
 app.kubernetes.io/metrics: "webhook"
+{{- with .Values.commonLabels }}
+{{ toYaml . }}
+{{- end }}
 {{- end }}
 
 {{- define "external-secrets-cert-controller.labels" -}}
@@ -63,11 +83,17 @@ helm.sh/chart: {{ include "external-secrets.chart" . }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- with .Values.commonLabels }}
+{{ toYaml . }}
+{{- end }}
 {{- end }}
 
 {{- define "external-secrets-cert-controller-metrics.labels" -}}
 {{ include "external-secrets-cert-controller.selectorLabels" . }}
 app.kubernetes.io/metrics: "cert-controller"
+{{- with .Values.commonLabels }}
+{{ toYaml . }}
+{{- end }}
 {{- end }}
 
 {{/*
@@ -118,3 +144,13 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
+{{/*
+Determine the image to use, including if using a flavour.
+*/}}
+{{- define "external-secrets.image" -}}
+{{- if .image.flavour -}}
+{{ printf "%s:%s-%s" .image.repository (.image.tag | default .chartAppVersion) .image.flavour }}
+{{- else }}
+{{ printf "%s:%s" .image.repository (.image.tag | default .chartAppVersion) }}
+{{- end }}
+{{- end }}
