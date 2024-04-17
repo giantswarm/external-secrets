@@ -1,4 +1,4 @@
-external-secrets has been deployed successfully!
+external-secrets has been deployed successfully in namespace {{ template "external-secrets.namespace" . }}!
 
 In order to begin using ExternalSecrets, you will need to set up a SecretStore
 or ClusterSecretStore resource (for example, by creating a 'vault' SecretStore).

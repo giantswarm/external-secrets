@@ -2,12 +2,18 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "external-secrets.name" . }}-metrics
-  namespace: {{ .Release.Namespace | quote }}
+  name: {{ include "external-secrets.fullname" . }}-metrics
+  namespace: {{ template "external-secrets.namespace" . }}
   labels:
     {{- include "external-secrets.labels" . | nindent 4 }}
 spec:
   type: ClusterIP
+  {{- if .Values.service.ipFamilyPolicy }}
+  ipFamilyPolicy: {{ .Values.service.ipFamilyPolicy }}
+  {{- end }}
+  {{- if .Values.service.ipFamilies }}
+  ipFamilies: {{ .Values.service.ipFamilies | toYaml | nindent 2 }}
+  {{- end }}
   ports:
     - port: {{ .Values.metrics.service.port }}
       protocol: TCP
@@ -23,15 +29,15 @@ metadata:
 {{- if .Values.serviceMonitor.additionalLabels }}
 {{ toYaml .Values.serviceMonitor.additionalLabels | indent 4 }}
 {{- end }}
-  name: {{ include "external-secrets.name" . }}-metrics
-  namespace: {{ .Release.Namespace | quote }}
+  name: {{ include "external-secrets.fullname" . }}-metrics
+  namespace: {{ .Values.serviceMonitor.namespace | default (include "external-secrets.namespace" .) | quote }}
 spec:
   selector:
     matchLabels:
       {{- include "external-secrets.selectorLabels" . | nindent 6 }}
   namespaceSelector:
     matchNames:
-    - {{ .Release.Namespace | quote }}
+    - {{ template "external-secrets.namespace" . }}
   endpoints:
   - port: metrics
     interval: {{ .Values.serviceMonitor.interval }}
@@ -50,12 +56,18 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "external-secrets.name" . }}-webhook-metrics
-  namespace: {{ .Release.Namespace | quote }}
+  name: {{ include "external-secrets.fullname" . }}-webhook-metrics
+  namespace: {{ template "external-secrets.namespace" . }}
   labels:
     {{- include "external-secrets-webhook-metrics.labels" . | nindent 4 }}
 spec:
   type: ClusterIP
+  {{- if .Values.service.ipFamilyPolicy }}
+  ipFamilyPolicy: {{ .Values.service.ipFamilyPolicy }}
+  {{- end }}
+  {{- if .Values.service.ipFamilies }}
+  ipFamilies: {{ .Values.service.ipFamilies | toYaml | nindent 2 }}
+  {{- end }}
   ports:
     - port: {{ .Values.webhook.metrics.service.port }}
       protocol: TCP
@@ -71,15 +83,15 @@ metadata:
 {{- if .Values.serviceMonitor.additionalLabels }}
 {{ toYaml .Values.serviceMonitor.additionalLabels | indent 4 }}
 {{- end }}
-  name: {{ include "external-secrets.name" . }}-webhook-metrics
-  namespace: {{ .Release.Namespace | quote }}
+  name: {{ include "external-secrets.fullname" . }}-webhook-metrics
+  namespace: {{ .Values.serviceMonitor.namespace | default (include "external-secrets.namespace" .) | quote }}
 spec:
   selector:
     matchLabels:
       {{- include "external-secrets-webhook-metrics.labels" . | nindent 6 }}
   namespaceSelector:
     matchNames:
-    - {{ .Release.Namespace | quote }}
+    - {{ template "external-secrets.namespace" . }}
   endpoints:
   - port: metrics
     interval: {{ .Values.serviceMonitor.interval }}
@@ -99,12 +111,18 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "external-secrets.name" . }}-cert-controller-metrics
-  namespace: {{ .Release.Namespace | quote }}
+  name: {{ include "external-secrets.fullname" . }}-cert-controller-metrics
+  namespace: {{ template "external-secrets.namespace" . }}
   labels:
     {{- include "external-secrets-cert-controller-metrics.labels" . | nindent 4 }}
 spec:
   type: ClusterIP
+  {{- if .Values.service.ipFamilyPolicy }}
+  ipFamilyPolicy: {{ .Values.service.ipFamilyPolicy }}
+  {{- end }}
+  {{- if .Values.service.ipFamilies }}
+  ipFamilies: {{ .Values.service.ipFamilies | toYaml | nindent 2 }}
+  {{- end }}
   ports:
     - port: {{ .Values.certController.metrics.listen.port }}
       protocol: TCP
@@ -120,15 +138,15 @@ metadata:
 {{- if .Values.serviceMonitor.additionalLabels }}
 {{ toYaml .Values.serviceMonitor.additionalLabels | indent 4 }}
 {{- end }}
-  name: {{ include "external-secrets.name" . }}-cert-controller-metrics
-  namespace: {{ .Release.Namespace | quote }}
+  name: {{ include "external-secrets.fullname" . }}-cert-controller-metrics
+  namespace: {{ .Values.serviceMonitor.namespace | default (include "external-secrets.namespace" .) | quote }}
 spec:
   selector:
     matchLabels:
       {{- include "external-secrets-cert-controller-metrics.labels" . | nindent 6 }}
   namespaceSelector:
     matchNames:
-    - {{ .Release.Namespace | quote }}
+    - {{ template "external-secrets.namespace" . }}
   endpoints:
   - port: metrics
     interval: {{ .Values.serviceMonitor.interval }}
