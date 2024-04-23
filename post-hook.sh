@@ -1,6 +1,6 @@
 #!/bin/bash -ex
 
-VER=${5##v}
+VER=${5##helm-chart-}
 
 CHART_PATH=helm/external-secrets
 FILE=Chart.yaml
