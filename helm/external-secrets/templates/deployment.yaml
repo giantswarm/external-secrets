@@ -35,15 +35,23 @@ spec:
       serviceAccountName: {{ include "external-secrets.serviceAccountName" . }}
       automountServiceAccountToken: {{ .Values.serviceAccount.automount }}
       {{- with .Values.podSecurityContext }}
+      {{- if and (.enabled) (gt (keys . | len) 1) }}
       securityContext:
-        {{- toYaml . | nindent 8 }}
+        {{- include "external-secrets.renderSecurityContext" (dict "securityContext" . "context" $) | nindent 8 }}
+      {{- end }}
       {{- end }}
       hostNetwork: {{ .Values.hostNetwork }}
       containers:
         - name: {{ .Chart.Name }}
+<<<<<<< HEAD
           {{- with .Values.giantswarm.securityContext.externalSecrets }}
+=======
+          {{- with .Values.securityContext }}
+           {{- if and (.enabled) (gt (keys . | len) 1) }}
+>>>>>>> 749fa29cea4184ae13ff1edccbf663845b689428
           securityContext:
-            {{- toYaml . | nindent 12 }}
+            {{- include "external-secrets.renderSecurityContext" (dict "securityContext" . "context" $) | nindent 12 }}
+          {{- end }}
           {{- end }}
           image: "{{ .Values.giantswarm.images.registry }}/{{ .Values.giantswarm.images.externalSecrets.image }}:{{ .Values.giantswarm.images.externalSecrets.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.giantswarm.images.pullPolicy }}
@@ -104,6 +112,7 @@ spec:
         {{- if .Values.extraContainers }}
           {{ toYaml .Values.extraContainers | nindent 8}}
         {{- end }}
+      dnsPolicy: {{ .Values.dnsPolicy }}
       {{- if .Values.dnsConfig }}
       dnsConfig:
           {{- toYaml .Values.dnsConfig | nindent 8 }}

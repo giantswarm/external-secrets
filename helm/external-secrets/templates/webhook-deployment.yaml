@@ -36,14 +36,22 @@ spec:
       serviceAccountName: {{ include "external-secrets-webhook.serviceAccountName" . }}
       automountServiceAccountToken: {{ .Values.webhook.serviceAccount.automount }}
       {{- with .Values.webhook.podSecurityContext }}
+      {{- if and (.enabled) (gt (keys . | len) 1) }}
       securityContext:
-        {{- toYaml . | nindent 8 }}
+        {{- include "external-secrets.renderSecurityContext" (dict "securityContext" . "context" $) | nindent 8 }}
+      {{- end }}
       {{- end }}
       containers:
         - name: webhook
+<<<<<<< HEAD
           {{- with .Values.giantswarm.securityContext.webhook }}
+=======
+          {{- with .Values.webhook.securityContext }}
+          {{- if and (.enabled) (gt (keys . | len) 1) }}
+>>>>>>> 749fa29cea4184ae13ff1edccbf663845b689428
           securityContext:
-            {{- toYaml . | nindent 12 }}
+            {{- include "external-secrets.renderSecurityContext" (dict "securityContext" . "context" $) | nindent 12 }}
+          {{- end }}
           {{- end }}
           image: "{{ .Values.giantswarm.images.registry }}/{{ .Values.giantswarm.images.webhook.image }}:{{ .Values.giantswarm.images.webhook.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.giantswarm.images.pullPolicy }}
