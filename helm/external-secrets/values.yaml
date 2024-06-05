@@ -91,8 +91,19 @@ global:
   tolerations: []
   topologySpreadConstraints: []
   affinity: {}
+<<<<<<< HEAD
   podSecurityStandards:
     enforced: false
+=======
+  compatibility:
+    openshift:
+      # -- Manages the securityContext properties to make them compatible with OpenShift.
+      # Possible values:
+      # auto - Apply configurations if it is detected that OpenShift is the target platform.
+      # force - Always apply configurations.
+      # disabled - No modification applied.
+      adaptSecurityContext: auto
+>>>>>>> 33731e1296b074f8bb3935a6f151154ea367b83f
 
 replicaCount: 1
 
@@ -190,6 +201,9 @@ extraArgs: {}
 ## -- Extra volumes to pass to pod.
 extraVolumes: []
 
+## -- Extra Kubernetes objects to deploy with the helm chart
+extraObjects: []
+
 ## -- Extra volumes to mount to the container.
 extraVolumeMounts: []
 
@@ -205,11 +219,28 @@ podAnnotations: {}
 podLabels: {}
 
 podSecurityContext:
+<<<<<<< HEAD
   {}
   # fsGroup: 2000
 
 # Moved to giantswarm.securityContext.externalSecrets
 # securityContext: {}
+=======
+  enabled: true
+  # fsGroup: 2000
+
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+  enabled: true
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+  seccompProfile:
+    type: RuntimeDefault
+>>>>>>> 33731e1296b074f8bb3935a6f151154ea367b83f
 
 resources:
   {}
@@ -418,6 +449,7 @@ webhook:
 
   podLabels: {}
 
+<<<<<<< HEAD
   podSecurityContext: {}
   # Moved to giantswarm.securityContext.webhook
   # securityContext: {}
@@ -427,6 +459,28 @@ webhook:
     # requests:
     #   cpu: 10m
     #   memory: 32Mi
+=======
+  podSecurityContext:
+    enabled: true
+      # fsGroup: 2000
+
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    enabled: true
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 1000
+    seccompProfile:
+      type: RuntimeDefault
+
+  resources: {}
+      # requests:
+      #   cpu: 10m
+      #   memory: 32Mi
+>>>>>>> 33731e1296b074f8bb3935a6f151154ea367b83f
 
 certController:
   # -- Specifies whether a certificate controller deployment be created.
@@ -511,6 +565,7 @@ certController:
 
   podLabels: {}
 
+<<<<<<< HEAD
   podSecurityContext: {}
   # Moved to giantswarm.securityContext.certController
   # securityContext: {}
@@ -520,6 +575,31 @@ certController:
     # requests:
     #   cpu: 10m
     #   memory: 32Mi
+=======
+  podSecurityContext:
+    enabled: true
+      # fsGroup: 2000
+
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    enabled: true
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 1000
+    seccompProfile:
+      type: RuntimeDefault
+
+  resources: {}
+      # requests:
+      #   cpu: 10m
+      #   memory: 32Mi
+>>>>>>> 33731e1296b074f8bb3935a6f151154ea367b83f
+
+# -- Specifies `dnsPolicy` to deployment
+dnsPolicy: ClusterFirst
 
 # -- Specifies `dnsOptions` to deployment
 dnsConfig: {}
