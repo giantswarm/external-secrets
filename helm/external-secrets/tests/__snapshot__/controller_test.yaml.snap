@@ -8,6 +8,7 @@ should match snapshot of default values:
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: external-secrets
 <<<<<<< HEAD
+<<<<<<< HEAD
         app.kubernetes.io/version: v0.9.15-2
         helm.sh/chart: external-secrets-0.9.15-2
             app.kubernetes.io/version: v0.9.15-2
@@ -15,6 +16,10 @@ should match snapshot of default values:
 =======
         app.kubernetes.io/version: v0.9.16
         helm.sh/chart: external-secrets-0.9.16
+=======
+        app.kubernetes.io/version: v0.9.20
+        helm.sh/chart: external-secrets-0.9.20
+>>>>>>> 9a00d3dd4d31d5e482eeb93cb3a9f126fea7890d
       name: RELEASE-NAME-external-secrets
       namespace: NAMESPACE
     spec:
@@ -30,16 +35,23 @@ should match snapshot of default values:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: external-secrets
+<<<<<<< HEAD
             app.kubernetes.io/version: v0.9.16
             helm.sh/chart: external-secrets-0.9.16
 >>>>>>> f1d4cd8a8b20f4ef44091e0dff4371c4c5ebb8fd
+=======
+            app.kubernetes.io/version: v0.9.20
+            helm.sh/chart: external-secrets-0.9.20
+>>>>>>> 9a00d3dd4d31d5e482eeb93cb3a9f126fea7890d
         spec:
           automountServiceAccountToken: true
           containers:
             - args:
                 - --concurrent=1
                 - --metrics-addr=:8080
-              image: ghcr.io/external-secrets/external-secrets:v0.9.16
+                - --loglevel=info
+                - --zap-time-encoding=epoch
+              image: ghcr.io/external-secrets/external-secrets:v0.9.20
               imagePullPolicy: IfNotPresent
               name: external-secrets
               ports:
@@ -56,5 +68,6 @@ should match snapshot of default values:
                 runAsUser: 1000
                 seccompProfile:
                   type: RuntimeDefault
+          dnsPolicy: ClusterFirst
           hostNetwork: false
           serviceAccountName: RELEASE-NAME-external-secrets
