@@ -36,14 +36,22 @@ spec:
       serviceAccountName: {{ include "external-secrets-webhook.serviceAccountName" . }}
       automountServiceAccountToken: {{ .Values.webhook.serviceAccount.automount }}
       {{- with .Values.webhook.podSecurityContext }}
+      {{- if and (.enabled) (gt (keys . | len) 1) }}
       securityContext:
-        {{- toYaml . | nindent 8 }}
+        {{- include "external-secrets.renderSecurityContext" (dict "securityContext" . "context" $) | nindent 8 }}
+      {{- end }}
       {{- end }}
       containers:
         - name: webhook
+<<<<<<< HEAD
           {{- with .Values.giantswarm.securityContext.webhook }}
+=======
+          {{- with .Values.webhook.securityContext }}
+          {{- if and (.enabled) (gt (keys . | len) 1) }}
+>>>>>>> 68eeff96bfd344fc106208010e050fc9506fb709
           securityContext:
-            {{- toYaml . | nindent 12 }}
+            {{- include "external-secrets.renderSecurityContext" (dict "securityContext" . "context" $) | nindent 12 }}
+          {{- end }}
           {{- end }}
           image: "{{ .Values.giantswarm.images.registry }}/{{ .Values.giantswarm.images.webhook.image }}:{{ .Values.giantswarm.images.webhook.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.giantswarm.images.pullPolicy }}
@@ -55,6 +63,8 @@ spec:
           - --check-interval={{ .Values.webhook.certCheckInterval }}
           - --metrics-addr=:{{ .Values.webhook.metrics.listen.port }}
           - --healthz-addr={{ .Values.webhook.readinessProbe.address }}:{{ .Values.webhook.readinessProbe.port }}
+          - --loglevel={{ .Values.webhook.log.level }}
+          - --zap-time-encoding={{ .Values.webhook.log.timeEncoding }}
           {{- if .Values.webhook.lookaheadInterval }}
           - --lookahead-interval={{ .Values.webhook.lookaheadInterval }}
           {{- end }}
