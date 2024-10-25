@@ -170,6 +170,7 @@ Create the name of the service account to use
 {{/* Usage:
     {{ include "controllerVolumeName" (merge (dict "volumeName" "hello") .) | quote }}
 */}}
+<<<<<<< HEAD
 {{- define "controllerVolumeName" -}}
 {{- printf "%s-controller-%s-volume" (include "name" .) .volumeName -}}
 {{- end -}}
@@ -203,4 +204,54 @@ requests:
 limits:
 {{ toYaml .Values.giantswarm.resources.webhook.limits | indent 2 -}}
 {{- end -}}
+=======
+{{- define "external-secrets.image" -}}
+{{- if .image.flavour -}}
+{{ printf "%s:%s-%s" .image.repository (.image.tag | default .chartAppVersion) .image.flavour }}
+{{- else }}
+{{ printf "%s:%s" .image.repository (.image.tag | default .chartAppVersion) }}
+{{- end }}
+{{- end }}
+
+{{/*
+Renders a complete tree, even values that contains template.
+*/}}
+{{- define "external-secrets.render" -}}
+  {{- if typeIs "string" .value }}
+    {{- tpl .value .context }}
+  {{ else }}
+    {{- tpl (.value | toYaml) .context }}
+  {{- end }}
+{{- end -}}
+
+{{/*
+Return true if the OpenShift is the detected platform
+Usage:
+{{- include "external-secrets.isOpenShift" . -}}
+*/}}
+{{- define "external-secrets.isOpenShift" -}}
+{{- if .Capabilities.APIVersions.Has "security.openshift.io/v1" -}}
+{{- true -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Render the securityContext based on the provided securityContext
+  {{- include "external-secrets.renderSecurityContext" (dict "securityContext" .Values.securityContext "context" $) -}}
+*/}}
+{{- define "external-secrets.renderSecurityContext" -}}
+{{- $adaptedContext := .securityContext -}}
+{{- if .context.Values.global.compatibility -}}
+  {{- if .context.Values.global.compatibility.openshift -}}
+    {{- if or (eq .context.Values.global.compatibility.openshift.adaptSecurityContext "force") (and (eq .context.Values.global.compatibility.openshift.adaptSecurityContext "auto") (include "external-secrets.isOpenShift" .context)) -}}
+      {{/* Remove OpenShift managed fields */}}
+      {{- $adaptedContext = omit $adaptedContext "fsGroup" "runAsUser" "runAsGroup" -}}
+      {{- if not .securityContext.seLinuxOptions -}}
+        {{- $adaptedContext = omit $adaptedContext "seLinuxOptions" -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- omit $adaptedContext "enabled" | toYaml -}}
+>>>>>>> 330d7eb472f044eb6a6e2d28645bda30a2481d5a
 {{- end -}}
