@@ -251,3 +251,4 @@ requests:
 limits:
 {{ toYaml .Values.giantswarm.resources.webhook.limits | indent 2 -}}
 {{- end -}}
+{{- end -}}

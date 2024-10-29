@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "external-secrets.fullname" . }}-webhook
+  name: {{ include "external-secrets.name" . }}-webhook
   namespace: {{ template "external-secrets.namespace" . }}
   labels:
     {{- include "external-secrets-webhook.labels" . | nindent 4 }}
@@ -47,13 +47,12 @@ spec:
           securityContext:
             {{- include "external-secrets.renderSecurityContext" (dict "securityContext" . "context" $) | nindent 12 }}
           {{- end }}
-          {{- end }}
           image: "{{ .Values.giantswarm.images.registry }}/{{ .Values.giantswarm.images.webhook.image }}:{{ .Values.giantswarm.images.webhook.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.giantswarm.images.pullPolicy }}
           args:
           - webhook
           - --port={{ .Values.webhook.port }}
-          - --dns-name={{ include "external-secrets.fullname" . }}-webhook.{{ template "external-secrets.namespace" . }}.svc
+          - --dns-name={{ include "external-secrets.name" . }}-webhook.{{ template "external-secrets.namespace" . }}.svc
           - --cert-dir={{ .Values.webhook.certDir }}
           - --check-interval={{ .Values.webhook.certCheckInterval }}
           - --metrics-addr=:{{ .Values.webhook.metrics.listen.port }}
@@ -99,7 +98,7 @@ spec:
       volumes:
         - name: certs
           secret:
-            secretName: {{ include "external-secrets.fullname" . }}-webhook
+            secretName: {{ include "external-secrets.name" . }}-webhook
       {{- if .Values.webhook.extraVolumes }}
       {{- toYaml .Values.webhook.extraVolumes | nindent 8 }}
       {{- end }}

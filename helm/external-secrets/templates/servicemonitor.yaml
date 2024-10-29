@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "external-secrets.fullname" . }}-metrics
+  name: {{ include "external-secrets.name" . }}-metrics
   namespace: {{ template "external-secrets.namespace" . }}
   labels:
     {{- include "external-secrets.labels" . | nindent 4 }}
@@ -29,7 +29,7 @@ metadata:
 {{- if .Values.serviceMonitor.additionalLabels }}
 {{ toYaml .Values.serviceMonitor.additionalLabels | indent 4 }}
 {{- end }}
-  name: {{ include "external-secrets.fullname" . }}-metrics
+  name: {{ include "external-secrets.name" . }}-metrics
   namespace: {{ .Values.serviceMonitor.namespace | default (include "external-secrets.namespace" .) | quote }}
 spec:
   selector:
@@ -56,7 +56,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "external-secrets.fullname" . }}-webhook-metrics
+  name: {{ include "external-secrets.name" . }}-webhook-metrics
   namespace: {{ template "external-secrets.namespace" . }}
   labels:
     {{- include "external-secrets-webhook-metrics.labels" . | nindent 4 }}
@@ -83,7 +83,7 @@ metadata:
 {{- if .Values.serviceMonitor.additionalLabels }}
 {{ toYaml .Values.serviceMonitor.additionalLabels | indent 4 }}
 {{- end }}
-  name: {{ include "external-secrets.fullname" . }}-webhook-metrics
+  name: {{ include "external-secrets.name" . }}-webhook-metrics
   namespace: {{ .Values.serviceMonitor.namespace | default (include "external-secrets.namespace" .) | quote }}
 spec:
   selector:
@@ -111,7 +111,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "external-secrets.fullname" . }}-cert-controller-metrics
+  name: {{ include "external-secrets.name" . }}-cert-controller-metrics
   namespace: {{ template "external-secrets.namespace" . }}
   labels:
     {{- include "external-secrets-cert-controller-metrics.labels" . | nindent 4 }}
@@ -138,7 +138,7 @@ metadata:
 {{- if .Values.serviceMonitor.additionalLabels }}
 {{ toYaml .Values.serviceMonitor.additionalLabels | indent 4 }}
 {{- end }}
-  name: {{ include "external-secrets.fullname" . }}-cert-controller-metrics
+  name: {{ include "external-secrets.name" . }}-cert-controller-metrics
   namespace: {{ .Values.serviceMonitor.namespace | default (include "external-secrets.namespace" .) | quote }}
 spec:
   selector:

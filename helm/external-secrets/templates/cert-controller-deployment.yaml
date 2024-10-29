@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "external-secrets.fullname" . }}-cert-controller
+  name: {{ include "external-secrets.name" . }}-cert-controller
   namespace: {{ template "external-secrets.namespace" . }}
   labels:
     {{- include "external-secrets-cert-controller.labels" . | nindent 4 }}
@@ -47,15 +47,14 @@ spec:
           securityContext:
             {{- include "external-secrets.renderSecurityContext" (dict "securityContext" . "context" $) | nindent 12 }}
           {{- end }}
-          {{- end }}
           image: "{{ .Values.giantswarm.images.registry }}/{{ .Values.giantswarm.images.certController.image }}:{{ .Values.giantswarm.images.certController.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.giantswarm.images.pullPolicy }}
           args:
           - certcontroller
           - --crd-requeue-interval={{ .Values.certController.requeueInterval }}
-          - --service-name={{ include "external-secrets.fullname" . }}-webhook
+          - --service-name={{ include "external-secrets.name" . }}-webhook
           - --service-namespace={{ template "external-secrets.namespace" . }}
-          - --secret-name={{ include "external-secrets.fullname" . }}-webhook
+          - --secret-name={{ include "external-secrets.name" . }}-webhook
           - --secret-namespace={{ template "external-secrets.namespace" . }}
           - --metrics-addr=:{{ .Values.certController.metrics.listen.port }}
           - --healthz-addr={{ .Values.certController.readinessProbe.address }}:{{ .Values.certController.readinessProbe.port }}

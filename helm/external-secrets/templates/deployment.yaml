@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "external-secrets.fullname" . }}
+  name: {{ include "external-secrets.name" . }}
   namespace: {{ template "external-secrets.namespace" . }}
   labels:
     {{- include "external-secrets.labels" . | nindent 4 }}
@@ -46,7 +46,6 @@ spec:
           {{- with .Values.giantswarm.securityContext.externalSecrets }}
           securityContext:
             {{- include "external-secrets.renderSecurityContext" (dict "securityContext" . "context" $) | nindent 12 }}
-          {{- end }}
           {{- end }}
           image: "{{ .Values.giantswarm.images.registry }}/{{ .Values.giantswarm.images.externalSecrets.image }}:{{ .Values.giantswarm.images.externalSecrets.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.giantswarm.images.pullPolicy }}
