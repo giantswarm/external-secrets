@@ -5,6 +5,14 @@
         "affinity": {
             "type": "object"
         },
+        "bitwarden-sdk-server": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                }
+            }
+        },
         "certController": {
             "type": "object",
             "properties": {
@@ -37,6 +45,17 @@
                 },
                 "imagePullSecrets": {
                     "type": "array"
+                },
+                "log": {
+                    "type": "object",
+                    "properties": {
+                        "level": {
+                            "type": "string"
+                        },
+                        "timeEncoding": {
+                            "type": "string"
+                        }
+                    }
                 },
                 "metrics": {
                     "type": "object",
@@ -89,7 +108,12 @@
                     "type": "object"
                 },
                 "podSecurityContext": {
-                    "type": "object"
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
                 },
                 "priorityClassName": {
                     "type": "string"
@@ -121,6 +145,9 @@
                 },
                 "resources": {
                     "type": "object"
+                },
+                "revisionHistoryLimit": {
+                    "type": "integer"
                 },
                 "serviceAccount": {
                     "type": "object",
@@ -193,6 +220,9 @@
         "dnsConfig": {
             "type": "object"
         },
+        "dnsPolicy": {
+            "type": "string"
+        },
         "extendedMetricLabels": {
             "type": "boolean"
         },
@@ -203,6 +233,9 @@
             "type": "array"
         },
         "extraEnv": {
+            "type": "array"
+        },
+        "extraObjects": {
             "type": "array"
         },
         "extraVolumeMounts": {
@@ -517,6 +550,25 @@
         "global": {
             "type": "object",
             "properties": {
+                "affinity": {
+                    "type": "object"
+                },
+                "compatibility": {
+                    "type": "object",
+                    "properties": {
+                        "openshift": {
+                            "type": "object",
+                            "properties": {
+                                "adaptSecurityContext": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "nodeSelector": {
+                    "type": "object"
+                },
                 "podSecurityStandards": {
                     "type": "object",
                     "properties": {
@@ -524,6 +576,12 @@
                             "type": "boolean"
                         }
                     }
+                },
+                "tolerations": {
+                    "type": "array"
+                },
+                "topologySpreadConstraints": {
+                    "type": "array"
                 }
             }
         },
@@ -535,6 +593,17 @@
         },
         "leaderElect": {
             "type": "boolean"
+        },
+        "log": {
+            "type": "object",
+            "properties": {
+                "level": {
+                    "type": "string"
+                },
+                "timeEncoding": {
+                    "type": "string"
+                }
+            }
         },
         "metrics": {
             "type": "object",
@@ -566,6 +635,9 @@
         "nameOverride": {
             "type": "string"
         },
+        "namespaceOverride": {
+            "type": "string"
+        },
         "nodeSelector": {
             "type": "object"
         },
@@ -587,7 +659,12 @@
             "type": "object"
         },
         "podSecurityContext": {
-            "type": "object"
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                }
+            }
         },
         "podSpecExtra": {
             "type": "object"
@@ -634,6 +711,17 @@
         },
         "scopedRBAC": {
             "type": "boolean"
+        },
+        "service": {
+            "type": "object",
+            "properties": {
+                "ipFamilies": {
+                    "type": "array"
+                },
+                "ipFamilyPolicy": {
+                    "type": "string"
+                }
+            }
         },
         "serviceAccount": {
             "type": "object",
@@ -774,6 +862,17 @@
                 "imagePullSecrets": {
                     "type": "array"
                 },
+                "log": {
+                    "type": "object",
+                    "properties": {
+                        "level": {
+                            "type": "string"
+                        },
+                        "timeEncoding": {
+                            "type": "string"
+                        }
+                    }
+                },
                 "lookaheadInterval": {
                     "type": "string"
                 },
@@ -828,7 +927,12 @@
                     "type": "object"
                 },
                 "podSecurityContext": {
-                    "type": "object"
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        }
+                    }
                 },
                 "port": {
                     "type": "integer"
