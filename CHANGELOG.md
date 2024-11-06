@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Bump image version to v0.10.5 to resolve issue with failing to auth to
+  kubernetes using client certs
+
 ## [0.11.0] - 2024-10-31
 
 ### Changed
