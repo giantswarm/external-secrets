@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.11.1] - 2024-11-06
+
 ### Changed
 
 - Bump image version to v0.10.5 to resolve issue with failing to auth to
@@ -168,7 +170,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add initial chart to deploy `external-secrets` as a Giant Swarm application
 
-[Unreleased]: https://github.com/giantswarm/external-secrets/compare/v0.11.0...HEAD
+[Unreleased]: https://github.com/giantswarm/external-secrets/compare/v0.11.1...HEAD
+[0.11.1]: https://github.com/giantswarm/external-secrets/compare/v0.11.0...v0.11.1
 [0.11.0]: https://github.com/giantswarm/external-secrets/compare/v0.10.0...v0.11.0
 [0.10.0]: https://github.com/giantswarm/external-secrets/compare/v0.9.1...v0.10.0
 [0.9.1]: https://github.com/giantswarm/external-secrets/compare/v0.9.0...v0.9.1
