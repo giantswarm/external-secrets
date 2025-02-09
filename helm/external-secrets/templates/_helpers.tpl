@@ -68,6 +68,9 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- with .Values.commonLabels }}
 {{ toYaml . }}
 {{- end }}
+{{- if and ( .Capabilities.APIVersions.Has "monitoring.coreos.com/v1" ) .Values.serviceMonitor.enabled }}
+app.kubernetes.io/metrics: "webhook"
+{{- end }}
 {{- end }}
 
 {{- define "external-secrets-webhook-metrics.labels" -}}
@@ -87,6 +90,9 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- with .Values.commonLabels }}
 {{ toYaml . }}
+{{- end }}
+{{- if and ( .Capabilities.APIVersions.Has "monitoring.coreos.com/v1" ) .Values.serviceMonitor.enabled }}
+app.kubernetes.io/metrics: "cert-controller"
 {{- end }}
 {{- end }}
 
