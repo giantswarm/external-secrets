@@ -203,6 +203,9 @@
                 "createClusterExternalSecret": {
                     "type": "boolean"
                 },
+                "createClusterGenerator": {
+                    "type": "boolean"
+                },
                 "createClusterSecretStore": {
                     "type": "boolean"
                 },
@@ -824,6 +827,9 @@
                                 },
                                 "renewBefore": {
                                     "type": "string"
+                                },
+                                "revisionHistoryLimit": {
+                                    "type": "string"
                                 }
                             }
                         },
@@ -969,6 +975,28 @@
                     "type": "integer"
                 },
                 "secretAnnotations": {
+                    "type": "object"
+                },
+                "service": {
+                    "properties": {
+                        "annotations": {
+                            "properties": {},
+                            "type": "object"
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "labels": {
+                            "properties": {},
+                            "type": "object"
+                        },
+                        "loadBalancerIP": {
+                            "type": "string"
+                        },
+                        "type": {
+                            "type": "string"
+                        }
+                    },
                     "type": "object"
                 },
                 "serviceAccount": {
