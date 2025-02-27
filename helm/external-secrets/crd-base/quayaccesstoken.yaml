@@ -11,26 +11,23 @@ metadata:
     controller-gen.kubebuilder.io/version: v0.17.2
   labels:
     external-secrets.io/component: controller
-  name: passwords.generators.external-secrets.io
+  name: quayaccesstokens.generators.external-secrets.io
 spec:
   group: generators.external-secrets.io
   names:
     categories:
       - external-secrets
       - external-secrets-generators
-    kind: Password
-    listKind: PasswordList
-    plural: passwords
-    singular: password
+    kind: QuayAccessToken
+    listKind: QuayAccessTokenList
+    plural: quayaccesstokens
+    singular: quayaccesstoken
   scope: Namespaced
   versions:
     - name: v1alpha1
       schema:
         openAPIV3Schema:
-          description: |-
-            Password generates a random password based on the
-            configuration parameters in spec.
-            You can specify the length, characterset and other attributes.
+          description: QuayAccessToken generates Quay oauth token for pulling/pushing images
           properties:
             apiVersion:
               description: |-
@@ -50,41 +47,44 @@ spec:
             metadata:
               type: object
             spec:
-              description: PasswordSpec controls the behavior of the password generator.
               properties:
-                allowRepeat:
-                  default: false
-                  description: set AllowRepeat to true to allow repeating characters.
-                  type: boolean
-                digits:
-                  description: |-
-                    Digits specifies the number of digits in the generated
-                    password. If omitted it defaults to 25% of the length of the password
-                  type: integer
-                length:
-                  default: 24
-                  description: |-
-                    Length of the password to be generated.
-                    Defaults to 24
-                  type: integer
-                noUpper:
-                  default: false
-                  description: Set NoUpper to disable uppercase characters
-                  type: boolean
-                symbolCharacters:
-                  description: |-
-                    SymbolCharacters specifies the special characters that should be used
-                    in the generated password.
+                robotAccount:
+                  description: Name of the robot account you are federating with
                   type: string
-                symbols:
-                  description: |-
-                    Symbols specifies the number of symbol characters in the generated
-                    password. If omitted it defaults to 25% of the length of the password
-                  type: integer
+                serviceAccountRef:
+                  description: Name of the service account you are federating with
+                  properties:
+                    audiences:
+                      description: |-
+                        Audience specifies the `aud` claim for the service account token
+                        If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity
+                        then this audiences will be appended to the list
+                      items:
+                        type: string
+                      type: array
+                    name:
+                      description: The name of the ServiceAccount resource being referred to.
+                      maxLength: 253
+                      minLength: 1
+                      pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
+                      type: string
+                    namespace:
+                      description: |-
+                        Namespace of the resource being referred to.
+                        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+                      maxLength: 63
+                      minLength: 1
+                      pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
+                      type: string
+                  required:
+                    - name
+                  type: object
+                url:
+                  description: URL configures the Quay instance URL. Defaults to quay.io.
+                  type: string
               required:
-                - allowRepeat
-                - length
-                - noUpper
+                - robotAccount
+                - serviceAccountRef
               type: object
           type: object
       served: true
