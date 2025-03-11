@@ -1,4 +1,5 @@
 {{- if and ( .Capabilities.APIVersions.Has "monitoring.coreos.com/v1" ) .Values.serviceMonitor.enabled -}}
+<<<<<<< HEAD
 apiVersion: v1
 kind: Service
 metadata:
@@ -21,6 +22,8 @@ spec:
   selector:
     {{- include "external-secrets.selectorLabels" . | nindent 4 }}
 ---
+=======
+>>>>>>> bb6624338cdc259272d52c6ad266fa3b1141c669
 apiVersion: "monitoring.coreos.com/v1"
 kind: ServiceMonitor
 metadata:
@@ -53,6 +56,7 @@ spec:
     {{- end }}
 ---
 {{- if .Values.webhook.create }}
+<<<<<<< HEAD
 apiVersion: v1
 kind: Service
 metadata:
@@ -75,6 +79,8 @@ spec:
   selector:
     {{- include "external-secrets-webhook.selectorLabels" . | nindent 4 }}
 ---
+=======
+>>>>>>> bb6624338cdc259272d52c6ad266fa3b1141c669
 apiVersion: "monitoring.coreos.com/v1"
 kind: ServiceMonitor
 metadata:
@@ -108,6 +114,7 @@ spec:
 {{- end }}
 ---
 {{- if .Values.certController.create }}
+<<<<<<< HEAD
 apiVersion: v1
 kind: Service
 metadata:
@@ -130,6 +137,8 @@ spec:
   selector:
     {{- include "external-secrets-cert-controller.selectorLabels" . | nindent 4 }}
 ---
+=======
+>>>>>>> bb6624338cdc259272d52c6ad266fa3b1141c669
 apiVersion: "monitoring.coreos.com/v1"
 kind: ServiceMonitor
 metadata:
