@@ -19,6 +19,6 @@ restrictions:
   namespaceSingleton: true
 dependencies:
   - name: bitwarden-sdk-server
-    version: v0.3.1
+    version: v0.3.2
     repository: oci://ghcr.io/external-secrets/charts
     condition: bitwarden-sdk-server.enabled
