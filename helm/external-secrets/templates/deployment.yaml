@@ -47,9 +47,16 @@ spec:
           securityContext:
             {{- include "external-secrets.renderSecurityContext" (dict "securityContext" . "context" $) | nindent 12 }}
           {{- end }}
+<<<<<<< HEAD
           image: "{{ .Values.giantswarm.images.registry }}/{{ .Values.giantswarm.images.externalSecrets.image }}:{{ .Values.giantswarm.images.externalSecrets.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.giantswarm.images.pullPolicy }}
           {{- if or (.Values.leaderElect) (.Values.scopedNamespace) (.Values.processClusterStore) (.Values.processClusterExternalSecret) (.Values.concurrent) (.Values.extraArgs) }}
+=======
+          {{- end }}
+          image: {{ include "external-secrets.image" (dict "chartAppVersion" .Chart.AppVersion "image" .Values.image) | trim }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if or (.Values.leaderElect) (.Values.scopedNamespace) (.Values.processClusterStore) (.Values.processClusterExternalSecret) (.Values.processClusterPushSecret) (.Values.concurrent) (.Values.extraArgs) }}
+>>>>>>> 6c3932cf12c629743360084c39a89f699100baf4
           args:
           {{- if .Values.leaderElect }}
           - --enable-leader-election=true
@@ -60,12 +67,16 @@ spec:
           {{- if and .Values.scopedNamespace .Values.scopedRBAC }}
           - --enable-cluster-store-reconciler=false
           - --enable-cluster-external-secret-reconciler=false
+          - --enable-cluster-push-secret-reconciler=false
           {{- else }}
             {{- if not .Values.processClusterStore }}
           - --enable-cluster-store-reconciler=false
             {{- end }}
             {{- if not .Values.processClusterExternalSecret }}
           - --enable-cluster-external-secret-reconciler=false
+            {{- end }}
+            {{- if not .Values.processClusterPushSecret }}
+          - --enable-cluster-push-secret-reconciler=false
             {{- end }}
           {{- end }}
           {{- if not .Values.processPushSecret }}
@@ -106,7 +117,7 @@ spec:
           {{- toYaml .Values.extraVolumeMounts | nindent 12 }}
           {{- end }}
         {{- if .Values.extraContainers }}
-          {{ toYaml .Values.extraContainers | nindent 8}}
+          {{ toYaml .Values.extraContainers | nindent 8 }}
         {{- end }}
       dnsPolicy: {{ .Values.dnsPolicy }}
       {{- if .Values.dnsConfig }}
