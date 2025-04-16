@@ -203,6 +203,12 @@
                 "createClusterExternalSecret": {
                     "type": "boolean"
                 },
+                "createClusterGenerator": {
+                    "type": "boolean"
+                },
+                "createClusterPushSecret": {
+                    "type": "boolean"
+                },
                 "createClusterSecretStore": {
                     "type": "boolean"
                 },
@@ -641,6 +647,9 @@
         "nodeSelector": {
             "type": "object"
         },
+        "openshiftFinalizers": {
+            "type": "boolean"
+        },
         "podAnnotations": {
             "type": "object"
         },
@@ -673,6 +682,9 @@
             "type": "string"
         },
         "processClusterExternalSecret": {
+            "type": "boolean"
+        },
+        "processClusterPushSecret": {
             "type": "boolean"
         },
         "processClusterStore": {
@@ -784,6 +796,10 @@
                 "affinity": {
                     "type": "object"
                 },
+                "annotations": {
+                    "properties": {},
+                    "type": "object"
+                },
                 "certCheckInterval": {
                     "type": "string"
                 },
@@ -824,6 +840,9 @@
                                 },
                                 "renewBefore": {
                                     "type": "string"
+                                },
+                                "revisionHistoryLimit": {
+                                    "type": "integer"
                                 }
                             }
                         },
@@ -969,6 +988,28 @@
                     "type": "integer"
                 },
                 "secretAnnotations": {
+                    "type": "object"
+                },
+                "service": {
+                    "properties": {
+                        "annotations": {
+                            "properties": {},
+                            "type": "object"
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "labels": {
+                            "properties": {},
+                            "type": "object"
+                        },
+                        "loadBalancerIP": {
+                            "type": "string"
+                        },
+                        "type": {
+                            "type": "string"
+                        }
+                    },
                     "type": "object"
                 },
                 "serviceAccount": {
