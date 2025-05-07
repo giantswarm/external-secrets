@@ -270,6 +270,12 @@
                 "createClusterExternalSecret": {
                     "type": "boolean"
                 },
+                "createClusterGenerator": {
+                    "type": "boolean"
+                },
+                "createClusterPushSecret": {
+                    "type": "boolean"
+                },
                 "createClusterSecretStore": {
                     "type": "boolean"
                 },
@@ -346,6 +352,24 @@
                 },
                 "topologySpreadConstraints": {
                     "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "grafanaDashboard": {
+            "properties": {
+                "annotations": {
+                    "properties": {},
+                    "type": "object"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "sidecarLabel": {
+                    "type": "string"
+                },
+                "sidecarLabelValue": {
+                    "type": "string"
                 }
             },
             "type": "object"
@@ -428,6 +452,9 @@
             "properties": {},
             "type": "object"
         },
+        "openshiftFinalizers": {
+            "type": "boolean"
+        },
         "podAnnotations": {
             "properties": {},
             "type": "object"
@@ -465,6 +492,9 @@
         "processClusterExternalSecret": {
             "type": "boolean"
         },
+        "processClusterPushSecret": {
+            "type": "boolean"
+        },
         "processClusterStore": {
             "type": "boolean"
         },
@@ -473,6 +503,12 @@
         },
         "rbac": {
             "properties": {
+                "aggregateToEdit": {
+                    "type": "boolean"
+                },
+                "aggregateToView": {
+                    "type": "boolean"
+                },
                 "create": {
                     "type": "boolean"
                 },
@@ -617,6 +653,10 @@
                     "properties": {},
                     "type": "object"
                 },
+                "annotations": {
+                    "properties": {},
+                    "type": "object"
+                },
                 "certCheckInterval": {
                     "type": "string"
                 },
@@ -656,6 +696,9 @@
                                 },
                                 "renewBefore": {
                                     "type": "string"
+                                },
+                                "revisionHistoryLimit": {
+                                    "type": "integer"
                                 }
                             },
                             "type": "object"
@@ -865,6 +908,28 @@
                                 }
                             },
                             "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "service": {
+                    "properties": {
+                        "annotations": {
+                            "properties": {},
+                            "type": "object"
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "labels": {
+                            "properties": {},
+                            "type": "object"
+                        },
+                        "loadBalancerIP": {
+                            "type": "string"
+                        },
+                        "type": {
+                            "type": "string"
                         }
                     },
                     "type": "object"
