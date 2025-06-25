@@ -49,7 +49,7 @@ spec:
           {{- end }}
           image: "{{ .Values.giantswarm.images.registry }}/{{ .Values.giantswarm.images.externalSecrets.image }}:{{ .Values.giantswarm.images.externalSecrets.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.giantswarm.images.pullPolicy }}
-          {{- if or (.Values.leaderElect) (.Values.scopedNamespace) (.Values.processClusterStore) (.Values.processClusterExternalSecret) (.Values.concurrent) (.Values.extraArgs) }}
+          {{- if or (.Values.leaderElect) (.Values.scopedNamespace) (.Values.processClusterStore) (.Values.processClusterExternalSecret) (.Values.processClusterPushSecret) (.Values.concurrent) (.Values.extraArgs) }}
           args:
           {{- if .Values.leaderElect }}
           - --enable-leader-election=true
@@ -60,12 +60,16 @@ spec:
           {{- if and .Values.scopedNamespace .Values.scopedRBAC }}
           - --enable-cluster-store-reconciler=false
           - --enable-cluster-external-secret-reconciler=false
+          - --enable-cluster-push-secret-reconciler=false
           {{- else }}
             {{- if not .Values.processClusterStore }}
           - --enable-cluster-store-reconciler=false
             {{- end }}
             {{- if not .Values.processClusterExternalSecret }}
           - --enable-cluster-external-secret-reconciler=false
+            {{- end }}
+            {{- if not .Values.processClusterPushSecret }}
+          - --enable-cluster-push-secret-reconciler=false
             {{- end }}
           {{- end }}
           {{- if not .Values.processPushSecret }}
@@ -106,7 +110,7 @@ spec:
           {{- toYaml .Values.extraVolumeMounts | nindent 12 }}
           {{- end }}
         {{- if .Values.extraContainers }}
-          {{ toYaml .Values.extraContainers | nindent 8}}
+          {{ toYaml .Values.extraContainers | nindent 8 }}
         {{- end }}
       dnsPolicy: {{ .Values.dnsPolicy }}
       {{- if .Values.dnsConfig }}
