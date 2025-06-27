@@ -1,3 +1,4 @@
+{{- if .Values.giantswarm.crds.install }}
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
@@ -8,7 +9,7 @@ metadata:
     {{- if and .Values.crds.conversion.enabled .Values.webhook.certManager.enabled .Values.webhook.certManager.addInjectorAnnotations }}
     cert-manager.io/inject-ca-from: {{ .Release.Namespace }}/{{ include "external-secrets.fullname" . }}-webhook
     {{- end }}
-    controller-gen.kubebuilder.io/version: v0.16.3
+    controller-gen.kubebuilder.io/version: v0.18.0
   labels:
     external-secrets.io/component: controller
   name: acraccesstokens.generators.external-secrets.io
@@ -21,8 +22,6 @@ spec:
     kind: ACRAccessToken
     listKind: ACRAccessTokenList
     plural: acraccesstokens
-    shortNames:
-      - acraccesstoken
     singular: acraccesstoken
   scope: Namespaced
   versions:
@@ -30,7 +29,7 @@ spec:
       schema:
         openAPIV3Schema:
           description: |-
-            ACRAccessToken returns a Azure Container Registry token
+            ACRAccessToken returns an Azure Container Registry token
             that can be used for pushing/pulling images.
             Note: by default it will return an ACR Refresh Token with full access
             (depending on the identity).
@@ -84,16 +83,25 @@ spec:
                               properties:
                                 key:
                                   description: |-
-                                    The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be
-                                    defaulted, in others it may be required.
+                                    A key in the referenced Secret.
+                                    Some instances of this field may be defaulted, in others it may be required.
+                                  maxLength: 253
+                                  minLength: 1
+                                  pattern: ^[-._a-zA-Z0-9]+$
                                   type: string
                                 name:
                                   description: The name of the Secret resource being referred to.
+                                  maxLength: 253
+                                  minLength: 1
+                                  pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
                                   type: string
                                 namespace:
                                   description: |-
-                                    Namespace of the resource being referred to. Ignored if referent is not cluster-scoped. cluster-scoped defaults
-                                    to the namespace of the referent.
+                                    The namespace of the Secret resource being referred to.
+                                    Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+                                  maxLength: 63
+                                  minLength: 1
+                                  pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
                                   type: string
                               type: object
                             clientSecret:
@@ -101,16 +109,25 @@ spec:
                               properties:
                                 key:
                                   description: |-
-                                    The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be
-                                    defaulted, in others it may be required.
+                                    A key in the referenced Secret.
+                                    Some instances of this field may be defaulted, in others it may be required.
+                                  maxLength: 253
+                                  minLength: 1
+                                  pattern: ^[-._a-zA-Z0-9]+$
                                   type: string
                                 name:
                                   description: The name of the Secret resource being referred to.
+                                  maxLength: 253
+                                  minLength: 1
+                                  pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
                                   type: string
                                 namespace:
                                   description: |-
-                                    Namespace of the resource being referred to. Ignored if referent is not cluster-scoped. cluster-scoped defaults
-                                    to the namespace of the referent.
+                                    The namespace of the Secret resource being referred to.
+                                    Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+                                  maxLength: 63
+                                  minLength: 1
+                                  pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
                                   type: string
                               type: object
                           type: object
@@ -135,11 +152,17 @@ spec:
                               type: array
                             name:
                               description: The name of the ServiceAccount resource being referred to.
+                              maxLength: 253
+                              minLength: 1
+                              pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$
                               type: string
                             namespace:
                               description: |-
-                                Namespace of the resource being referred to. Ignored if referent is not cluster-scoped. cluster-scoped defaults
-                                to the namespace of the referent.
+                                Namespace of the resource being referred to.
+                                Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+                              maxLength: 63
+                              minLength: 1
+                              pattern: ^[a-z0-9]([-a-z0-9]*[a-z0-9])?$
                               type: string
                           required:
                             - name
@@ -188,15 +211,4 @@ spec:
       storage: true
       subresources:
         status: {}
-{{- if .Values.crds.conversion.enabled }}
-  conversion:
-    strategy: Webhook
-    webhook:
-      conversionReviewVersions:
-        - v1
-      clientConfig:
-        service:
-          name: {{ include "external-secrets.fullname" . }}-webhook
-          namespace: {{ .Release.Namespace | quote }}
-          path: /convert
 {{- end }}

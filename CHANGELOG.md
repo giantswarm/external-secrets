@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrading to the `v0.18.0` version. Includes **breaking changes**, including API version changes:
+  - https://github.com/external-secrets/external-secrets/releases/tag/v0.12.1
+  - https://github.com/external-secrets/external-secrets/releases/tag/v0.13.0
+  - https://github.com/external-secrets/external-secrets/releases/tag/v0.14.0
+  - https://github.com/external-secrets/external-secrets/releases/tag/v0.16.0
+    - `externalsecrets.external-secrets.io` got `v1alpha1` removed, promoted to `v1`
+    - `secretstores.external-secrets.io` got `v1alpha1` removed, promoted to `v1`
+    - `clustersecretstores.external-secrets.io` got `v1alpha1` removed, promoted to `v1`
+    - `clusterexternalsecrets.external-secrets.io` got `v1alpha1` removed, promoted to `v1`
+  - https://github.com/external-secrets/external-secrets/releases/tag/v0.18.0
+
 ## [0.11.1] - 2024-11-06
 
 ### Changed
