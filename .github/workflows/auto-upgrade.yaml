@@ -16,8 +16,13 @@ jobs:
         with:
           fetch-depth: 0
       - run: git fetch origin 'refs/notes/*:refs/notes/*'
-      - run: wget https://raw.githubusercontent.com/giantswarm/git-subtree-utils/main/ci-update-to-latest.sh
-      - run: wget https://raw.githubusercontent.com/giantswarm/git-subtree-utils/main/git-subtree-update.sh
-      - run: chmod +x ci-update-to-latest.sh git-subtree-update.sh
-      - run: git config --global user.email "action@github.com" && git config --global user.name "GitHub Action"
-      - run: ./ci-update-to-latest.sh . ${{ github.repository }}
+      - run:
+          wget https://raw.githubusercontent.com/giantswarm/git-subtree-utils/main/ci-update-to-latest.sh -O
+          /tmp/ci-update-to-latest.sh
+      - run:
+          wget https://raw.githubusercontent.com/giantswarm/git-subtree-utils/main/git-subtree-update.sh -O
+          /tmp/git-subtree-update.sh
+      - run: chmod +x /tmp/ci-update-to-latest.sh /tmp/git-subtree-update.sh
+      - run:
+          git config --global user.email "action@github.com" && git config --global user.name "GitHub Action"
+      - run: /tmp/ci-update-to-latest.sh . ${{ github.repository }}
