@@ -228,6 +228,9 @@ extraObjects: []
 ## -- Extra volumes to mount to the container.
 extraVolumeMounts: []
 
+## -- Extra init containers to add to the pod.
+extraInitContainers: []
+
 ## -- Extra containers to add to the pod.
 extraContainers: []
 
@@ -460,7 +463,14 @@ webhook:
   ## -- Map of extra arguments to pass to container.
   extraArgs: {}
 
+<<<<<<< HEAD
   ## -- Extra volumes to pass to pod.
+=======
+    ## -- Extra init containers to add to the pod.
+  extraInitContainers: []
+
+    ## -- Extra volumes to pass to pod.
+>>>>>>> f7c1235483a1a0401e534294e1c0507202c04b6e
   extraVolumes: []
 
   ## -- Extra volumes to mount to the container.
@@ -578,7 +588,14 @@ certController:
   ## -- Map of extra arguments to pass to container.
   extraArgs: {}
 
+<<<<<<< HEAD
   ## -- Extra volumes to pass to pod.
+=======
+    ## -- Extra init containers to add to the pod.
+  extraInitContainers: []
+
+    ## -- Extra volumes to pass to pod.
+>>>>>>> f7c1235483a1a0401e534294e1c0507202c04b6e
   extraVolumes: []
 
   ## -- Extra volumes to mount to the container.
