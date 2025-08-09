@@ -1,4 +1,5 @@
 {{- if .Values.createOperator }}
+{{- include "external-secrets.reconciler-sanity-test" . }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -16,6 +17,10 @@ spec:
   selector:
     matchLabels:
       {{- include "external-secrets.selectorLabels" . | nindent 6 }}
+  {{- with .Values.strategy }}
+  strategy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -43,7 +48,12 @@ spec:
       hostNetwork: {{ .Values.hostNetwork }}
       containers:
         - name: {{ .Chart.Name }}
+<<<<<<< HEAD
           {{- with .Values.giantswarm.securityContext.externalSecrets }}
+=======
+          {{- with .Values.securityContext }}
+          {{- if and (.enabled) (gt (keys . | len) 1) }}
+>>>>>>> b7b474e6f8dcc48764478b9e82a6e0f3c98b4e5a
           securityContext:
             {{- include "external-secrets.renderSecurityContext" (dict "securityContext" . "context" $) | nindent 12 }}
           {{- end }}
@@ -112,6 +122,10 @@ spec:
         {{- if .Values.extraContainers }}
           {{ toYaml .Values.extraContainers | nindent 8 }}
         {{- end }}
+      {{- with .Values.extraInitContainers }}
+      initContainers:
+        {{- tpl (toYaml . | nindent 8) $ }}
+      {{- end }}
       dnsPolicy: {{ .Values.dnsPolicy }}
       {{- if .Values.dnsConfig }}
       dnsConfig:
