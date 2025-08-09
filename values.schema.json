@@ -36,6 +36,9 @@
                 "extraEnv": {
                     "type": "array"
                 },
+                "extraInitContainers": {
+                    "type": "array"
+                },
                 "extraVolumeMounts": {
                     "type": "array"
                 },
@@ -115,6 +118,10 @@
                     "type": "object"
                 },
                 "podAnnotations": {
+                    "properties": {},
+                    "type": "object"
+                },
+                "strategy": {
                     "properties": {},
                     "type": "object"
                 },
@@ -315,7 +322,14 @@
         "extraContainers": {
             "type": "array"
         },
+        "strategy": {
+            "properties": {},
+            "type": "object"
+        },
         "extraEnv": {
+            "type": "array"
+        },
+        "extraInitContainers": {
             "type": "array"
         },
         "extraObjects": {
@@ -732,6 +746,9 @@
                 "extraEnv": {
                     "type": "array"
                 },
+                "extraInitContainers": {
+                    "type": "array"
+                },
                 "extraVolumeMounts": {
                     "type": "array"
                 },
@@ -817,6 +834,10 @@
                     "type": "object"
                 },
                 "podAnnotations": {
+                    "properties": {},
+                    "type": "object"
+                },
+                "strategy": {
                     "properties": {},
                     "type": "object"
                 },
