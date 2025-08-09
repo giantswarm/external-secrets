@@ -11,26 +11,23 @@ metadata:
     controller-gen.kubebuilder.io/version: v0.18.0
   labels:
     external-secrets.io/component: controller
-  name: passwords.generators.external-secrets.io
+  name: sshkeys.generators.external-secrets.io
 spec:
   group: generators.external-secrets.io
   names:
     categories:
       - external-secrets
       - external-secrets-generators
-    kind: Password
-    listKind: PasswordList
-    plural: passwords
-    singular: password
+    kind: SSHKey
+    listKind: SSHKeyList
+    plural: sshkeys
+    singular: sshkey
   scope: Namespaced
   versions:
     - name: v1alpha1
       schema:
         openAPIV3Schema:
-          description: |-
-            Password generates a random password based on the
-            configuration parameters in spec.
-            You can specify the length, characterset and other attributes.
+          description: SSHKey generates SSH key pairs.
           properties:
             apiVersion:
               description: |-
@@ -50,41 +47,26 @@ spec:
             metadata:
               type: object
             spec:
-              description: PasswordSpec controls the behavior of the password generator.
+              description: SSHKeySpec controls the behavior of the ssh key generator.
               properties:
-                allowRepeat:
-                  default: false
-                  description: set AllowRepeat to true to allow repeating characters.
-                  type: boolean
-                digits:
-                  description: |-
-                    Digits specifies the number of digits in the generated
-                    password. If omitted it defaults to 25% of the length of the password
-                  type: integer
-                length:
-                  default: 24
-                  description: |-
-                    Length of the password to be generated.
-                    Defaults to 24
-                  type: integer
-                noUpper:
-                  default: false
-                  description: Set NoUpper to disable uppercase characters
-                  type: boolean
-                symbolCharacters:
-                  description: |-
-                    SymbolCharacters specifies the special characters that should be used
-                    in the generated password.
+                comment:
+                  description: Comment specifies an optional comment for the SSH key
                   type: string
-                symbols:
+                keySize:
                   description: |-
-                    Symbols specifies the number of symbol characters in the generated
-                    password. If omitted it defaults to 25% of the length of the password
+                    KeySize specifies the key size for RSA keys (default: 2048)
+                    For RSA keys: 2048, 3072, 4096
+                    Ignored for ed25519 keys
+                  maximum: 8192
+                  minimum: 256
                   type: integer
-              required:
-                - allowRepeat
-                - length
-                - noUpper
+                keyType:
+                  default: rsa
+                  description: KeyType specifies the SSH key type (rsa, ed25519)
+                  enum:
+                    - rsa
+                    - ed25519
+                  type: string
               type: object
           type: object
       served: true
