@@ -2,7 +2,11 @@
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
+<<<<<<< HEAD
   name: {{ include "external-secrets.name" . }}-pdb
+=======
+  name: {{ include "external-secrets.pdbName" . | quote }}
+>>>>>>> b251dfd3099731878fbabe5e7c165dbe0bc0a402
   namespace: {{ template "external-secrets.namespace" . }}
   labels:
     {{- include "external-secrets.labels" . | nindent 4 }}
