@@ -1,5 +1,7 @@
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/giantswarm/external-secrets/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/giantswarm/external-secrets/tree/main)
 
+testing...
+
 # external-secrets chart
 
 Giant Swarm offers an `external-secrets` App which can be installed in workload clusters.
