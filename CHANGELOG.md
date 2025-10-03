@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.18.3] - 2025-10-03
+
 ### Changed
 
 - Only support Kyverno `PolicyException` version `v2` and remove `v2beta1` support.
@@ -197,7 +199,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add initial chart to deploy `external-secrets` as a Giant Swarm application
 
-[Unreleased]: https://github.com/giantswarm/external-secrets/compare/v0.18.2...HEAD
+[Unreleased]: https://github.com/giantswarm/external-secrets/compare/v0.18.3...HEAD
+[0.18.3]: https://github.com/giantswarm/external-secrets/compare/v0.18.2...v0.18.3
 [0.18.2]: https://github.com/giantswarm/external-secrets/compare/v0.18.0...v0.18.2
 [0.18.0]: https://github.com/giantswarm/external-secrets/compare/v0.11.1...v0.18.0
 [0.11.1]: https://github.com/giantswarm/external-secrets/compare/v0.11.0...v0.11.1
