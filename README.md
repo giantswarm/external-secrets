@@ -1,6 +1,7 @@
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/giantswarm/external-secrets/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/giantswarm/external-secrets/tree/main)
 
 testing...
+testing...
 
 # external-secrets chart
 
