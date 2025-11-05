@@ -247,7 +247,6 @@ Render the securityContext based on the provided securityContext
 {{- omit $adaptedContext "enabled" | toYaml -}}
 {{- end -}}
 
-<<<<<<< HEAD
 {{- define "resource.vpa.enabled" -}}
 {{- if and (or (.Capabilities.APIVersions.Has "autoscaling.k8s.io/v1") (.Values.giantswarm.verticalPodAutoscaler.force)) (.Values.giantswarm.verticalPodAutoscaler.enabled) }}true{{ else }}false{{ end }}
 {{- end -}}
@@ -277,7 +276,8 @@ requests:
 limits:
 {{ toYaml .Values.giantswarm.resources.webhook.limits | indent 2 -}}
 {{- end -}}
-=======
+{{- end -}}
+
 {{/*
 Create the name of the pod disruption budget to use
 */}}
@@ -327,5 +327,4 @@ Decide whether to render the ServiceMonitor resource.
   {{- else -}}
     {{- fail (printf "Invalid renderMode '%s'. Must be one of: skipIfMissing, failIfMissing, alwaysRender." $mode) -}}
   {{- end -}}
->>>>>>> 3b64bba20c06c92fc1d28d87861ca844a90f4590
 {{- end -}}

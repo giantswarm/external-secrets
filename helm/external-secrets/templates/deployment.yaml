@@ -48,12 +48,7 @@ spec:
       hostNetwork: {{ .Values.hostNetwork }}
       containers:
         - name: {{ .Chart.Name }}
-<<<<<<< HEAD
           {{- with .Values.giantswarm.securityContext.externalSecrets }}
-=======
-          {{- with .Values.securityContext }}
-          {{- if and (.enabled) (gt (keys . | len) 1) }}
->>>>>>> 3b64bba20c06c92fc1d28d87861ca844a90f4590
           securityContext:
             {{- include "external-secrets.renderSecurityContext" (dict "securityContext" . "context" $) | nindent 12 }}
           {{- end }}

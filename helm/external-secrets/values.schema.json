@@ -1,5 +1,5 @@
 {
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$schema": "http://json-schema.org/schema#",
     "type": "object",
     "properties": {
         "affinity": {
@@ -46,26 +46,6 @@
                 "hostNetwork": {
                     "type": "boolean"
                 },
-<<<<<<< HEAD
-=======
-                "image": {
-                    "type": "object",
-                    "properties": {
-                        "flavour": {
-                            "type": "string"
-                        },
-                        "pullPolicy": {
-                            "type": "string"
-                        },
-                        "repository": {
-                            "type": "string"
-                        },
-                        "tag": {
-                            "type": "string"
-                        }
-                    }
-                },
->>>>>>> 3b64bba20c06c92fc1d28d87861ca844a90f4590
                 "imagePullSecrets": {
                     "type": "array"
                 },
@@ -120,17 +100,10 @@
                             "type": "boolean"
                         },
                         "minAvailable": {
-<<<<<<< HEAD
                             "type": "integer"
-=======
-                            "type": [
-                                "integer",
-                                "string"
-                            ]
                         },
                         "nameOverride": {
                             "type": "string"
->>>>>>> 3b64bba20c06c92fc1d28d87861ca844a90f4590
                         }
                     }
                 },
@@ -179,48 +152,6 @@
                 "revisionHistoryLimit": {
                     "type": "integer"
                 },
-<<<<<<< HEAD
-=======
-                "securityContext": {
-                    "type": "object",
-                    "properties": {
-                        "allowPrivilegeEscalation": {
-                            "type": "boolean"
-                        },
-                        "capabilities": {
-                            "type": "object",
-                            "properties": {
-                                "drop": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string"
-                                    }
-                                }
-                            }
-                        },
-                        "enabled": {
-                            "type": "boolean"
-                        },
-                        "readOnlyRootFilesystem": {
-                            "type": "boolean"
-                        },
-                        "runAsNonRoot": {
-                            "type": "boolean"
-                        },
-                        "runAsUser": {
-                            "type": "integer"
-                        },
-                        "seccompProfile": {
-                            "type": "object",
-                            "properties": {
-                                "type": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                },
->>>>>>> 3b64bba20c06c92fc1d28d87861ca844a90f4590
                 "serviceAccount": {
                     "type": "object",
                     "properties": {
@@ -709,26 +640,6 @@
         "hostNetwork": {
             "type": "boolean"
         },
-<<<<<<< HEAD
-=======
-        "image": {
-            "type": "object",
-            "properties": {
-                "flavour": {
-                    "type": "string"
-                },
-                "pullPolicy": {
-                    "type": "string"
-                },
-                "repository": {
-                    "type": "string"
-                },
-                "tag": {
-                    "type": "string"
-                }
-            }
-        },
->>>>>>> 3b64bba20c06c92fc1d28d87861ca844a90f4590
         "imagePullSecrets": {
             "type": "array"
         },
@@ -757,10 +668,7 @@
                                     "type": "string"
                                 },
                                 "port": {
-                                    "type": [
-                                        "string",
-                                        "integer"
-                                    ]
+                                    "type": "integer"
                                 }
                             }
                         },
@@ -857,17 +765,10 @@
                     "type": "boolean"
                 },
                 "minAvailable": {
-<<<<<<< HEAD
                     "type": "integer"
-=======
-                    "type": [
-                        "integer",
-                        "string"
-                    ]
                 },
                 "nameOverride": {
                     "type": "string"
->>>>>>> 3b64bba20c06c92fc1d28d87861ca844a90f4590
                 }
             }
         },
@@ -940,48 +841,6 @@
         "scopedRBAC": {
             "type": "boolean"
         },
-<<<<<<< HEAD
-=======
-        "securityContext": {
-            "type": "object",
-            "properties": {
-                "allowPrivilegeEscalation": {
-                    "type": "boolean"
-                },
-                "capabilities": {
-                    "type": "object",
-                    "properties": {
-                        "drop": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                },
-                "enabled": {
-                    "type": "boolean"
-                },
-                "readOnlyRootFilesystem": {
-                    "type": "boolean"
-                },
-                "runAsNonRoot": {
-                    "type": "boolean"
-                },
-                "runAsUser": {
-                    "type": "integer"
-                },
-                "seccompProfile": {
-                    "type": "object",
-                    "properties": {
-                        "type": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
->>>>>>> 3b64bba20c06c92fc1d28d87861ca844a90f4590
         "service": {
             "type": "object",
             "properties": {
@@ -1038,12 +897,7 @@
                     "type": "array"
                 },
                 "renderMode": {
-                    "type": "string",
-                    "enum": [
-                        "skipIfMissing",
-                        "failIfMissing",
-                        "alwaysRender"
-                    ]
+                    "type": "string"
                 },
                 "scrapeTimeout": {
                     "type": "string"
@@ -1149,26 +1003,6 @@
                 "hostNetwork": {
                     "type": "boolean"
                 },
-<<<<<<< HEAD
-=======
-                "image": {
-                    "type": "object",
-                    "properties": {
-                        "flavour": {
-                            "type": "string"
-                        },
-                        "pullPolicy": {
-                            "type": "string"
-                        },
-                        "repository": {
-                            "type": "string"
-                        },
-                        "tag": {
-                            "type": "string"
-                        }
-                    }
-                },
->>>>>>> 3b64bba20c06c92fc1d28d87861ca844a90f4590
                 "imagePullSecrets": {
                     "type": "array"
                 },
@@ -1226,17 +1060,10 @@
                             "type": "boolean"
                         },
                         "minAvailable": {
-<<<<<<< HEAD
                             "type": "integer"
-=======
-                            "type": [
-                                "integer",
-                                "string"
-                            ]
                         },
                         "nameOverride": {
                             "type": "string"
->>>>>>> 3b64bba20c06c92fc1d28d87861ca844a90f4590
                         }
                     }
                 },
@@ -1280,48 +1107,6 @@
                 "secretAnnotations": {
                     "type": "object"
                 },
-<<<<<<< HEAD
-=======
-                "securityContext": {
-                    "type": "object",
-                    "properties": {
-                        "allowPrivilegeEscalation": {
-                            "type": "boolean"
-                        },
-                        "capabilities": {
-                            "type": "object",
-                            "properties": {
-                                "drop": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string"
-                                    }
-                                }
-                            }
-                        },
-                        "enabled": {
-                            "type": "boolean"
-                        },
-                        "readOnlyRootFilesystem": {
-                            "type": "boolean"
-                        },
-                        "runAsNonRoot": {
-                            "type": "boolean"
-                        },
-                        "runAsUser": {
-                            "type": "integer"
-                        },
-                        "seccompProfile": {
-                            "type": "object",
-                            "properties": {
-                                "type": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                },
->>>>>>> 3b64bba20c06c92fc1d28d87861ca844a90f4590
                 "service": {
                     "type": "object",
                     "properties": {

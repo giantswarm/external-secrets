@@ -431,12 +431,6 @@ webhook:
   imagePullSecrets: []
   # -- The port the webhook will listen to
   port: 10250
-<<<<<<< HEAD
-  rbac:
-    # -- Specifies whether role and rolebinding resources should be created.
-    create: true
-=======
->>>>>>> 3b64bba20c06c92fc1d28d87861ca844a90f4590
   serviceAccount:
     # -- Specifies whether a service account should be created.
     create: true
@@ -496,14 +490,10 @@ webhook:
 
   affinity: {}
 
-<<<<<<< HEAD
-  # -- Pod priority class name.
-=======
   # -- Set deployment strategy
   strategy: {}
 
     # -- Pod priority class name.
->>>>>>> 3b64bba20c06c92fc1d28d87861ca844a90f4590
   priorityClassName: ""
 
   # -- Pod disruption budget - for more details see https://kubernetes.io/docs/concepts/workloads/pods/disruptions/
@@ -539,14 +529,10 @@ webhook:
   ## -- Map of extra arguments to pass to container.
   extraArgs: {}
 
-<<<<<<< HEAD
-  ## -- Extra volumes to pass to pod.
-=======
     ## -- Extra init containers to add to the pod.
   extraInitContainers: []
 
     ## -- Extra volumes to pass to pod.
->>>>>>> 3b64bba20c06c92fc1d28d87861ca844a90f4590
   extraVolumes: []
 
   ## -- Extra volumes to mount to the container.
@@ -674,14 +660,10 @@ certController:
   ## -- Map of extra arguments to pass to container.
   extraArgs: {}
 
-<<<<<<< HEAD
-  ## -- Extra volumes to pass to pod.
-=======
     ## -- Extra init containers to add to the pod.
   extraInitContainers: []
 
     ## -- Extra volumes to pass to pod.
->>>>>>> 3b64bba20c06c92fc1d28d87861ca844a90f4590
   extraVolumes: []
 
   ## -- Extra volumes to mount to the container.

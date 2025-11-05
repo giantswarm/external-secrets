@@ -1,32 +1,5 @@
-<<<<<<< HEAD
-{{- if and ( .Capabilities.APIVersions.Has "monitoring.coreos.com/v1" ) .Values.serviceMonitor.enabled -}}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ include "external-secrets.name" . }}-metrics
-  namespace: {{ template "external-secrets.namespace" . }}
-  labels:
-    {{- include "external-secrets.labels" . | nindent 4 }}
-spec:
-  type: ClusterIP
-  {{- if .Values.service.ipFamilyPolicy }}
-  ipFamilyPolicy: {{ .Values.service.ipFamilyPolicy }}
-  {{- end }}
-  {{- if .Values.service.ipFamilies }}
-  ipFamilies: {{ .Values.service.ipFamilies | toYaml | nindent 2 }}
-  {{- end }}
-  ports:
-    - port: {{ .Values.metrics.service.port }}
-      protocol: TCP
-      name: metrics
-  selector:
-    {{- include "external-secrets.selectorLabels" . | nindent 4 }}
----
-=======
 {{- $shouldRenderStr := include "external-secrets.shouldRenderServiceMonitor" . | trim }}
 {{- if and .Values.serviceMonitor.enabled (eq $shouldRenderStr "true") }}
->>>>>>> 3b64bba20c06c92fc1d28d87861ca844a90f4590
 apiVersion: "monitoring.coreos.com/v1"
 kind: ServiceMonitor
 metadata:
