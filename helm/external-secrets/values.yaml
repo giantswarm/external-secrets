@@ -99,8 +99,6 @@ global:
       # force - Always apply configurations.
       # disabled - No modification applied.
       adaptSecurityContext: auto
-  podSecurityStandards:
-    enforced: false
 
 replicaCount: 1
 

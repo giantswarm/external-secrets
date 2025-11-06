@@ -601,14 +601,6 @@
                 "nodeSelector": {
                     "type": "object"
                 },
-                "podSecurityStandards": {
-                    "type": "object",
-                    "properties": {
-                        "enforced": {
-                            "type": "boolean"
-                        }
-                    }
-                },
                 "tolerations": {
                     "type": "array"
                 },
