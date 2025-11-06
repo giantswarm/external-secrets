@@ -23,6 +23,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - https://github.com/external-secrets/external-secrets/releases/tag/v0.20.3
   - https://github.com/external-secrets/external-secrets/releases/tag/v0.20.4
 
+### Removed
+
+- Remove PSP support (in CRD installer job, RBAC, values.yaml).
+
 ## [0.18.3] - 2025-10-03
 
 ### Changed
