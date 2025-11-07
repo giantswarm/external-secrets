@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.20.4] - 2025-11-06
+
+### Changed
+
+- Upgrading to the `v0.20.4` version. Included changes:
+  - https://github.com/external-secrets/external-secrets/releases/tag/v0.19.0
+    - Includes a breaking change because the CRDs are now too big. Apply them with `--server-side` flag of `kubectl apply`. 
+  - https://github.com/external-secrets/external-secrets/releases/tag/v0.19.1
+  - https://github.com/external-secrets/external-secrets/releases/tag/v0.19.2
+  - https://github.com/external-secrets/external-secrets/releases/tag/v0.20.0
+    - Includes a change in CRDs that make it non-backward compatible with Kubernetes releases older than `v1.30`.
+  - https://github.com/external-secrets/external-secrets/releases/tag/v0.20.1
+  - https://github.com/external-secrets/external-secrets/releases/tag/v0.20.2
+  - https://github.com/external-secrets/external-secrets/releases/tag/v0.20.3
+  - https://github.com/external-secrets/external-secrets/releases/tag/v0.20.4
+
+### Removed
+
+- Remove PSP support (in CRD installer job, RBAC, values.yaml).
+
 ## [0.18.3] - 2025-10-03
 
 ### Changed
@@ -199,7 +219,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add initial chart to deploy `external-secrets` as a Giant Swarm application
 
-[Unreleased]: https://github.com/giantswarm/external-secrets/compare/v0.18.3...HEAD
+[Unreleased]: https://github.com/giantswarm/external-secrets/compare/v0.20.4...HEAD
+[0.20.4]: https://github.com/giantswarm/external-secrets/compare/v0.18.3...v0.20.4
 [0.18.3]: https://github.com/giantswarm/external-secrets/compare/v0.18.2...v0.18.3
 [0.18.2]: https://github.com/giantswarm/external-secrets/compare/v0.18.0...v0.18.2
 [0.18.0]: https://github.com/giantswarm/external-secrets/compare/v0.11.1...v0.18.0

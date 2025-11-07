@@ -5,7 +5,7 @@ type: application
 version: "0.20.4"
 appVersion: "v0.20.4"
 upstreamChartVersion: "0.20.4"
-kubeVersion: ">= 1.19.0-0"
+kubeVersion: ">= 1.30.0-0"
 keywords:
   - kubernetes-external-secrets
   - secrets
