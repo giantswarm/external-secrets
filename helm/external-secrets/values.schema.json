@@ -279,6 +279,7 @@
         "fullnameOverride": {
             "type": "string"
         },
+<<<<<<< HEAD
         "giantswarm": {
             "type": "object",
             "properties": {
@@ -576,6 +577,16 @@
                             "type": "boolean"
                         }
                     }
+=======
+        "genericTargets": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "resources": {
+                    "type": "array"
+>>>>>>> 048c30cff5ff447d6e2e601ab0c402e46a8ff330
                 }
             }
         },
