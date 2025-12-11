@@ -225,9 +225,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [Unreleased]: https://github.com/giantswarm/external-secrets/compare/v0.20.4...HEAD
 
-### Changed
-
-- Migrate Chart.yaml annotations to new format as per https://docs.giantswarm.io/reference/platform-api/chart-metadata/
 [0.20.4]: https://github.com/giantswarm/external-secrets/compare/v0.18.3...v0.20.4
 [0.18.3]: https://github.com/giantswarm/external-secrets/compare/v0.18.2...v0.18.3
 [0.18.2]: https://github.com/giantswarm/external-secrets/compare/v0.18.0...v0.18.2
