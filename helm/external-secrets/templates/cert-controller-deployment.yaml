@@ -22,19 +22,27 @@ spec:
   {{- end }}
   template:
     metadata:
-      {{- with .Values.certController.podAnnotations }}
+      {{- if .Values.certController.podAnnotations }}
       annotations:
-        {{- toYaml . | nindent 8 }}
+        {{- toYaml .Values.certController.podAnnotations | nindent 8 }}
+      {{- else if .Values.global.podAnnotations }}
+      annotations:
+        {{- toYaml .Values.global.podAnnotations | nindent 8 }}
       {{- end }}
       labels:
         {{- include "external-secrets-cert-controller.labels" . | nindent 8 }}
-        {{- with .Values.certController.podLabels }}
-          {{- toYaml . | nindent 8 }}
+        {{- if .Values.certController.podLabels }}
+        {{- toYaml .Values.certController.podLabels | nindent 8 }}
+        {{- else if .Values.global.podLabels }}
+        {{- toYaml .Values.global.podLabels | nindent 8 }}
         {{- end }}
     spec:
-      {{- with .Values.certController.imagePullSecrets }}
+      {{- if .Values.certController.imagePullSecrets }}
       imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
+        {{- toYaml .Values.certController.imagePullSecrets | nindent 8 }}
+      {{- else if .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml .Values.global.imagePullSecrets | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "external-secrets-cert-controller.serviceAccountName" . }}
       automountServiceAccountToken: {{ .Values.certController.serviceAccount.automount }}
@@ -51,8 +59,14 @@ spec:
           securityContext:
             {{- include "external-secrets.renderSecurityContext" (dict "securityContext" . "context" $) | nindent 12 }}
           {{- end }}
+<<<<<<< HEAD
           image: "{{ .Values.giantswarm.images.registry }}/{{ .Values.giantswarm.images.certController.image }}:{{ .Values.giantswarm.images.certController.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.giantswarm.images.pullPolicy }}
+=======
+          {{- end }}
+          image: {{ include "external-secrets.image" (dict "chartAppVersion" .Chart.AppVersion "image" .Values.certController.image "context" .) | trim }}
+          imagePullPolicy: {{ .Values.certController.image.pullPolicy }}
+>>>>>>> 3f0533b9374e3e779279d2b13beca8d00eab1885
           args:
           - certcontroller
           - --crd-requeue-interval={{ .Values.certController.requeueInterval }}
@@ -135,7 +149,14 @@ spec:
       {{- end }}
       {{- with .Values.certController.topologySpreadConstraints | default .Values.global.topologySpreadConstraints }}
       topologySpreadConstraints:
-        {{- toYaml . | nindent 8 }}
+        {{- range $constraint := . }}
+        - {{ toYaml $constraint | nindent 10 | trim }}
+          {{- if not $constraint.labelSelector }}
+          labelSelector:
+            matchLabels:
+              {{- include "external-secrets-cert-controller.selectorLabels" $ | nindent 14 }}
+          {{- end }}
+        {{- end }}
       {{- end }}
       {{- if .Values.certController.priorityClassName }}
       priorityClassName: {{ .Values.certController.priorityClassName }}
