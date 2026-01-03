@@ -23,19 +23,27 @@ spec:
   {{- end }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
+      {{- if .Values.podAnnotations }}
       annotations:
-        {{- toYaml . | nindent 8 }}
+        {{- toYaml .Values.podAnnotations | nindent 8 }}
+      {{- else if .Values.global.podAnnotations }}
+      annotations:
+        {{- toYaml .Values.global.podAnnotations | nindent 8 }}
       {{- end }}
       labels:
         {{- include "external-secrets.labels" . | nindent 8 }}
-        {{- with .Values.podLabels }}
-          {{- toYaml . | nindent 8 }}
+        {{- if .Values.podLabels }}
+        {{- toYaml .Values.podLabels | nindent 8 }}
+        {{- else if .Values.global.podLabels }}
+        {{- toYaml .Values.global.podLabels | nindent 8 }}
         {{- end }}
     spec:
-      {{- with .Values.imagePullSecrets }}
+      {{- if .Values.imagePullSecrets }}
       imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
+        {{- toYaml .Values.imagePullSecrets | nindent 8 }}
+      {{- else if .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml .Values.global.imagePullSecrets | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "external-secrets.serviceAccountName" . }}
       automountServiceAccountToken: {{ .Values.serviceAccount.automount }}
@@ -52,8 +60,14 @@ spec:
           securityContext:
             {{- include "external-secrets.renderSecurityContext" (dict "securityContext" . "context" $) | nindent 12 }}
           {{- end }}
+<<<<<<< HEAD
           image: "{{ .Values.giantswarm.images.registry }}/{{ .Values.giantswarm.images.externalSecrets.image }}:{{ .Values.giantswarm.images.externalSecrets.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.giantswarm.images.pullPolicy }}
+=======
+          {{- end }}
+          image: {{ include "external-secrets.image" (dict "chartAppVersion" .Chart.AppVersion "image" .Values.image "context" .) | trim }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+>>>>>>> 9276d12e158fbf151203984496fc6c5916921a75
           {{- if or (.Values.leaderElect) (.Values.scopedNamespace) (.Values.processClusterStore) (.Values.processClusterExternalSecret) (.Values.processClusterPushSecret) (.Values.concurrent) (.Values.extraArgs) }}
           args:
           {{- if .Values.leaderElect }}
@@ -80,6 +94,9 @@ spec:
           {{- if not .Values.processPushSecret }}
           - --enable-push-secret-reconciler=false
           {{- end }}
+          {{- if not .Values.processSecretStore }}
+          - --enable-secret-store-reconciler=false
+          {{- end }}
           {{- if .Values.controllerClass }}
           - --controller-class={{ .Values.controllerClass }}
           {{- end }}
@@ -91,6 +108,9 @@ spec:
           {{- end }}
           {{- if .Values.concurrent }}
           - --concurrent={{ .Values.concurrent }}
+          {{- end }}
+          {{- if .Values.genericTargets.enabled }}
+          - --unsafe-allow-generic-targets=true
           {{- end }}
           {{- range $key, $value := .Values.extraArgs }}
             {{- if $value }}
@@ -160,7 +180,14 @@ spec:
       {{- end }}
       {{- with .Values.topologySpreadConstraints | default .Values.global.topologySpreadConstraints }}
       topologySpreadConstraints:
-        {{- toYaml . | nindent 8 }}
+        {{- range $constraint := . }}
+        - {{ toYaml $constraint | nindent 10 | trim }}
+          {{- if not $constraint.labelSelector }}
+          labelSelector:
+            matchLabels:
+              {{- include "external-secrets.selectorLabels" $ | nindent 14 }}
+          {{- end }}
+        {{- end }}
       {{- end }}
       {{- if .Values.priorityClassName }}
       priorityClassName: {{ .Values.priorityClassName }}

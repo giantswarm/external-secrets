@@ -2,13 +2,13 @@ apiVersion: v2
 name: external-secrets
 description: External secret management for Kubernetes
 type: application
-version: 0.20.4
-appVersion: v0.20.4
-upstreamChartVersion: 0.20.4
+version: "1.2.1"
+appVersion: "v1.2.1"
+upstreamChartVersion: "1.2.1"
 kubeVersion: '>= 1.30.0-0'
 keywords:
-- kubernetes-external-secrets
-- secrets
+  - kubernetes-external-secrets
+  - secrets
 home: https://github.com/giantswarm/external-secrets
 icon: https://s.giantswarm.io/app-icons/external-secrets/1/light.svg
 annotations:
@@ -16,7 +16,7 @@ annotations:
   io.giantswarm.application.restrictions.namespace-singleton: 'true'
   io.giantswarm.application.team: honeybadger
 dependencies:
-- name: bitwarden-sdk-server
-  version: v0.4.2
-  repository: oci://ghcr.io/external-secrets/charts
-  condition: bitwarden-sdk-server.enabled
+  - name: bitwarden-sdk-server
+    version: v0.4.2
+    repository: oci://ghcr.io/external-secrets/charts
+    condition: bitwarden-sdk-server.enabled
