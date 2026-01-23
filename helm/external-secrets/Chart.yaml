@@ -11,6 +11,7 @@ keywords:
 home: https://github.com/giantswarm/external-secrets
 icon: https://s.giantswarm.io/app-icons/external-secrets/1/light.svg
 annotations:
+  io.giantswarm.application.audience: all
   io.giantswarm.application.restrictions.cluster-singleton: 'true'
   io.giantswarm.application.restrictions.namespace-singleton: 'true'
   io.giantswarm.application.team: honeybadger
