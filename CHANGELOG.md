@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.20.5] - 2026-01-23
+
 ### Changed
 
 - Update chart metadata to add audience and upstream chart version annotations.
@@ -223,7 +225,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add initial chart to deploy `external-secrets` as a Giant Swarm application
 
-[Unreleased]: https://github.com/giantswarm/external-secrets/compare/v0.20.4...HEAD
+[Unreleased]: https://github.com/giantswarm/external-secrets/compare/v0.20.5...HEAD
+[0.20.5]: https://github.com/giantswarm/external-secrets/compare/v0.20.4...v0.20.5
 [0.20.4]: https://github.com/giantswarm/external-secrets/compare/v0.18.3...v0.20.4
 [0.18.3]: https://github.com/giantswarm/external-secrets/compare/v0.18.2...v0.18.3
 [0.18.2]: https://github.com/giantswarm/external-secrets/compare/v0.18.0...v0.18.2
