@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Migrate Chart.yaml annotations to new format as per https://docs.giantswarm.io/reference/platform-api/chart-metadata/
+- Update chart metadata to add audience and upstream chart version annotations.
+
 ## [0.20.4] - 2025-11-06
 
 ### Changed
