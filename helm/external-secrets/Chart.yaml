@@ -18,6 +18,6 @@ annotations:
   io.giantswarm.application.upstream-chart-version: 0.20.4
 dependencies:
   - name: bitwarden-sdk-server
-    version: v0.4.2
+    version: v0.5.3
     repository: oci://ghcr.io/external-secrets/charts
     condition: bitwarden-sdk-server.enabled
