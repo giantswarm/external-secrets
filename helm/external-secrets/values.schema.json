@@ -46,6 +46,32 @@
                 "hostNetwork": {
                     "type": "boolean"
                 },
+<<<<<<< HEAD
+=======
+                "hostUsers": {
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "flavour": {
+                            "type": "string"
+                        },
+                        "pullPolicy": {
+                            "type": "string"
+                        },
+                        "repository": {
+                            "type": "string"
+                        },
+                        "tag": {
+                            "type": "string"
+                        }
+                    }
+                },
+>>>>>>> b4f61f6949b96727805403350d9df3075a059ea0
                 "imagePullSecrets": {
                     "type": "array"
                 },
@@ -234,6 +260,12 @@
                 },
                 "createPushSecret": {
                     "type": "boolean"
+                },
+                "createSecretStore": {
+                    "type": "boolean"
+                },
+                "unsafeServeV1Beta1": {
+                    "type": "boolean"
                 }
             }
         },
@@ -279,6 +311,7 @@
         "fullnameOverride": {
             "type": "string"
         },
+<<<<<<< HEAD
         "giantswarm": {
             "type": "object",
             "properties": {
@@ -576,6 +609,16 @@
                             "type": "boolean"
                         }
                     }
+=======
+        "genericTargets": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "resources": {
+                    "type": "array"
+>>>>>>> b4f61f6949b96727805403350d9df3075a059ea0
                 }
             }
         },
@@ -598,8 +641,20 @@
                         }
                     }
                 },
+                "imagePullSecrets": {
+                    "type": "array"
+                },
                 "nodeSelector": {
                     "type": "object"
+                },
+                "podAnnotations": {
+                    "type": "object"
+                },
+                "podLabels": {
+                    "type": "object"
+                },
+                "repository": {
+                    "type": "string"
                 },
                 "tolerations": {
                     "type": "array"
@@ -632,6 +687,32 @@
         "hostNetwork": {
             "type": "boolean"
         },
+<<<<<<< HEAD
+=======
+        "hostUsers": {
+            "type": [
+                "boolean",
+                "null"
+            ]
+        },
+        "image": {
+            "type": "object",
+            "properties": {
+                "flavour": {
+                    "type": "string"
+                },
+                "pullPolicy": {
+                    "type": "string"
+                },
+                "repository": {
+                    "type": "string"
+                },
+                "tag": {
+                    "type": "string"
+                }
+            }
+        },
+>>>>>>> b4f61f6949b96727805403350d9df3075a059ea0
         "imagePullSecrets": {
             "type": "array"
         },
@@ -668,6 +749,9 @@
                             "type": "integer"
                         },
                         "periodSeconds": {
+                            "type": "integer"
+                        },
+                        "port": {
                             "type": "integer"
                         },
                         "successThreshold": {
@@ -794,6 +878,9 @@
             "type": "boolean"
         },
         "processPushSecret": {
+            "type": "boolean"
+        },
+        "processSecretStore": {
             "type": "boolean"
         },
         "rbac": {
@@ -955,11 +1042,17 @@
                                         }
                                     }
                                 },
+                                "privateKey": {
+                                    "type": "object"
+                                },
                                 "renewBefore": {
                                     "type": "string"
                                 },
                                 "revisionHistoryLimit": {
                                     "type": "integer"
+                                },
+                                "signatureAlgorithm": {
+                                    "type": "string"
                                 }
                             }
                         },
@@ -995,6 +1088,32 @@
                 "hostNetwork": {
                     "type": "boolean"
                 },
+<<<<<<< HEAD
+=======
+                "hostUsers": {
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "flavour": {
+                            "type": "string"
+                        },
+                        "pullPolicy": {
+                            "type": "string"
+                        },
+                        "repository": {
+                            "type": "string"
+                        },
+                        "tag": {
+                            "type": "string"
+                        }
+                    }
+                },
+>>>>>>> b4f61f6949b96727805403350d9df3075a059ea0
                 "imagePullSecrets": {
                     "type": "array"
                 },
