@@ -43,9 +43,38 @@
                 "extraVolumes": {
                     "type": "array"
                 },
+                "hostAliases": {
+                    "type": "array"
+                },
                 "hostNetwork": {
                     "type": "boolean"
                 },
+<<<<<<< HEAD
+=======
+                "hostUsers": {
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "flavour": {
+                            "type": "string"
+                        },
+                        "pullPolicy": {
+                            "type": "string"
+                        },
+                        "repository": {
+                            "type": "string"
+                        },
+                        "tag": {
+                            "type": "string"
+                        }
+                    }
+                },
+>>>>>>> 97bd49de76e91aee001dd90db90d1c4d6fcf98c6
                 "imagePullSecrets": {
                     "type": "array"
                 },
@@ -234,6 +263,12 @@
                 },
                 "createPushSecret": {
                     "type": "boolean"
+                },
+                "createSecretStore": {
+                    "type": "boolean"
+                },
+                "unsafeServeV1Beta1": {
+                    "type": "boolean"
                 }
             }
         },
@@ -279,6 +314,7 @@
         "fullnameOverride": {
             "type": "string"
         },
+<<<<<<< HEAD
         "giantswarm": {
             "type": "object",
             "properties": {
@@ -576,6 +612,16 @@
                             "type": "boolean"
                         }
                     }
+=======
+        "genericTargets": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "resources": {
+                    "type": "array"
+>>>>>>> 97bd49de76e91aee001dd90db90d1c4d6fcf98c6
                 }
             }
         },
@@ -598,8 +644,23 @@
                         }
                     }
                 },
+                "hostAliases": {
+                    "type": "array"
+                },
+                "imagePullSecrets": {
+                    "type": "array"
+                },
                 "nodeSelector": {
                     "type": "object"
+                },
+                "podAnnotations": {
+                    "type": "object"
+                },
+                "podLabels": {
+                    "type": "object"
+                },
+                "repository": {
+                    "type": "string"
                 },
                 "tolerations": {
                     "type": "array"
@@ -629,9 +690,38 @@
                 }
             }
         },
+        "hostAliases": {
+            "type": "array"
+        },
         "hostNetwork": {
             "type": "boolean"
         },
+<<<<<<< HEAD
+=======
+        "hostUsers": {
+            "type": [
+                "boolean",
+                "null"
+            ]
+        },
+        "image": {
+            "type": "object",
+            "properties": {
+                "flavour": {
+                    "type": "string"
+                },
+                "pullPolicy": {
+                    "type": "string"
+                },
+                "repository": {
+                    "type": "string"
+                },
+                "tag": {
+                    "type": "string"
+                }
+            }
+        },
+>>>>>>> 97bd49de76e91aee001dd90db90d1c4d6fcf98c6
         "imagePullSecrets": {
             "type": "array"
         },
@@ -668,6 +758,9 @@
                             "type": "integer"
                         },
                         "periodSeconds": {
+                            "type": "integer"
+                        },
+                        "port": {
                             "type": "integer"
                         },
                         "successThreshold": {
@@ -794,6 +887,9 @@
             "type": "boolean"
         },
         "processPushSecret": {
+            "type": "boolean"
+        },
+        "processSecretStore": {
             "type": "boolean"
         },
         "rbac": {
@@ -955,11 +1051,17 @@
                                         }
                                     }
                                 },
+                                "privateKey": {
+                                    "type": "object"
+                                },
                                 "renewBefore": {
                                     "type": "string"
                                 },
                                 "revisionHistoryLimit": {
                                     "type": "integer"
+                                },
+                                "signatureAlgorithm": {
+                                    "type": "string"
                                 }
                             }
                         },
@@ -992,9 +1094,38 @@
                 "failurePolicy": {
                     "type": "string"
                 },
+                "hostAliases": {
+                    "type": "array"
+                },
                 "hostNetwork": {
                     "type": "boolean"
                 },
+<<<<<<< HEAD
+=======
+                "hostUsers": {
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "flavour": {
+                            "type": "string"
+                        },
+                        "pullPolicy": {
+                            "type": "string"
+                        },
+                        "repository": {
+                            "type": "string"
+                        },
+                        "tag": {
+                            "type": "string"
+                        }
+                    }
+                },
+>>>>>>> 97bd49de76e91aee001dd90db90d1c4d6fcf98c6
                 "imagePullSecrets": {
                     "type": "array"
                 },
