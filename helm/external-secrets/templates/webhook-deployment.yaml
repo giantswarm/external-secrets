@@ -22,23 +22,36 @@ spec:
   {{- end }}
   template:
     metadata:
-      {{- with .Values.webhook.podAnnotations }}
+      {{- if .Values.webhook.podAnnotations }}
       annotations:
-        {{- toYaml . | nindent 8 }}
+        {{- toYaml .Values.webhook.podAnnotations | nindent 8 }}
+      {{- else if .Values.global.podAnnotations }}
+      annotations:
+        {{- toYaml .Values.global.podAnnotations | nindent 8 }}
       {{- end }}
       labels:
         {{- include "external-secrets-webhook.labels" . | nindent 8 }}
-        {{- with .Values.webhook.podLabels }}
-          {{- toYaml . | nindent 8 }}
+        {{- if .Values.webhook.podLabels }}
+        {{- toYaml .Values.webhook.podLabels | nindent 8 }}
+        {{- else if .Values.global.podLabels }}
+        {{- toYaml .Values.global.podLabels | nindent 8 }}
         {{- end }}
     spec:
-      {{- with .Values.webhook.imagePullSecrets }}
+      {{- if .Values.webhook.imagePullSecrets }}
       imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
+        {{- toYaml .Values.webhook.imagePullSecrets | nindent 8 }}
+      {{- else if .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml .Values.global.imagePullSecrets | nindent 8 }}
       {{- end }}
       hostNetwork: {{ .Values.webhook.hostNetwork}}
       serviceAccountName: {{ include "external-secrets-webhook.serviceAccountName" . }}
       automountServiceAccountToken: {{ .Values.webhook.serviceAccount.automount }}
+      {{- if (semverCompare ">= 1.33-0" .Capabilities.KubeVersion.Version) }}
+      {{- if kindIs "bool" .Values.webhook.hostUsers }}
+      hostUsers: {{ .Values.webhook.hostUsers }}
+      {{- end }}
+      {{- end }}
       {{- with .Values.webhook.podSecurityContext }}
       {{- if and (.enabled) (gt (keys . | len) 1) }}
       securityContext:
@@ -51,8 +64,14 @@ spec:
           securityContext:
             {{- include "external-secrets.renderSecurityContext" (dict "securityContext" . "context" $) | nindent 12 }}
           {{- end }}
+<<<<<<< HEAD
           image: "{{ .Values.giantswarm.images.registry }}/{{ .Values.giantswarm.images.webhook.image }}:{{ .Values.giantswarm.images.webhook.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.giantswarm.images.pullPolicy }}
+=======
+          {{- end }}
+          image: {{ include "external-secrets.image" (dict "chartAppVersion" .Chart.AppVersion "image" .Values.webhook.image "context" .) | trim }}
+          imagePullPolicy: {{ .Values.webhook.image.pullPolicy }}
+>>>>>>> 97bd49de76e91aee001dd90db90d1c4d6fcf98c6
           args:
           - webhook
           - --port={{ .Values.webhook.port }}
@@ -83,9 +102,12 @@ spec:
             - containerPort: {{ .Values.webhook.port }}
               protocol: TCP
               name: webhook
+            - containerPort: {{ .Values.webhook.readinessProbe.port }}
+              protocol: TCP
+              name: ready
           readinessProbe:
             httpGet:
-              port: {{ .Values.webhook.readinessProbe.port }}
+              port: ready
               path: /readyz
             initialDelaySeconds: 20
             periodSeconds: 5
@@ -113,6 +135,10 @@ spec:
       {{- if .Values.webhook.extraVolumes }}
       {{- toYaml .Values.webhook.extraVolumes | nindent 8 }}
       {{- end }}
+      {{- with .Values.webhook.hostAliases | default .Values.global.hostAliases }}
+      hostAliases:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       {{- with .Values.webhook.nodeSelector | default .Values.global.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -127,7 +153,14 @@ spec:
       {{- end }}
       {{- with .Values.webhook.topologySpreadConstraints | default .Values.global.topologySpreadConstraints }}
       topologySpreadConstraints:
-        {{- toYaml . | nindent 8 }}
+        {{- range $constraint := . }}
+        - {{ toYaml $constraint | nindent 10 | trim }}
+          {{- if not $constraint.labelSelector }}
+          labelSelector:
+            matchLabels:
+              {{- include "external-secrets-webhook.selectorLabels" $ | nindent 14 }}
+          {{- end }}
+        {{- end }}
       {{- end }}
       {{- if .Values.webhook.priorityClassName }}
       priorityClassName: {{ .Values.webhook.priorityClassName }}
