@@ -86,6 +86,19 @@ metadata:
 
 See our [full reference on how to configure apps](https://docs.giantswarm.io/app-platform/app-configuration/) for more details.
 
+### Configuration reference
+
+A detailed description of all configuration values is available in the per-chart
+[`helm/external-secrets/README.md`](helm/external-secrets/README.md) file, which is
+auto-generated from comments in `values.yaml` using
+[helm-docs](https://github.com/norwoodj/helm-docs).
+
+### Values schema
+
+A JSON Schema file (`helm/external-secrets/values.schema.json`) is provided to validate
+user-supplied `values.yaml` files. It is auto-generated from annotations in `values.yaml`
+using [helm-values-schema-json](https://github.com/losisin/helm-values-schema-json).
+
 ## Credit
 
 - https://github.com/external-secrets/external-secrets
