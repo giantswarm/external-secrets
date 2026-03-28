@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Enable `helm-docs` for auto-generated chart README and `helm-values-schema-json` for values schema generation.
+
 ## [0.20.5] - 2026-01-23
 
 ### Changed
@@ -19,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Upgrading to the `v0.20.4` version. Included changes:
   - https://github.com/external-secrets/external-secrets/releases/tag/v0.19.0
-    - Includes a breaking change because the CRDs are now too big. Apply them with `--server-side` flag of `kubectl apply`. 
+    - Includes a breaking change because the CRDs are now too big. Apply them with `--server-side` flag of `kubectl apply`.
   - https://github.com/external-secrets/external-secrets/releases/tag/v0.19.1
   - https://github.com/external-secrets/external-secrets/releases/tag/v0.19.2
   - https://github.com/external-secrets/external-secrets/releases/tag/v0.20.0

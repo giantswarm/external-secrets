@@ -1,24 +1,58 @@
+# @schema type: object
+# -- Giant Swarm specific configuration.
 giantswarm:
+  # @schema type: object
+  # -- Container image configuration.
   images:
+    # @schema type: string
+    # -- Container image registry.
     registry: gsoci.azurecr.io
+    # @schema type: object
+    # -- External Secrets operator image settings.
     externalSecrets:
+      # @schema type: string
+      # -- Image repository for the external-secrets operator.
       image: giantswarm/external-secrets
+      # @schema type: string
+      # -- Image tag override; defaults to the chart appVersion.
       tag: ""
+    # @schema type: object
+    # -- Certificate controller image settings.
     certController:
+      # @schema type: string
+      # -- Image repository for the cert controller.
       image: giantswarm/external-secrets
+      # @schema type: string
+      # -- Image tag override; defaults to the chart appVersion.
       tag: ""
+    # @schema type: object
+    # -- Webhook image settings.
     webhook:
+      # @schema type: string
+      # -- Image repository for the webhook.
       image: giantswarm/external-secrets
+      # @schema type: string
+      # -- Image tag override; defaults to the chart appVersion.
       tag: ""
+    # @schema enum: [Always, IfNotPresent, Never]
+    # -- Image pull policy for all containers.
     pullPolicy: IfNotPresent
 
-  # Allows VPA to be used if it's installed in the cluster
+  # @schema type: object
+  # -- Vertical Pod Autoscaler configuration. Allows VPA to be used if it's installed in the cluster.
   verticalPodAutoscaler:
+    # @schema type: boolean
+    # -- Enable Vertical Pod Autoscaler.
     enabled: true
-    # Enables bypassing "autoscaling.k8s.io/v1" check; use with care
+    # @schema type: boolean
+    # -- Enables bypassing "autoscaling.k8s.io/v1" check; use with care.
     force: false
 
+  # @schema type: object
+  # -- Resource requests and limits for Giant Swarm managed containers.
   resources:
+    # @schema $ref: $k8s/_definitions.json#/definitions/io.k8s.api.core.v1.ResourceRequirements
+    # -- Resource requests and limits for the external-secrets operator.
     externalSecrets:
       limits:
         cpu: 100m
@@ -26,6 +60,8 @@ giantswarm:
       requests:
         cpu: 100m
         memory: 256Mi
+    # @schema $ref: $k8s/_definitions.json#/definitions/io.k8s.api.core.v1.ResourceRequirements
+    # -- Resource requests and limits for the cert controller.
     certController:
       limits:
         cpu: 100m
@@ -33,6 +69,8 @@ giantswarm:
       requests:
         cpu: 100m
         memory: 256Mi
+    # @schema $ref: $k8s/_definitions.json#/definitions/io.k8s.api.core.v1.ResourceRequirements
+    # -- Resource requests and limits for the webhook.
     webhook:
       limits:
         cpu: 100m
@@ -41,7 +79,11 @@ giantswarm:
         cpu: 100m
         memory: 256Mi
 
+  # @schema type: object
+  # -- Security context overrides for Giant Swarm managed containers.
   securityContext:
+    # @schema $ref: $k8s/_definitions.json#/definitions/io.k8s.api.core.v1.SecurityContext
+    # -- Security context for the external-secrets operator container.
     externalSecrets:
       allowPrivilegeEscalation: false
       capabilities:
@@ -52,6 +94,8 @@ giantswarm:
       runAsUser: 1000
       seccompProfile:
         type: RuntimeDefault
+    # @schema $ref: $k8s/_definitions.json#/definitions/io.k8s.api.core.v1.SecurityContext
+    # -- Security context for the cert controller container.
     certController:
       allowPrivilegeEscalation: false
       capabilities:
@@ -62,6 +106,8 @@ giantswarm:
       runAsUser: 1000
       seccompProfile:
         type: RuntimeDefault
+    # @schema $ref: $k8s/_definitions.json#/definitions/io.k8s.api.core.v1.SecurityContext
+    # -- Security context for the webhook container.
     webhook:
       allowPrivilegeEscalation: false
       capabilities:
@@ -73,9 +119,17 @@ giantswarm:
       seccompProfile:
         type: RuntimeDefault
 
+  # @schema type: object
+  # -- CRD installation configuration for Giant Swarm.
   crds:
+    # @schema type: boolean
+    # -- Whether to install CRDs via a pre-install job.
     install: true
+    # @schema type: string
+    # -- Name of the pod used for CRD installation.
     podName: kubectl
+    # @schema $ref: $k8s/_definitions.json#/definitions/io.k8s.api.core.v1.ResourceRequirements
+    # -- Resource requests and limits for the CRD installation job.
     resources:
       requests:
         memory: "256Mi"
@@ -84,15 +138,32 @@ giantswarm:
         memory: "512Mi"
         cpu: "500m"
 
+  # @schema type: string
+  # -- Namespace for policy exceptions.
   policyExceptionNamespace: ""
 
+# @schema type: object
+# -- Global values shared across all sub-charts.
 global:
+  # @schema type: object
+  # -- Node selector for all pods.
   nodeSelector: {}
+  # @schema type: array; item: object
+  # -- Tolerations for all pods.
   tolerations: []
+  # @schema type: array; item: object
+  # -- Topology spread constraints for all pods.
   topologySpreadConstraints: []
+  # @schema type: object
+  # -- Affinity rules for all pods.
   affinity: {}
+  # @schema type: object
+  # -- Compatibility settings.
   compatibility:
+    # @schema type: object
+    # -- OpenShift compatibility settings.
     openshift:
+      # @schema enum: [auto, force, disabled]
       # -- Manages the securityContext properties to make them compatible with OpenShift.
       # Possible values:
       # auto - Apply configurations if it is detected that OpenShift is the target platform.
@@ -100,206 +171,312 @@ global:
       # disabled - No modification applied.
       adaptSecurityContext: auto
 
+# @schema type: integer
+# -- Number of replicas for the external-secrets operator deployment.
 replicaCount: 1
 
+# @schema type: object
+# -- Bitwarden SDK server sub-chart configuration.
 bitwarden-sdk-server:
+  # @schema type: boolean
+  # -- Enable the Bitwarden SDK server sub-chart.
   enabled: false
+  # @schema type: string
+  # -- Override the namespace for the Bitwarden SDK server.
   namespaceOverride: ""
 
+# @schema type: object
+# -- Container image configuration for the operator.
+image:
+  # @schema type: string
+  # -- Image repository for the operator.
+  repository: ""
+  # @schema type: string
+  # -- Image tag for the operator.
+  tag: ""
+  # @schema type: string; enum: [Always, IfNotPresent, Never, ""]
+  # -- Image pull policy for the operator.
+  pullPolicy: ""
+  # @schema type: string
+  # -- Image flavor for the operator.
+  flavour: ""
+
+# @schema type: integer
 # -- Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy)
 revisionHistoryLimit: 10
 
+# @schema type: object
+# -- CRD creation configuration.
 crds:
+  # @schema type: boolean
   # -- If true, create CRDs for Cluster External Secret.
   createClusterExternalSecret: true
+  # @schema type: boolean
   # -- If true, create CRDs for Cluster Secret Store.
   createClusterSecretStore: true
+  # @schema type: boolean
   # -- If true, create CRDs for Cluster Generator.
   createClusterGenerator: true
+  # @schema type: boolean
   # -- If true, create CRDs for Cluster Push Secret.
   createClusterPushSecret: true
+  # @schema type: boolean
   # -- If true, create CRDs for Push Secret.
   createPushSecret: true
+  # @schema type: object
+  # -- Annotations to add to CRDs.
   annotations: {}
+  # @schema type: object
+  # -- CRD conversion webhook settings.
   conversion:
+    # @schema type: boolean
     # -- Conversion is disabled by default as we stopped supporting v1alpha1.
     enabled: false
 
+# @schema type: array; item: object
+# -- Docker registry secrets for pulling images.
 imagePullSecrets: []
+# @schema type: string
+# -- Override the name of the chart.
 nameOverride: ""
+# @schema type: string
+# -- Override the full name of the chart.
 fullnameOverride: ""
+# @schema type: string
+# -- Override the namespace for the chart.
 namespaceOverride: ""
 
+# @schema type: object
 # -- Additional labels added to all helm chart resources.
 commonLabels: {}
 
+# @schema type: boolean
 # -- If true, external-secrets will perform leader election between instances to ensure no more
 # than one instance of external-secrets operates at a time.
 leaderElect: false
 
+# @schema type: string
 # -- If set external secrets will filter matching
 # Secret Stores with the appropriate controller values.
 controllerClass: ""
 
+# @schema type: boolean
 # -- If true external secrets will use recommended kubernetes
 # annotations as prometheus metric labels.
 extendedMetricLabels: false
 
+# @schema type: string
 # -- If set external secrets are only reconciled in the
 # provided namespace
 scopedNamespace: ""
 
+# @schema type: boolean
 # -- Must be used with scopedNamespace. If true, create scoped RBAC roles under the scoped namespace
 # and implicitly disable cluster stores and cluster external secrets
 scopedRBAC: false
 
+# @schema type: boolean
 # -- If true the OpenShift finalizer permissions will be added to RBAC
 openshiftFinalizers: true
 
+# @schema type: boolean
 # -- If true the system:auth-delegator ClusterRole will be added to RBAC
 systemAuthDelegator: false
 
+# @schema type: boolean
 # -- if true, the operator will process cluster external secret. Else, it will ignore them.
 # When enabled, this adds update/patch permissions on namespaces to handle finalizers for proper
 # cleanup during namespace deletion, preventing race conditions with ExternalSecrets.
 processClusterExternalSecret: true
 
+# @schema type: boolean
 # -- if true, the operator will process cluster push secret. Else, it will ignore them.
 processClusterPushSecret: true
 
+# @schema type: boolean
 # -- if true, the operator will process cluster store. Else, it will ignore them.
 processClusterStore: true
 
+# @schema type: boolean
 # -- if true, the operator will process cluster generator. Else, it will ignore them.
 processClusterGenerator: true
 
+# @schema type: boolean
 # -- if true, the operator will process push secret. Else, it will ignore them.
 processPushSecret: true
 
+# @schema type: boolean
 # -- Specifies whether an external secret operator deployment be created.
 createOperator: true
 
+# @schema type: boolean
 # -- if true, HTTP2 will be enabled for the services created by all controllers, curently metrics and webhook.
 enableHTTP2: false
 
+# @schema type: integer
 # -- Specifies the number of concurrent ExternalSecret Reconciles external-secret executes at
 # a time.
 concurrent: 1
+# @schema type: object
 # -- Specifies Log Params to the External Secrets Operator
 log:
+  # @schema type: string
+  # -- Log level for the operator.
   level: info
+  # @schema type: string
+  # -- Log time encoding format.
   timeEncoding: epoch
+# @schema type: object
+# -- Kubernetes Service configuration for the operator.
 service:
+  # @schema type: string
   # -- Set the ip family policy to configure dual-stack see [Configure dual-stack](https://kubernetes.io/docs/concepts/services-networking/dual-stack/#services)
   ipFamilyPolicy: ""
+  # @schema type: array; item: string
   # -- Sets the families that should be supported and the order in which they should be applied to ClusterIP as well. Can be IPv4 and/or IPv6.
   ipFamilies: []
 
+# @schema type: object
+# -- Service account configuration for the operator.
 serviceAccount:
+  # @schema type: boolean
   # -- Specifies whether a service account should be created.
   create: true
+  # @schema type: boolean
   # -- Automounts the service account token in all containers of the pod
   automount: true
+  # @schema type: object
   # -- Annotations to add to the service account.
   annotations: {}
+  # @schema type: object
   # -- Extra Labels to add to the service account.
   extraLabels: {}
+  # @schema type: string
   # -- The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template.
   name: ""
 
+# @schema type: object
+# -- RBAC configuration for the operator.
 rbac:
+  # @schema type: boolean
   # -- Specifies whether role and rolebinding resources should be created.
   create: true
 
+  # @schema type: object
+  # -- Service bindings RBAC settings.
   servicebindings:
+    # @schema type: boolean
     # -- Specifies whether a clusterrole to give servicebindings read access should be created.
     create: true
 
+  # @schema type: boolean
   # -- Specifies whether permissions are aggregated to the view ClusterRole
   aggregateToView: true
 
+  # @schema type: boolean
   # -- Specifies whether permissions are aggregated to the edit ClusterRole
   aggregateToEdit: true
 
-## -- Extra environment variables to add to container.
+# @schema type: array; item: object
+# -- Extra environment variables to add to container.
 extraEnv: []
 
-## -- Map of extra arguments to pass to container.
+# @schema type: object
+# -- Map of extra arguments to pass to container.
 extraArgs: {}
 
-## -- Extra volumes to pass to pod.
+# @schema type: array; item: object
+# -- Extra volumes to pass to pod.
 extraVolumes: []
 
-## -- Extra Kubernetes objects to deploy with the helm chart
+# @schema type: array; item: object
+# -- Extra Kubernetes objects to deploy with the helm chart
 extraObjects: []
 
-## -- Extra volumes to mount to the container.
+# @schema type: array; item: object
+# -- Extra volumes to mount to the container.
 extraVolumeMounts: []
 
-## -- Extra init containers to add to the pod.
+# @schema type: array; item: object
+# -- Extra init containers to add to the pod.
 extraInitContainers: []
 
-## -- Extra containers to add to the pod.
+# @schema type: array; item: object
+# -- Extra containers to add to the pod.
 extraContainers: []
 
+# @schema type: object
 # -- Annotations to add to Deployment
 deploymentAnnotations: {}
 
- # -- Set deployment strategy
+# @schema type: object
+# -- Set deployment strategy
 strategy: {}
 
+# @schema type: object
 # -- Annotations to add to Pod
 podAnnotations: {}
 
+# @schema type: object
+# -- Extra labels to add to Pod.
 podLabels: {}
 
+# @schema type: object
+# -- Pod-level security context for the operator.
 podSecurityContext:
+  # @schema type: boolean
+  # -- Enable pod security context.
   enabled: true
   # fsGroup: 2000
 
 # Moved to giantswarm.securityContext.externalSecrets
 # securityContext: {}
 
+# @schema type: object
+# -- Resource requests and limits for the operator container.
 resources:
   {}
   # requests:
   #   cpu: 10m
   #   memory: 32Mi
 
+# @schema type: object
+# -- ServiceMonitor configuration for Prometheus metrics collection.
 serviceMonitor:
+  # @schema type: boolean
   # -- Specifies whether to create a ServiceMonitor resource for collecting Prometheus metrics
   enabled: false
 
+  # @schema enum: [skipIfMissing, failIfMissing, alwaysRender]
   # -- How should we react to missing CRD "`monitoring.coreos.com/v1/ServiceMonitor`"
   #
   # Possible values:
   # - `skipIfMissing`: Only render ServiceMonitor resources if CRD is present, skip if missing.
   # - `failIfMissing`: Fail Helm install if CRD is not present.
   # - `alwaysRender` : Always render ServiceMonitor resources, do not check for CRD.
+  renderMode: skipIfMissing
 
-  # @schema
-  # enum:
-  # - skipIfMissing
-  # - failIfMissing
-  # - alwaysRender
-  # @schema
-  renderMode: skipIfMissing   # @schema enum: [skipIfMissing, failIfMissing, alwaysRender]
-
+  # @schema type: string
   # -- namespace where you want to install ServiceMonitors
   namespace: ""
 
+  # @schema type: object
   # -- Additional labels
   additionalLabels: {}
 
+  # @schema type: string
   # --  Interval to scrape metrics
   interval: 30s
 
+  # @schema type: string
   # -- Timeout if metrics can't be retrieved in given time interval
   scrapeTimeout: 25s
 
+  # @schema type: boolean
   # -- Let prometheus add an exported_ prefix to conflicting labels
   honorLabels: false
+  # @schema type: array; item: object
   # -- Metric relabel configs to apply to samples before ingestion. [Metric Relabeling](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs)
   metricRelabelings: []
   # - action: replace
@@ -308,6 +485,7 @@ serviceMonitor:
   #   sourceLabels:
   #   - exported_namespace
   #   targetLabel: namespace
+  # @schema type: array; item: object
   # -- Relabel configs to apply to samples before ingestion. [Relabeling](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config)
   relabelings: []
   # - sourceLabels: [__meta_kubernetes_pod_node_name]
@@ -317,379 +495,645 @@ serviceMonitor:
   #   replacement: $1
   #   action: replace
 
+# @schema type: object
+# -- Metrics endpoint configuration.
 metrics:
+  # @schema type: object
+  # -- Metrics listener configuration.
   listen:
+    # @schema type: integer
+    # -- Port for the metrics endpoint.
     port: 8080
+    # @schema type: object
+    # -- Secure metrics endpoint configuration.
     secure:
+      # @schema type: boolean
+      # -- Enable TLS for the metrics endpoint.
       enabled: false
+      # @schema type: string
       # -- if those are not set or invalid, self-signed certs will be generated
       # -- TLS cert directory path
       certDir: /etc/tls
+      # @schema type: string
       # -- TLS cert file path
       certFile: /etc/tls/tls.crt
+      # @schema type: string
       # -- TLS key file path
       keyFile: /etc/tls/tls.key
 
+  # @schema type: object
+  # -- Metrics Kubernetes Service configuration.
   service:
+    # @schema type: boolean
     # -- Enable if you use another monitoring tool than Prometheus to scrape the metrics
     enabled: false
 
+    # @schema type: integer
     # -- Metrics service port to scrape
     port: 8080
 
+    # @schema type: object
     # -- Additional service annotations
     annotations: {}
 
+# @schema type: object
+# -- Grafana dashboard configuration.
 grafanaDashboard:
+  # @schema type: boolean
   # -- If true creates a Grafana dashboard.
   enabled: false
 
+  # @schema type: string
   # -- Label that ConfigMaps should have to be loaded as dashboards.
   sidecarLabel: "grafana_dashboard"
 
+  # @schema type: string
   # -- Label value that ConfigMaps should have to be loaded as dashboards.
   sidecarLabelValue: "1"
 
+  # @schema type: object
   # -- Annotations that ConfigMaps can have to get configured in Grafana,
   # See: sidecar.dashboards.folderAnnotation for specifying the dashboard folder.
   # https://github.com/grafana/helm-charts/tree/main/charts/grafana
   annotations: {}
 
+  # @schema type: object
   # -- Extra labels to add to the Grafana dashboard ConfigMap.
   extraLabels: {}
 
+# @schema type: object
+# -- Liveness probe configuration for the operator.
 livenessProbe:
+  # @schema type: boolean
   # -- Enabled determines if the liveness probe should be used or not. By default it's disabled.
   enabled: false
+  # @schema type: object
   # -- The body of the liveness probe settings.
   spec:
+    # @schema type: string
     # -- Address for liveness probe.
     address: ""
+    # @schema type: integer
     # -- Specify the maximum amount of time to wait for a probe to respond before considering it fails.
     timeoutSeconds: 5
+    # @schema type: integer
     # -- Number of consecutive probe failures that should occur before considering the probe as failed.
     failureThreshold: 5
+    # @schema type: integer
     # -- Period in seconds for K8s to start performing probes.
     periodSeconds: 10
+    # @schema type: integer
     # -- Number of successful probes to mark probe successful.
     successThreshold: 1
+    # @schema type: integer
     # -- Delay in seconds for the container to start before performing the initial probe.
     initialDelaySeconds: 10
+    # @schema type: object
     # -- Handler for liveness probe.
     httpGet:
-      # -- Set this value to 8082 to active liveness probes.
       # @schema type: [string, integer]
+      # -- Set this value to 8082 to active liveness probes.
       port: 8082
+      # @schema type: string
       # -- Path for liveness probe.
       path: /healthz
 
+# @schema type: object
+# -- Node selector for the operator pod.
 nodeSelector: {}
 
+# @schema type: array; item: object
+# -- Tolerations for the operator pod.
 tolerations: []
 
+# @schema type: array; item: object
+# -- Topology spread constraints for the operator pod.
 topologySpreadConstraints: []
 
+# @schema type: object
+# -- Affinity rules for the operator pod.
 affinity: {}
 
+# @schema type: string
 # -- Pod priority class name.
 priorityClassName: ""
 
+# @schema type: object
 # -- Pod disruption budget - for more details see https://kubernetes.io/docs/concepts/workloads/pods/disruptions/
 podDisruptionBudget:
+  # @schema type: boolean
+  # -- Enable pod disruption budget.
   enabled: false
-  minAvailable: 1    # @schema type:[integer, string]
+  # @schema type: [integer, string]
+  # -- Minimum number of pods that must be available.
+  minAvailable: 1
+  # @schema type: string
+  # -- Override the name of the PDB resource.
   nameOverride: ""
   # maxUnavailable: "50%"
 
+# @schema type: boolean
 # -- Run the controller on the host network
 hostNetwork: false
 
+# @schema type: object
+# -- Webhook configuration.
 webhook:
+  # @schema type: object
+  # -- Container image configuration for the webhook.
+  image:
+    # @schema type: string
+    # -- Image repository for the webhook.
+    repository: ""
+    # @schema type: string
+    # -- Image tag for the webhook.
+    tag: ""
+    # @schema type: string; enum: [Always, IfNotPresent, Never, ""]
+    # -- Image pull policy for the webhook.
+    pullPolicy: ""
+    # @schema type: string
+    # -- Image flavor for the webhook.
+    flavour: ""
+  # @schema type: object
   # -- Annotations to place on validating webhook configuration.
   annotations: {}
+  # @schema type: boolean
   # -- Specifies whether a webhook deployment be created. If set to false, crds.conversion.enabled should also be set to false otherwise the kubeapi will be hammered because the conversion is looking for a webhook endpoint.
   create: true
+  # @schema type: string
   # -- Specifies the time to check if the cert is valid
   certCheckInterval: "5m"
+  # @schema type: string
   # -- Specifies the lookaheadInterval for certificate validity
   lookaheadInterval: ""
+  # @schema type: integer
+  # -- Number of replicas for the webhook deployment.
   replicaCount: 1
+  # @schema type: object
   # -- Specifies Log Params to the Webhook
   log:
+    # @schema type: string
+    # -- Log level for the webhook.
     level: info
+    # @schema type: string
+    # -- Log time encoding format.
     timeEncoding: epoch
+  # @schema type: integer
   # -- Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy)
   revisionHistoryLimit: 10
 
+  # @schema type: string
+  # -- Directory for TLS certificates.
   certDir: /tmp/certs
+  # @schema type: string; enum: [Fail, Ignore]
   # -- Specifies whether validating webhooks should be created with failurePolicy: Fail or Ignore
   failurePolicy: Fail
+  # @schema type: boolean
   # -- Specifies if webhook pod should use hostNetwork or not.
   hostNetwork: false
+  # @schema type: array; item: object
+  # -- Docker registry secrets for pulling webhook images.
   imagePullSecrets: []
+  # @schema type: integer
   # -- The port the webhook will listen to
   port: 10250
+  # @schema type: object
+  # -- Service account configuration for the webhook.
   serviceAccount:
+    # @schema type: boolean
     # -- Specifies whether a service account should be created.
     create: true
+    # @schema type: boolean
     # -- Automounts the service account token in all containers of the pod
     automount: true
+    # @schema type: object
     # -- Annotations to add to the service account.
     annotations: {}
+    # @schema type: object
     # -- Extra Labels to add to the service account.
     extraLabels: {}
+    # @schema type: string
     # -- The name of the service account to use.
     # If not set and create is true, a name is generated using the fullname template.
     name: ""
+  # @schema type: object
+  # -- Node selector for the webhook pod.
   nodeSelector: {}
 
+  # @schema type: object
+  # -- Cert-manager integration for webhook TLS certificates.
   certManager:
+    # @schema type: boolean
     # -- Enabling cert-manager support will disable the built in secret and
     # switch to using cert-manager (installed separately) to automatically issue
     # and renew the webhook certificate. This chart does not install
     # cert-manager for you, See https://cert-manager.io/docs/
     enabled: false
+    # @schema type: boolean
     # -- Automatically add the cert-manager.io/inject-ca-from annotation to the
     # webhooks and CRDs. As long as you have the cert-manager CA Injector
     # enabled, this will automatically setup your webhook's CA to the one used
     # by cert-manager. See https://cert-manager.io/docs/concepts/ca-injector
     addInjectorAnnotations: true
+    # @schema type: object
+    # -- Certificate resource configuration.
     cert:
+      # @schema type: boolean
       # -- Create a certificate resource within this chart. See
       # https://cert-manager.io/docs/usage/certificate/
       create: true
+      # @schema type: object
       # -- For the Certificate created by this chart, setup the issuer. See
       # https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.IssuerSpec
       issuerRef:
+        # @schema type: string
+        # -- Issuer API group.
         group: cert-manager.io
+        # @schema type: string
+        # -- Kind of the issuer (Issuer or ClusterIssuer).
         kind: "Issuer"
+        # @schema type: string
+        # -- Name of the issuer to use.
         name: "my-issuer"
+      # @schema type: string
       # -- Set the requested duration (i.e. lifetime) of the Certificate. See
       # https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec
       # One year by default.
       duration: "8760h"
+      # @schema type: integer
       # -- Set the revisionHistoryLimit on the Certificate. See
       # https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec
       # Defaults to 0 (ignored).
       revisionHistoryLimit: 0
-      # -- How long before the currently issued certificate’s expiry
+      # @schema type: string
+      # -- How long before the currently issued certificate's expiry
       # cert-manager should renew the certificate. See
       # https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec
       # Note that renewBefore should be greater than .webhook.lookaheadInterval
       # since the webhook will check this far in advance that the certificate is
       # valid.
       renewBefore: ""
+      # @schema type: object
       # -- Add extra annotations to the Certificate resource.
       annotations: {}
 
+  # @schema type: array; item: object
+  # -- Tolerations for the webhook pod.
   tolerations: []
 
+  # @schema type: array; item: object
+  # -- Topology spread constraints for the webhook pod.
   topologySpreadConstraints: []
 
+  # @schema type: object
+  # -- Affinity rules for the webhook pod.
   affinity: {}
 
+  # @schema type: object
   # -- Set deployment strategy
   strategy: {}
 
-    # -- Pod priority class name.
+  # @schema type: string
+  # -- Pod priority class name.
   priorityClassName: ""
 
+  # @schema type: object
   # -- Pod disruption budget - for more details see https://kubernetes.io/docs/concepts/workloads/pods/disruptions/
   podDisruptionBudget:
+    # @schema type: boolean
+    # -- Enable pod disruption budget for the webhook.
     enabled: false
-    minAvailable: 1    # @schema type:[integer, string]
+    # @schema type: [integer, string]
+    # -- Minimum number of pods that must be available.
+    minAvailable: 1
+    # @schema type: string
+    # -- Override the name of the PDB resource.
     nameOverride: ""
     # maxUnavailable: "50%"
 
+  # @schema type: object
+  # -- Metrics configuration for the webhook.
   metrics:
+    # @schema type: object
+    # -- Metrics listener configuration.
     listen:
+      # @schema type: integer
+      # -- Port for the metrics endpoint.
       port: 8080
 
+    # @schema type: object
+    # -- Metrics Kubernetes Service configuration.
     service:
+      # @schema type: boolean
       # -- Enable if you use another monitoring tool than Prometheus to scrape the metrics
       enabled: false
 
+      # @schema type: integer
       # -- Metrics service port to scrape
       port: 8080
 
+      # @schema type: object
       # -- Additional service annotations
       annotations: {}
 
+  # @schema type: object
+  # -- Readiness probe configuration for the webhook.
   readinessProbe:
+    # @schema type: string
     # -- Address for readiness probe
     address: ""
+    # @schema type: integer
     # -- ReadinessProbe port for kubelet
     port: 8081
 
-    ## -- Extra environment variables to add to container.
+  # @schema type: array; item: object
+  # -- Extra environment variables to add to container.
   extraEnv: []
 
-  ## -- Map of extra arguments to pass to container.
+  # @schema type: object
+  # -- Map of extra arguments to pass to container.
   extraArgs: {}
 
-    ## -- Extra init containers to add to the pod.
+  # @schema type: array; item: object
+  # -- Extra init containers to add to the pod.
   extraInitContainers: []
 
-    ## -- Extra volumes to pass to pod.
+  # @schema type: array; item: object
+  # -- Extra volumes to pass to pod.
   extraVolumes: []
 
-  ## -- Extra volumes to mount to the container.
+  # @schema type: array; item: object
+  # -- Extra volumes to mount to the container.
   extraVolumeMounts: []
 
+  # @schema type: object
   # -- Annotations to add to Secret
   secretAnnotations: {}
 
+  # @schema type: object
   # -- Annotations to add to Deployment
   deploymentAnnotations: {}
 
+  # @schema type: object
   # -- Annotations to add to Pod
   podAnnotations: {}
 
+  # @schema type: object
+  # -- Extra labels to add to the webhook pod.
   podLabels: {}
 
+  # @schema type: object
+  # -- Pod-level security context for the webhook.
   podSecurityContext:
+    # @schema type: boolean
+    # -- Enable pod security context.
     enabled: true
 
   # Moved to giantswarm.securityContext.webhook
   # securityContext: {}
 
+  # @schema type: object
+  # -- Resource requests and limits for the webhook container.
   resources: {}
     # requests:
     #   cpu: 10m
     #   memory: 32Mi
 
+  # @schema type: object
   # -- Manage the service through which the webhook is reached.
   service:
+    # @schema type: boolean
     # -- Whether the service object should be enabled or not (it is expected to exist).
     enabled: true
+    # @schema type: object
     # -- Custom annotations for the webhook service.
     annotations: {}
+    # @schema type: object
     # -- Custom labels for the webhook service.
     labels: {}
+    # @schema type: string
     # -- The service type of the webhook service.
     type: ClusterIP
+    # @schema type: string
     # -- If the webhook service type is LoadBalancer, you can assign a specific load balancer IP here.
     # Check the documentation of your load balancer provider to see if/how this should be used.
     loadBalancerIP: ""
 
+# @schema type: object
+# -- Certificate controller configuration.
 certController:
+  # @schema type: object
+  # -- Container image configuration for the cert controller.
+  image:
+    # @schema type: string
+    # -- Image repository for the cert controller.
+    repository: ""
+    # @schema type: string
+    # -- Image tag for the cert controller.
+    tag: ""
+    # @schema type: string; enum: [Always, IfNotPresent, Never, ""]
+    # -- Image pull policy for the cert controller.
+    pullPolicy: ""
+    # @schema type: string
+    # -- Image flavor for the cert controller.
+    flavour: ""
+  # @schema type: boolean
   # -- Specifies whether a certificate controller deployment be created.
   create: true
+  # @schema type: string
+  # -- Requeue interval for the cert controller reconciliation loop.
   requeueInterval: "5m"
+  # @schema type: integer
+  # -- Number of replicas for the cert controller deployment.
   replicaCount: 1
+  # @schema type: object
   # -- Specifies Log Params to the Certificate Controller
   log:
+    # @schema type: string
+    # -- Log level for the cert controller.
     level: info
+    # @schema type: string
+    # -- Log time encoding format.
     timeEncoding: epoch
+  # @schema type: integer
   # -- Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy)
   revisionHistoryLimit: 10
 
+  # @schema type: array; item: object
+  # -- Docker registry secrets for pulling cert controller images.
   imagePullSecrets: []
+  # @schema type: object
+  # -- RBAC configuration for the cert controller.
   rbac:
+    # @schema type: boolean
     # -- Specifies whether role and rolebinding resources should be created.
     create: true
+  # @schema type: object
+  # -- Service account configuration for the cert controller.
   serviceAccount:
+    # @schema type: boolean
     # -- Specifies whether a service account should be created.
     create: true
+    # @schema type: boolean
     # -- Automounts the service account token in all containers of the pod
     automount: true
+    # @schema type: object
     # -- Annotations to add to the service account.
     annotations: {}
+    # @schema type: object
     # -- Extra Labels to add to the service account.
     extraLabels: {}
+    # @schema type: string
     # -- The name of the service account to use.
     # If not set and create is true, a name is generated using the fullname template.
     name: ""
+  # @schema type: object
+  # -- Node selector for the cert controller pod.
   nodeSelector: {}
 
+  # @schema type: array; item: object
+  # -- Tolerations for the cert controller pod.
   tolerations: []
 
+  # @schema type: array; item: object
+  # -- Topology spread constraints for the cert controller pod.
   topologySpreadConstraints: []
 
+  # @schema type: object
+  # -- Affinity rules for the cert controller pod.
   affinity: {}
 
+  # @schema type: object
   # -- Set deployment strategy
   strategy: {}
 
+  # @schema type: boolean
   # -- Run the certController on the host network
   hostNetwork: false
 
+  # @schema type: string
   # -- Pod priority class name.
   priorityClassName: ""
 
+  # @schema type: object
   # -- Pod disruption budget - for more details see https://kubernetes.io/docs/concepts/workloads/pods/disruptions/
   podDisruptionBudget:
+    # @schema type: boolean
+    # -- Enable pod disruption budget for the cert controller.
     enabled: false
-    minAvailable: 1    # @schema type:[integer, string]
+    # @schema type: [integer, string]
+    # -- Minimum number of pods that must be available.
+    minAvailable: 1
+    # @schema type: string
+    # -- Override the name of the PDB resource.
     nameOverride: ""
     # maxUnavailable: "50%"
 
+  # @schema type: object
+  # -- Metrics configuration for the cert controller.
   metrics:
+    # @schema type: object
+    # -- Metrics listener configuration.
     listen:
+      # @schema type: integer
+      # -- Port for the metrics endpoint.
       port: 8080
 
+    # @schema type: object
+    # -- Metrics Kubernetes Service configuration.
     service:
+      # @schema type: boolean
       # -- Enable if you use another monitoring tool than Prometheus to scrape the metrics
       enabled: false
 
+      # @schema type: integer
       # -- Metrics service port to scrape
       port: 8080
 
+      # @schema type: object
       # -- Additional service annotations
       annotations: {}
 
+  # @schema type: object
+  # -- Readiness probe configuration for the cert controller.
   readinessProbe:
+    # @schema type: string
     # -- Address for readiness probe
     address: ""
+    # @schema type: integer
     # -- ReadinessProbe port for kubelet
     port: 8081
 
+  # @schema type: object
+  # -- Startup probe configuration for the cert controller.
   startupProbe:
+    # @schema type: boolean
     # -- Enabled determines if the startup probe should be used or not. By default it's enabled
     enabled: false
+    # @schema type: boolean
     # -- whether to use the readiness probe port for startup probe.
     useReadinessProbePort: true
+    # @schema type: string
     # -- Port for startup probe.
     port: ""
 
-    ## -- Extra environment variables to add to container.
+  # @schema type: array; item: object
+  # -- Extra environment variables to add to container.
   extraEnv: []
 
-  ## -- Map of extra arguments to pass to container.
+  # @schema type: object
+  # -- Map of extra arguments to pass to container.
   extraArgs: {}
 
-    ## -- Extra init containers to add to the pod.
+  # @schema type: array; item: object
+  # -- Extra init containers to add to the pod.
   extraInitContainers: []
 
-    ## -- Extra volumes to pass to pod.
+  # @schema type: array; item: object
+  # -- Extra volumes to pass to pod.
   extraVolumes: []
 
-  ## -- Extra volumes to mount to the container.
+  # @schema type: array; item: object
+  # -- Extra volumes to mount to the container.
   extraVolumeMounts: []
 
+  # @schema type: object
   # -- Annotations to add to Deployment
   deploymentAnnotations: {}
 
+  # @schema type: object
   # -- Annotations to add to Pod
   podAnnotations: {}
 
+  # @schema type: object
+  # -- Extra labels to add to the cert controller pod.
   podLabels: {}
 
+  # @schema type: object
+  # -- Pod-level security context for the cert controller.
   podSecurityContext:
+    # @schema type: boolean
+    # -- Enable pod security context.
     enabled: true
 
   # Moved to giantswarm.securityContext.certController
   # securityContext: {}
 
+  # @schema type: object
+  # -- Resource requests and limits for the cert controller container.
   resources: {}
     # requests:
     #   cpu: 10m
     #   memory: 32Mi
 
+# @schema type: string; enum: [Default, ClusterFirst, ClusterFirstWithHostNet, None]
 # -- Specifies `dnsPolicy` to deployment
 dnsPolicy: ClusterFirst
 
+# @schema type: object
 # -- Specifies `dnsOptions` to deployment
 dnsConfig: {}
 
+# @schema type: object
+# -- Additional pod spec fields to add to the operator pod.
 podSpecExtra: {}

@@ -13,21 +13,21 @@
   - ```bash
     # If you don't already have it:
     git remote add -f --no-tags upstream-copy git@github.com:giantswarm/external-secrets-copy.git
-    
+
     # Checkout the target tag and split the subtree to a temporary branch
     git fetch --no-tags upstream-copy refs/tags/v0.7.0:refs/tags/upstream-v0.7.0
     git checkout upstream-v0.7.0
     git subtree split -P deploy/charts/external-secrets -b temp-split-branch
-    
+
     # Prepare upgrade branch
     git checkout main
     git pull
     git checkout -b upgrade-to-v0.7.0
-    
+
     # Merge subtree
     git subtree merge --squash -P helm/external-secrets temp-split-branch
     git notes add -m "upstreamSync: https://github.com/external-secrets/external-secrets/tree/v0.7.0"
-    
+
     # Clean up
     git tag -d upstream-v0.7.0
     git branch -D temp-split-branch
