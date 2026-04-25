@@ -43,9 +43,38 @@
                 "extraVolumes": {
                     "type": "array"
                 },
+                "hostAliases": {
+                    "type": "array"
+                },
                 "hostNetwork": {
                     "type": "boolean"
                 },
+<<<<<<< HEAD
+=======
+                "hostUsers": {
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "flavour": {
+                            "type": "string"
+                        },
+                        "pullPolicy": {
+                            "type": "string"
+                        },
+                        "repository": {
+                            "type": "string"
+                        },
+                        "tag": {
+                            "type": "string"
+                        }
+                    }
+                },
+>>>>>>> d540e4af2986b6888abb5a5741509f31172ca7ff
                 "imagePullSecrets": {
                     "type": "array"
                 },
@@ -234,6 +263,12 @@
                 },
                 "createPushSecret": {
                     "type": "boolean"
+                },
+                "createSecretStore": {
+                    "type": "boolean"
+                },
+                "unsafeServeV1Beta1": {
+                    "type": "boolean"
                 }
             }
         },
@@ -279,6 +314,7 @@
         "fullnameOverride": {
             "type": "string"
         },
+<<<<<<< HEAD
         "giantswarm": {
             "type": "object",
             "properties": {
@@ -576,6 +612,16 @@
                             "type": "boolean"
                         }
                     }
+=======
+        "genericTargets": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "resources": {
+                    "type": "array"
+>>>>>>> d540e4af2986b6888abb5a5741509f31172ca7ff
                 }
             }
         },
@@ -598,8 +644,23 @@
                         }
                     }
                 },
+                "hostAliases": {
+                    "type": "array"
+                },
+                "imagePullSecrets": {
+                    "type": "array"
+                },
                 "nodeSelector": {
                     "type": "object"
+                },
+                "podAnnotations": {
+                    "type": "object"
+                },
+                "podLabels": {
+                    "type": "object"
+                },
+                "repository": {
+                    "type": "string"
                 },
                 "tolerations": {
                     "type": "array"
@@ -629,14 +690,46 @@
                 }
             }
         },
+        "hostAliases": {
+            "type": "array"
+        },
         "hostNetwork": {
             "type": "boolean"
         },
+<<<<<<< HEAD
+=======
+        "hostUsers": {
+            "type": [
+                "boolean",
+                "null"
+            ]
+        },
+        "image": {
+            "type": "object",
+            "properties": {
+                "flavour": {
+                    "type": "string"
+                },
+                "pullPolicy": {
+                    "type": "string"
+                },
+                "repository": {
+                    "type": "string"
+                },
+                "tag": {
+                    "type": "string"
+                }
+            }
+        },
+>>>>>>> d540e4af2986b6888abb5a5741509f31172ca7ff
         "imagePullSecrets": {
             "type": "array"
         },
         "leaderElect": {
             "type": "boolean"
+        },
+        "leaderElectionID": {
+            "type": "string"
         },
         "livenessProbe": {
             "type": "object",
@@ -668,6 +761,9 @@
                             "type": "integer"
                         },
                         "periodSeconds": {
+                            "type": "integer"
+                        },
+                        "port": {
                             "type": "integer"
                         },
                         "successThreshold": {
@@ -796,6 +892,9 @@
         "processPushSecret": {
             "type": "boolean"
         },
+        "processSecretStore": {
+            "type": "boolean"
+        },
         "rbac": {
             "type": "object",
             "properties": {
@@ -813,6 +912,48 @@
                     "properties": {
                         "create": {
                             "type": "boolean"
+                        }
+                    }
+                }
+            }
+        },
+        "readinessProbe": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "spec": {
+                    "type": "object",
+                    "properties": {
+                        "failureThreshold": {
+                            "type": "integer"
+                        },
+                        "httpGet": {
+                            "type": "object",
+                            "properties": {
+                                "path": {
+                                    "type": "string"
+                                },
+                                "port": {
+                                    "type": [
+                                        "string",
+                                        "integer"
+                                    ]
+                                }
+                            }
+                        },
+                        "initialDelaySeconds": {
+                            "type": "integer"
+                        },
+                        "periodSeconds": {
+                            "type": "integer"
+                        },
+                        "successThreshold": {
+                            "type": "integer"
+                        },
+                        "timeoutSeconds": {
+                            "type": "integer"
                         }
                     }
                 }
@@ -908,6 +1049,17 @@
         "topologySpreadConstraints": {
             "type": "array"
         },
+        "vault": {
+            "type": "object",
+            "properties": {
+                "enableTokenCache": {
+                    "type": "boolean"
+                },
+                "tokenCacheSize": {
+                    "type": "integer"
+                }
+            }
+        },
         "webhook": {
             "type": "object",
             "properties": {
@@ -955,11 +1107,17 @@
                                         }
                                     }
                                 },
+                                "privateKey": {
+                                    "type": "object"
+                                },
                                 "renewBefore": {
                                     "type": "string"
                                 },
                                 "revisionHistoryLimit": {
                                     "type": "integer"
+                                },
+                                "signatureAlgorithm": {
+                                    "type": "string"
                                 }
                             }
                         },
@@ -992,9 +1150,38 @@
                 "failurePolicy": {
                     "type": "string"
                 },
+                "hostAliases": {
+                    "type": "array"
+                },
                 "hostNetwork": {
                     "type": "boolean"
                 },
+<<<<<<< HEAD
+=======
+                "hostUsers": {
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "image": {
+                    "type": "object",
+                    "properties": {
+                        "flavour": {
+                            "type": "string"
+                        },
+                        "pullPolicy": {
+                            "type": "string"
+                        },
+                        "repository": {
+                            "type": "string"
+                        },
+                        "tag": {
+                            "type": "string"
+                        }
+                    }
+                },
+>>>>>>> d540e4af2986b6888abb5a5741509f31172ca7ff
                 "imagePullSecrets": {
                     "type": "array"
                 },
