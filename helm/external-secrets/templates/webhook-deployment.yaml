@@ -64,14 +64,8 @@ spec:
           securityContext:
             {{- include "external-secrets.renderSecurityContext" (dict "securityContext" . "context" $) | nindent 12 }}
           {{- end }}
-<<<<<<< HEAD
           image: "{{ .Values.giantswarm.images.registry }}/{{ .Values.giantswarm.images.webhook.image }}:{{ .Values.giantswarm.images.webhook.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.giantswarm.images.pullPolicy }}
-=======
-          {{- end }}
-          image: {{ include "external-secrets.image" (dict "chartAppVersion" .Chart.AppVersion "image" .Values.webhook.image "context" .) | trim }}
-          imagePullPolicy: {{ .Values.webhook.image.pullPolicy }}
->>>>>>> b38fee5863dc53ea1ba8dd30b8bbad571b30aae5
           args:
           - webhook
           - --port={{ .Values.webhook.port }}

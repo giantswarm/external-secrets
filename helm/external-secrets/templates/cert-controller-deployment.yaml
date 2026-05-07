@@ -64,14 +64,8 @@ spec:
           securityContext:
             {{- include "external-secrets.renderSecurityContext" (dict "securityContext" . "context" $) | nindent 12 }}
           {{- end }}
-<<<<<<< HEAD
           image: "{{ .Values.giantswarm.images.registry }}/{{ .Values.giantswarm.images.certController.image }}:{{ .Values.giantswarm.images.certController.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.giantswarm.images.pullPolicy }}
-=======
-          {{- end }}
-          image: {{ include "external-secrets.image" (dict "chartAppVersion" .Chart.AppVersion "image" .Values.certController.image "context" .) | trim }}
-          imagePullPolicy: {{ .Values.certController.image.pullPolicy }}
->>>>>>> b38fee5863dc53ea1ba8dd30b8bbad571b30aae5
           args:
           - certcontroller
           - --crd-requeue-interval={{ .Values.certController.requeueInterval }}

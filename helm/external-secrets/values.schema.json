@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/schema#",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "properties": {
         "affinity": {
@@ -46,32 +46,12 @@
                 "hostNetwork": {
                     "type": "boolean"
                 },
-<<<<<<< HEAD
-=======
                 "hostUsers": {
                     "type": [
                         "boolean",
                         "null"
                     ]
                 },
-                "image": {
-                    "type": "object",
-                    "properties": {
-                        "flavour": {
-                            "type": "string"
-                        },
-                        "pullPolicy": {
-                            "type": "string"
-                        },
-                        "repository": {
-                            "type": "string"
-                        },
-                        "tag": {
-                            "type": "string"
-                        }
-                    }
-                },
->>>>>>> b38fee5863dc53ea1ba8dd30b8bbad571b30aae5
                 "imagePullSecrets": {
                     "type": "array"
                 },
@@ -126,7 +106,10 @@
                             "type": "boolean"
                         },
                         "minAvailable": {
-                            "type": "integer"
+                            "type": [
+                                "integer",
+                                "string"
+                            ]
                         },
                         "nameOverride": {
                             "type": "string"
@@ -311,7 +294,17 @@
         "fullnameOverride": {
             "type": "string"
         },
-<<<<<<< HEAD
+        "genericTargets": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "resources": {
+                    "type": "array"
+                }
+            }
+        },
         "giantswarm": {
             "type": "object",
             "properties": {
@@ -609,16 +602,6 @@
                             "type": "boolean"
                         }
                     }
-=======
-        "genericTargets": {
-            "type": "object",
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "resources": {
-                    "type": "array"
->>>>>>> b38fee5863dc53ea1ba8dd30b8bbad571b30aae5
                 }
             }
         },
@@ -687,32 +670,12 @@
         "hostNetwork": {
             "type": "boolean"
         },
-<<<<<<< HEAD
-=======
         "hostUsers": {
             "type": [
                 "boolean",
                 "null"
             ]
         },
-        "image": {
-            "type": "object",
-            "properties": {
-                "flavour": {
-                    "type": "string"
-                },
-                "pullPolicy": {
-                    "type": "string"
-                },
-                "repository": {
-                    "type": "string"
-                },
-                "tag": {
-                    "type": "string"
-                }
-            }
-        },
->>>>>>> b38fee5863dc53ea1ba8dd30b8bbad571b30aae5
         "imagePullSecrets": {
             "type": "array"
         },
@@ -741,7 +704,10 @@
                                     "type": "string"
                                 },
                                 "port": {
-                                    "type": "integer"
+                                    "type": [
+                                        "string",
+                                        "integer"
+                                    ]
                                 }
                             }
                         },
@@ -841,7 +807,10 @@
                     "type": "boolean"
                 },
                 "minAvailable": {
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "string"
+                    ]
                 },
                 "nameOverride": {
                     "type": "string"
@@ -976,7 +945,12 @@
                     "type": "array"
                 },
                 "renderMode": {
-                    "type": "string"
+                    "type": "string",
+                    "enum": [
+                        "skipIfMissing",
+                        "failIfMissing",
+                        "alwaysRender"
+                    ]
                 },
                 "scrapeTimeout": {
                     "type": "string"
@@ -1088,32 +1062,6 @@
                 "hostNetwork": {
                     "type": "boolean"
                 },
-<<<<<<< HEAD
-=======
-                "hostUsers": {
-                    "type": [
-                        "boolean",
-                        "null"
-                    ]
-                },
-                "image": {
-                    "type": "object",
-                    "properties": {
-                        "flavour": {
-                            "type": "string"
-                        },
-                        "pullPolicy": {
-                            "type": "string"
-                        },
-                        "repository": {
-                            "type": "string"
-                        },
-                        "tag": {
-                            "type": "string"
-                        }
-                    }
-                },
->>>>>>> b38fee5863dc53ea1ba8dd30b8bbad571b30aae5
                 "imagePullSecrets": {
                     "type": "array"
                 },
@@ -1171,7 +1119,10 @@
                             "type": "boolean"
                         },
                         "minAvailable": {
-                            "type": "integer"
+                            "type": [
+                                "integer",
+                                "string"
+                            ]
                         },
                         "nameOverride": {
                             "type": "string"
