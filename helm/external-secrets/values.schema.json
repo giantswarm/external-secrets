@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/schema#",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "properties": {
         "affinity": {
@@ -45,6 +45,12 @@
                 },
                 "hostNetwork": {
                     "type": "boolean"
+                },
+                "hostUsers": {
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
                 },
                 "imagePullSecrets": {
                     "type": "array"
@@ -100,7 +106,10 @@
                             "type": "boolean"
                         },
                         "minAvailable": {
-                            "type": "integer"
+                            "type": [
+                                "integer",
+                                "string"
+                            ]
                         },
                         "nameOverride": {
                             "type": "string"
@@ -234,6 +243,12 @@
                 },
                 "createPushSecret": {
                     "type": "boolean"
+                },
+                "createSecretStore": {
+                    "type": "boolean"
+                },
+                "unsafeServeV1Beta1": {
+                    "type": "boolean"
                 }
             }
         },
@@ -278,6 +293,17 @@
         },
         "fullnameOverride": {
             "type": "string"
+        },
+        "genericTargets": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "resources": {
+                    "type": "array"
+                }
+            }
         },
         "giantswarm": {
             "type": "object",
@@ -598,8 +624,20 @@
                         }
                     }
                 },
+                "imagePullSecrets": {
+                    "type": "array"
+                },
                 "nodeSelector": {
                     "type": "object"
+                },
+                "podAnnotations": {
+                    "type": "object"
+                },
+                "podLabels": {
+                    "type": "object"
+                },
+                "repository": {
+                    "type": "string"
                 },
                 "tolerations": {
                     "type": "array"
@@ -632,6 +670,12 @@
         "hostNetwork": {
             "type": "boolean"
         },
+        "hostUsers": {
+            "type": [
+                "boolean",
+                "null"
+            ]
+        },
         "imagePullSecrets": {
             "type": "array"
         },
@@ -660,7 +704,10 @@
                                     "type": "string"
                                 },
                                 "port": {
-                                    "type": "integer"
+                                    "type": [
+                                        "string",
+                                        "integer"
+                                    ]
                                 }
                             }
                         },
@@ -668,6 +715,9 @@
                             "type": "integer"
                         },
                         "periodSeconds": {
+                            "type": "integer"
+                        },
+                        "port": {
                             "type": "integer"
                         },
                         "successThreshold": {
@@ -757,7 +807,10 @@
                     "type": "boolean"
                 },
                 "minAvailable": {
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "string"
+                    ]
                 },
                 "nameOverride": {
                     "type": "string"
@@ -794,6 +847,9 @@
             "type": "boolean"
         },
         "processPushSecret": {
+            "type": "boolean"
+        },
+        "processSecretStore": {
             "type": "boolean"
         },
         "rbac": {
@@ -889,7 +945,12 @@
                     "type": "array"
                 },
                 "renderMode": {
-                    "type": "string"
+                    "type": "string",
+                    "enum": [
+                        "skipIfMissing",
+                        "failIfMissing",
+                        "alwaysRender"
+                    ]
                 },
                 "scrapeTimeout": {
                     "type": "string"
@@ -955,11 +1016,17 @@
                                         }
                                     }
                                 },
+                                "privateKey": {
+                                    "type": "object"
+                                },
                                 "renewBefore": {
                                     "type": "string"
                                 },
                                 "revisionHistoryLimit": {
                                     "type": "integer"
+                                },
+                                "signatureAlgorithm": {
+                                    "type": "string"
                                 }
                             }
                         },
@@ -1052,7 +1119,10 @@
                             "type": "boolean"
                         },
                         "minAvailable": {
-                            "type": "integer"
+                            "type": [
+                                "integer",
+                                "string"
+                            ]
                         },
                         "nameOverride": {
                             "type": "string"
