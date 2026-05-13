@@ -43,6 +43,9 @@
                 "extraVolumes": {
                     "type": "array"
                 },
+                "hostAliases": {
+                    "type": "array"
+                },
                 "hostNetwork": {
                     "type": "boolean"
                 },
@@ -54,6 +57,35 @@
                 },
                 "imagePullSecrets": {
                     "type": "array"
+                },
+                "livenessProbe": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "failureThreshold": {
+                            "type": "integer"
+                        },
+                        "initialDelaySeconds": {
+                            "type": "integer"
+                        },
+                        "periodSeconds": {
+                            "type": "integer"
+                        },
+                        "port": {
+                            "type": [
+                                "string",
+                                "integer"
+                            ]
+                        },
+                        "successThreshold": {
+                            "type": "integer"
+                        },
+                        "timeoutSeconds": {
+                            "type": "integer"
+                        }
+                    }
                 },
                 "log": {
                     "type": "object",
@@ -144,7 +176,28 @@
                         "address": {
                             "type": "string"
                         },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "failureThreshold": {
+                            "type": "integer"
+                        },
+                        "initialDelaySeconds": {
+                            "type": "integer"
+                        },
+                        "periodSeconds": {
+                            "type": "integer"
+                        },
                         "port": {
+                            "type": [
+                                "string",
+                                "integer"
+                            ]
+                        },
+                        "successThreshold": {
+                            "type": "integer"
+                        },
+                        "timeoutSeconds": {
                             "type": "integer"
                         }
                     }
@@ -624,6 +677,9 @@
                         }
                     }
                 },
+                "hostAliases": {
+                    "type": "array"
+                },
                 "imagePullSecrets": {
                     "type": "array"
                 },
@@ -667,6 +723,9 @@
                 }
             }
         },
+        "hostAliases": {
+            "type": "array"
+        },
         "hostNetwork": {
             "type": "boolean"
         },
@@ -681,6 +740,9 @@
         },
         "leaderElect": {
             "type": "boolean"
+        },
+        "leaderElectionID": {
+            "type": "string"
         },
         "livenessProbe": {
             "type": "object",
@@ -874,6 +936,48 @@
                 }
             }
         },
+        "readinessProbe": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "spec": {
+                    "type": "object",
+                    "properties": {
+                        "failureThreshold": {
+                            "type": "integer"
+                        },
+                        "httpGet": {
+                            "type": "object",
+                            "properties": {
+                                "path": {
+                                    "type": "string"
+                                },
+                                "port": {
+                                    "type": [
+                                        "string",
+                                        "integer"
+                                    ]
+                                }
+                            }
+                        },
+                        "initialDelaySeconds": {
+                            "type": "integer"
+                        },
+                        "periodSeconds": {
+                            "type": "integer"
+                        },
+                        "successThreshold": {
+                            "type": "integer"
+                        },
+                        "timeoutSeconds": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
         "replicaCount": {
             "type": "integer"
         },
@@ -969,6 +1073,17 @@
         "topologySpreadConstraints": {
             "type": "array"
         },
+        "vault": {
+            "type": "object",
+            "properties": {
+                "enableTokenCache": {
+                    "type": "boolean"
+                },
+                "tokenCacheSize": {
+                    "type": "integer"
+                }
+            }
+        },
         "webhook": {
             "type": "object",
             "properties": {
@@ -1059,11 +1174,43 @@
                 "failurePolicy": {
                     "type": "string"
                 },
+                "hostAliases": {
+                    "type": "array"
+                },
                 "hostNetwork": {
                     "type": "boolean"
                 },
                 "imagePullSecrets": {
                     "type": "array"
+                },
+                "livenessProbe": {
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "failureThreshold": {
+                            "type": "integer"
+                        },
+                        "initialDelaySeconds": {
+                            "type": "integer"
+                        },
+                        "periodSeconds": {
+                            "type": "integer"
+                        },
+                        "port": {
+                            "type": [
+                                "string",
+                                "integer"
+                            ]
+                        },
+                        "successThreshold": {
+                            "type": "integer"
+                        },
+                        "timeoutSeconds": {
+                            "type": "integer"
+                        }
+                    }
                 },
                 "log": {
                     "type": "object",
@@ -1152,7 +1299,28 @@
                         "address": {
                             "type": "string"
                         },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "failureThreshold": {
+                            "type": "integer"
+                        },
+                        "initialDelaySeconds": {
+                            "type": "integer"
+                        },
+                        "periodSeconds": {
+                            "type": "integer"
+                        },
                         "port": {
+                            "type": [
+                                "string",
+                                "integer"
+                            ]
+                        },
+                        "successThreshold": {
+                            "type": "integer"
+                        },
+                        "timeoutSeconds": {
                             "type": "integer"
                         }
                     }
