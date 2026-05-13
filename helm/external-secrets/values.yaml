@@ -614,18 +614,10 @@ webhook:
       # -- Additional service annotations
       annotations: {}
 
-<<<<<<< HEAD
-  readinessProbe:
-    # -- Address for readiness probe
-    address: ""
-    # -- ReadinessProbe port for kubelet
-=======
-
   livenessProbe:
     enabled: false
     # -- Set this value to 'live' (for named port) or an integer for liveness probes.
     # @schema type: [string, integer]
->>>>>>> af0bcfb510190fd3363bcb3d4dce7e2904c03fcb
     port: 8081
     timeoutSeconds: 5
     failureThreshold: 5
@@ -839,11 +831,8 @@ dnsPolicy: ClusterFirst
 # -- Specifies `dnsOptions` to deployment
 dnsConfig: {}
 
-<<<<<<< HEAD
-=======
 # -- Specifies `hostAliases` to deployment
 hostAliases: []
 
 # -- Any extra pod spec on the deployment
->>>>>>> af0bcfb510190fd3363bcb3d4dce7e2904c03fcb
 podSpecExtra: {}
