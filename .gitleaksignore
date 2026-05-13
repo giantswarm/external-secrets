@@ -1,0 +1,2 @@
+helm/external-secrets/crd-base/secretstore.yaml:asymmetric-private-key:3353
+helm/external-secrets/crd-base/clustersecretstore.yaml:asymmetric-private-key:3353
