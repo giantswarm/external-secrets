@@ -14,5 +14,7 @@ permissions: {}
 jobs:
   publish:
     uses: giantswarm/github-workflows/.github/workflows/gitleaks.yaml@main
+    with:
+      config-path: .github/.gitleaks.toml
     permissions:
       contents: read

@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Updating to the `v2.4.1` version.
+
+### BREAKING CHANGES
+
+- The Alibaba and Device42 providers are gone.
+- The `htpasswd` function requires three arguments from now on, see https://github.com/Masterminds/sprig/blob/master/docs/crypto.md?plain=1#L50-L56.
+
 ## [1.3.2] - 2026-05-08
 
 ### Changed
@@ -25,7 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Upgrading to the `v0.20.4` version. Included changes:
   - https://github.com/external-secrets/external-secrets/releases/tag/v0.19.0
-    - Includes a breaking change because the CRDs are now too big. Apply them with `--server-side` flag of `kubectl apply`. 
+    - Includes a breaking change because the CRDs are now too big. Apply them with `--server-side` flag of `kubectl apply`.
   - https://github.com/external-secrets/external-secrets/releases/tag/v0.19.1
   - https://github.com/external-secrets/external-secrets/releases/tag/v0.19.2
   - https://github.com/external-secrets/external-secrets/releases/tag/v0.20.0
