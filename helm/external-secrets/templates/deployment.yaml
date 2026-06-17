@@ -65,15 +65,8 @@ spec:
           securityContext:
             {{- include "external-secrets.renderSecurityContext" (dict "securityContext" . "context" $) | nindent 12 }}
           {{- end }}
-<<<<<<< HEAD
           image: "{{ .Values.giantswarm.images.registry }}/{{ .Values.giantswarm.images.externalSecrets.image }}:{{ .Values.giantswarm.images.externalSecrets.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.giantswarm.images.pullPolicy }}
-          {{- if or (.Values.leaderElect) (.Values.scopedNamespace) (.Values.processClusterStore) (.Values.processClusterExternalSecret) (.Values.processClusterPushSecret) (.Values.concurrent) (.Values.extraArgs) }}
-=======
-          {{- end }}
-          image: {{ include "external-secrets.image" (dict "chartAppVersion" .Chart.AppVersion "image" .Values.image "context" .) | trim }}
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
->>>>>>> ea155543b0bec45c3e29acf73428d6314377c3e2
           args:
           {{- if .Values.leaderElect }}
           - --enable-leader-election=true

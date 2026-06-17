@@ -6,15 +6,9 @@ kind: Role
 kind: ClusterRole
 {{- end }}
 metadata:
-<<<<<<< HEAD
-  name: {{ include "external-secrets.name" . }}-controller
-  {{- if and .Values.scopedNamespace .Values.scopedRBAC }}
-  namespace: {{ .Values.scopedNamespace | quote }}
-=======
-  name: {{ include "external-secrets.fullname" . }}-controller
+  name: {{ include "external-secrets.name" . }}-controller-controller
   {{- if .Values.scopedRBAC }}
   namespace: {{ .Values.scopedNamespace | default .Release.Namespace | quote }}
->>>>>>> ea155543b0bec45c3e29acf73428d6314377c3e2
   {{- end }}
   labels:
     {{- include "external-secrets.labels" . | nindent 4 }}
@@ -224,13 +218,13 @@ rules:
   {{- if .Values.metrics.listen.auth.enabled }}
   - apiGroups:
     - "authentication.k8s.io"
-    resources: 
+    resources:
     - "tokenreviews"
     verbs:
     - "create"
   - apiGroups:
     - "authorization.k8s.io"
-    resources: 
+    resources:
     - "subjectaccessreviews"
     verbs:
     - "create"
@@ -243,15 +237,9 @@ kind: Role
 kind: ClusterRole
 {{- end }}
 metadata:
-<<<<<<< HEAD
   name: {{ include "external-secrets.name" . }}-view
-  {{- if and .Values.scopedNamespace .Values.scopedRBAC }}
-  namespace: {{ .Values.scopedNamespace | quote }}
-=======
-  name: {{ include "external-secrets.fullname" . }}-view
   {{- if .Values.scopedRBAC }}
   namespace: {{ .Values.scopedNamespace | default .Release.Namespace | quote }}
->>>>>>> ea155543b0bec45c3e29acf73428d6314377c3e2
   {{- end }}
   labels:
     {{- include "external-secrets.labels" . | nindent 4 }}
@@ -314,15 +302,9 @@ kind: Role
 kind: ClusterRole
 {{- end }}
 metadata:
-<<<<<<< HEAD
   name: {{ include "external-secrets.name" . }}-edit
-  {{- if and .Values.scopedNamespace .Values.scopedRBAC }}
-  namespace: {{ .Values.scopedNamespace | quote }}
-=======
-  name: {{ include "external-secrets.fullname" . }}-edit
   {{- if .Values.scopedRBAC }}
   namespace: {{ .Values.scopedNamespace | default .Release.Namespace | quote }}
->>>>>>> ea155543b0bec45c3e29acf73428d6314377c3e2
   {{- end }}
   labels:
     {{- include "external-secrets.labels" . | nindent 4 }}
@@ -386,15 +368,9 @@ kind: RoleBinding
 kind: ClusterRoleBinding
 {{- end }}
 metadata:
-<<<<<<< HEAD
   name: {{ include "external-secrets.name" . }}-controller
-  {{- if and .Values.scopedNamespace .Values.scopedRBAC }}
-  namespace: {{ .Values.scopedNamespace | quote }}
-=======
-  name: {{ include "external-secrets.fullname" . }}-controller
   {{- if .Values.scopedRBAC }}
   namespace: {{ .Values.scopedNamespace | default .Release.Namespace | quote }}
->>>>>>> ea155543b0bec45c3e29acf73428d6314377c3e2
   {{- end }}
   labels:
     {{- include "external-secrets.labels" . | nindent 4 }}
