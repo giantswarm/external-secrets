@@ -67,7 +67,6 @@ spec:
           {{- end }}
           image: "{{ .Values.giantswarm.images.registry }}/{{ .Values.giantswarm.images.externalSecrets.image }}:{{ .Values.giantswarm.images.externalSecrets.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.giantswarm.images.pullPolicy }}
-          {{- if or (.Values.leaderElect) (.Values.scopedNamespace) (.Values.processClusterStore) (.Values.processClusterExternalSecret) (.Values.processClusterPushSecret) (.Values.concurrent) (.Values.extraArgs) }}
           args:
           {{- if .Values.leaderElect }}
           - --enable-leader-election=true
@@ -75,10 +74,10 @@ spec:
           {{- if .Values.leaderElectionID }}
           - --leader-election-id={{ .Values.leaderElectionID }}
           {{- end }}
-          {{- if .Values.scopedNamespace }}
-          - --namespace={{ .Values.scopedNamespace }}
+          {{- if or .Values.scopedNamespace .Values.scopedRBAC }}
+          - --namespace={{ .Values.scopedNamespace | default .Release.Namespace }}
           {{- end }}
-          {{- if and .Values.scopedNamespace .Values.scopedRBAC }}
+          {{- if .Values.scopedRBAC }}
           - --enable-cluster-store-reconciler=false
           - --enable-cluster-external-secret-reconciler=false
           - --enable-cluster-push-secret-reconciler=false
@@ -127,7 +126,6 @@ spec:
           - --{{ $key }}
             {{- end }}
           {{- end }}
-          {{- end }}
           - --metrics-addr=:{{ .Values.metrics.listen.port }}
           - --loglevel={{ .Values.log.level }}
           - --zap-time-encoding={{ .Values.log.timeEncoding }}
@@ -143,6 +141,9 @@ spec:
           - --metrics-cert-dir={{ .Values.metrics.listen.secure.certDir }}
           - --metrics-cert-name={{ .Values.metrics.listen.secure.certFile }}
           - --metrics-key-name={{ .Values.metrics.listen.secure.keyFile }}
+          {{- end }}
+          {{- if .Values.metrics.listen.auth.enabled }}
+          - --metrics-auth=true
           {{- end }}
           ports:
             - containerPort: {{ .Values.metrics.listen.port }}

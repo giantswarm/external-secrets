@@ -30,6 +30,13 @@ spec:
     relabelings:
       {{- toYaml . | nindent 6 }}
     {{- end }}
+    {{- if .Values.metrics.listen.auth.enabled }}
+    authorization:
+      credentials:
+        name: {{ include "external-secrets.serviceAccountName" . }}-token
+        key: token
+      type: Bearer
+    {{- end }}
 ---
 {{- if .Values.webhook.create }}
 apiVersion: v1
@@ -83,6 +90,13 @@ spec:
     {{- with .Values.serviceMonitor.relabelings }}
     relabelings:
       {{- toYaml . | nindent 6 }}
+    {{- end }}
+    {{- if .Values.webhook.metrics.listen.auth.enabled }}
+    authorization:
+      credentials:
+       name: {{ include "external-secrets-webhook.serviceAccountName" . }}-token
+       key: token
+      type: Bearer
     {{- end }}
 {{- end }}
 ---
@@ -138,6 +152,13 @@ spec:
     {{- with .Values.serviceMonitor.relabelings }}
     relabelings:
       {{- toYaml . | nindent 6 }}
+    {{- end }}
+    {{- if .Values.certController.metrics.listen.auth.enabled }}
+    authorization:
+      credentials:
+       name: {{ include "external-secrets-cert-controller.serviceAccountName" . }}-token
+       key: token
+      type: Bearer
     {{- end }}
 {{- end }}
 {{- end }}
