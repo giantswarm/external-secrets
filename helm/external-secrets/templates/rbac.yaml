@@ -6,7 +6,7 @@ kind: Role
 kind: ClusterRole
 {{- end }}
 metadata:
-  name: {{ include "external-secrets.name" . }}-controller-controller
+  name: {{ include "external-secrets.name" . }}-controller
   {{- if .Values.scopedRBAC }}
   namespace: {{ .Values.scopedNamespace | default .Release.Namespace | quote }}
   {{- end }}
