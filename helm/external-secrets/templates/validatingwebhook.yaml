@@ -26,7 +26,11 @@ webhooks:
   clientConfig:
     service:
       namespace: {{ template "external-secrets.namespace" . }}
+<<<<<<< HEAD
       name: {{ include "external-secrets.name" . }}-webhook
+=======
+      name: {{ include "external-secrets.componentName" (list . "-webhook") }}
+>>>>>>> d92080ca4f10aa2ea35668a30333b5f830ecf0a8
       path: /validate-external-secrets-io-v1-secretstore
   admissionReviewVersions: ["v1", "v1beta1"]
   sideEffects: None
@@ -43,7 +47,11 @@ webhooks:
   clientConfig:
     service:
       namespace: {{ template "external-secrets.namespace" . }}
+<<<<<<< HEAD
       name: {{ include "external-secrets.name" . }}-webhook
+=======
+      name: {{ include "external-secrets.componentName" (list . "-webhook") }}
+>>>>>>> d92080ca4f10aa2ea35668a30333b5f830ecf0a8
       path: /validate-external-secrets-io-v1-clustersecretstore
   admissionReviewVersions: ["v1", "v1beta1"]
   sideEffects: None
@@ -77,7 +85,11 @@ webhooks:
   clientConfig:
     service:
       namespace: {{ template "external-secrets.namespace" . }}
+<<<<<<< HEAD
       name: {{ include "external-secrets.name" . }}-webhook
+=======
+      name: {{ include "external-secrets.componentName" (list . "-webhook") }}
+>>>>>>> d92080ca4f10aa2ea35668a30333b5f830ecf0a8
       path: /validate-external-secrets-io-v1-externalsecret
   admissionReviewVersions: ["v1", "v1beta1"]
   sideEffects: None
