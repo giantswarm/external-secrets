@@ -1,6 +1,9 @@
 name: Auto upgrade the chart from upstream
 
 on:
+  push:
+    branches:
+      - test-automation
   schedule:
     - cron: "07 13 * * *"
   workflow_dispatch: {}
@@ -25,4 +28,4 @@ jobs:
       - run: chmod +x /tmp/ci-update-to-latest.sh /tmp/git-subtree-update.sh
       - run:
           git config --global user.email "action@github.com" && git config --global user.name "GitHub Action"
-      - run: /tmp/ci-update-to-latest.sh . ${{ github.repository }}
+      - run: ./scripts/ci-update-to-latest.sh . ${{ github.repository }}
