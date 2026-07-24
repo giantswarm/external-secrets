@@ -12,6 +12,7 @@ workflows:
           name: "package and push external-secrets chart"
           app_catalog: "giantswarm-catalog"
           app_catalog_test: "giantswarm-test-catalog"
+          override_app_version: false
           chart: "external-secrets"
           # This is needed for `architect/run-tests-with-ats` to work
           persist_chart_archive: true
