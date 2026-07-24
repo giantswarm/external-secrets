@@ -13,11 +13,19 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+<<<<<<< HEAD
   commonName: {{ include "external-secrets.name" . }}-webhook
   dnsNames:
     - {{ include "external-secrets.name" . }}-webhook
     - {{ include "external-secrets.name" . }}-webhook.{{ template "external-secrets.namespace" . }}
     - {{ include "external-secrets.name" . }}-webhook.{{ template "external-secrets.namespace" . }}.svc
+=======
+  commonName: {{ include "external-secrets.componentName" (list . "-webhook") }}
+  dnsNames:
+    - {{ include "external-secrets.componentName" (list . "-webhook") }}
+    - {{ include "external-secrets.componentName" (list . "-webhook") }}.{{ template "external-secrets.namespace" . }}
+    - {{ include "external-secrets.componentName" (list . "-webhook") }}.{{ template "external-secrets.namespace" . }}.svc
+>>>>>>> 3d31c3073c277b95d2396ef2522c2accd117a7d6
   issuerRef:
     {{- toYaml .Values.webhook.certManager.cert.issuerRef | nindent 4 }}
   {{- with .Values.webhook.certManager.cert.duration }}
