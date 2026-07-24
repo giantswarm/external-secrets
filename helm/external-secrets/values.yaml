@@ -523,7 +523,7 @@ hostNetwork: false
 # @schema type: [boolean, null]
 hostUsers:
 
-# -- Setup a networkPolicy for external-secrets
+    # -- Setup a networkPolicy for external-secrets
 networkPolicy:
   # -- Specifies whether the networkPolicy should be created.
   enabled: false
@@ -566,9 +566,7 @@ webhook:
   failurePolicy: Fail
   # -- Specifies if webhook pod should use hostNetwork or not.
   hostNetwork: false
-<<<<<<< HEAD
 
-=======
   # -- (bool) Specifies if webhook pod should use hostUsers or not. If hostNetwork is true, hostUsers should be too. Only available in Kubernetes ≥ 1.33.
   # @schema type: [boolean, null]
   hostUsers:
@@ -597,14 +595,6 @@ webhook:
     # You will need to customize this value to meet your needs
     egress: []
 
-  image:
-    repository: ghcr.io/external-secrets/external-secrets
-    pullPolicy: IfNotPresent
-    # -- The image tag to use. The default is the chart appVersion.
-    tag: ""
-    # -- The flavour of tag you want to use
-    flavour: ""
->>>>>>> 3d31c3073c277b95d2396ef2522c2accd117a7d6
   imagePullSecrets: []
   # -- The port the webhook will listen to
   port: 10250
@@ -740,8 +730,6 @@ webhook:
     successThreshold: 1
     initialDelaySeconds: 20
 
-<<<<<<< HEAD
-=======
   startupProbe:
     # -- Enabled determines if the startup probe should be used or not. By default it's disabled.
     enabled: false
@@ -752,8 +740,6 @@ webhook:
     # -- Number of consecutive failures before the container is restarted. The startup window is initialDelaySeconds + failureThreshold * periodSeconds.
     failureThreshold: 30
 
-
->>>>>>> 3d31c3073c277b95d2396ef2522c2accd117a7d6
     ## -- Extra environment variables to add to container.
   extraEnv: []
 
@@ -853,9 +839,6 @@ certController:
   # @schema type: [boolean, null]
   hostUsers:
 
-<<<<<<< HEAD
-  # -- Pod priority class name.
-=======
   # -- Setup a networkPolicy for external-secrets certController
   networkPolicy:
     # -- Specifies whether the networkPolicy should be created.
@@ -877,8 +860,7 @@ certController:
     # You will need to customize this value to meet your needs
     egress: []
 
-    # -- Pod priority class name.
->>>>>>> 3d31c3073c277b95d2396ef2522c2accd117a7d6
+  # -- Pod priority class name.
   priorityClassName: ""
 
   # -- Pod disruption budget - for more details see https://kubernetes.io/docs/concepts/workloads/pods/disruptions/

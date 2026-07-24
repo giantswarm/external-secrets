@@ -69,11 +69,7 @@ spec:
           args:
           - certcontroller
           - --crd-requeue-interval={{ .Values.certController.requeueInterval }}
-<<<<<<< HEAD
-          - --service-name={{ include "external-secrets.name" . }}-webhook
-=======
           - --service-name={{ include "external-secrets.componentName" (list . "-webhook") }}
->>>>>>> 3d31c3073c277b95d2396ef2522c2accd117a7d6
           - --service-namespace={{ template "external-secrets.namespace" . }}
           - --secret-name={{ include "external-secrets.name" . }}-webhook
           - --secret-namespace={{ template "external-secrets.namespace" . }}

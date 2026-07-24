@@ -1306,6 +1306,12 @@
                 "hostNetwork": {
                     "type": "boolean"
                 },
+                "hostUsers": {
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
                 "imagePullSecrets": {
                     "type": "array"
                 },

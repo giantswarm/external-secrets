@@ -69,11 +69,8 @@ spec:
           args:
           - webhook
           - --port={{ .Values.webhook.port }}
-<<<<<<< HEAD
-          - --dns-name={{ include "external-secrets.name" . }}-webhook.{{ template "external-secrets.namespace" . }}.svc
-=======
+          #- --dns-name={{ include "external-secrets.name" . }}-webhook.{{ template "external-secrets.namespace" . }}.svc
           - --dns-name={{ include "external-secrets.componentName" (list . "-webhook") }}.{{ template "external-secrets.namespace" . }}.svc
->>>>>>> 3d31c3073c277b95d2396ef2522c2accd117a7d6
           - --cert-dir={{ .Values.webhook.certDir }}
           - --check-interval={{ .Values.webhook.certCheckInterval }}
           - --metrics-addr=:{{ .Values.webhook.metrics.listen.port }}
@@ -115,7 +112,7 @@ spec:
           {{- if .Values.webhook.livenessProbe.enabled }}
           livenessProbe:
             httpGet:
-              port: {{ .Values.webhook.livenessProbe.port }} 
+              port: {{ .Values.webhook.livenessProbe.port }}
               path: /healthz
             initialDelaySeconds: {{ .Values.webhook.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.webhook.livenessProbe.periodSeconds }}
