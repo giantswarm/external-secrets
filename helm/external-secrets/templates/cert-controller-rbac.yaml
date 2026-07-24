@@ -81,7 +81,7 @@ rules:
     resources:
     - "secrets"
     resourceNames:
-    - {{ printf "%s-webhook" (include "external-secrets.fullname" .) | quote }}
+    - {{ printf "%s-webhook" (include "external-secrets.name" .) | quote }}
     verbs:
     - "update"
     - "patch"

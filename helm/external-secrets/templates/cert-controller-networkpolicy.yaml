@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: {{ template "external-secrets.fullname" . }}-cert-controller-network-policy
+  name: {{ template "external-secrets.name" . }}-cert-controller-network-policy
   namespace: {{ include "external-secrets.namespace" . }}
   labels:
     {{- include "external-secrets-cert-controller.labels" . | nindent 4 }}

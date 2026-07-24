@@ -35,7 +35,7 @@ Usage: {{ include "external-secrets.componentName" (list . "-webhook") }}
 {{- $suffix := index . 1 -}}
 {{- $maxLen := int (sub 63 (len $suffix)) -}}
 {{- if le $maxLen 0 }}{{- fail (printf "suffix '%s' is too long to fit in a 63-char DNS label" $suffix) }}{{- end -}}
-{{- printf "%s%s" (include "external-secrets.fullname" $ctx | trunc $maxLen | trimSuffix "-") $suffix -}}
+{{- printf "%s%s" (include "external-secrets.name" $ctx | trunc $maxLen | trimSuffix "-") $suffix -}}
 {{- end -}}
 
 {{/*

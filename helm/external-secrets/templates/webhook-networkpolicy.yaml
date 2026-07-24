@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: {{ template "external-secrets.fullname" . }}-webhook-network-policy
+  name: {{ template "external-secrets.name" . }}-webhook-network-policy
   namespace: {{ include "external-secrets.namespace" . }}
   labels:
     {{- include "external-secrets-webhook.labels" . | nindent 4 }}
