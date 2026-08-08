@@ -81,7 +81,7 @@ spec:
           - --crd-names=externalsecrets.external-secrets.io
           - --crd-names=secretstores.external-secrets.io
           {{- end }}
-          {{- if .Values.installCRDs }}
+          {{- if .Values.certController.enablePartialCache }}
           - --enable-partial-cache=true
           {{- end }}
           {{- if .Values.enableHTTP2 }}
@@ -191,5 +191,11 @@ spec:
       {{- end }}
       {{- if .Values.certController.priorityClassName }}
       priorityClassName: {{ .Values.certController.priorityClassName }}
+      {{- end }}
+      {{- if .Values.certController.schedulerName }}
+      schedulerName: {{ .Values.certController.schedulerName | quote }}
+      {{- end }}
+      {{- if .Values.certController.runtimeClassName }}
+      runtimeClassName: {{ .Values.certController.runtimeClassName | quote }}
       {{- end }}
 {{- end }}
