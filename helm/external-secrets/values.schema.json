@@ -28,6 +28,9 @@
                 "deploymentAnnotations": {
                     "type": "object"
                 },
+                "enablePartialCache": {
+                    "type": "boolean"
+                },
                 "extraArgs": {
                     "type": "object"
                 },
@@ -275,6 +278,54 @@
                 "revisionHistoryLimit": {
                     "type": "integer"
                 },
+<<<<<<< HEAD
+=======
+                "runtimeClassName": {
+                    "type": "string"
+                },
+                "schedulerName": {
+                    "type": "string"
+                },
+                "securityContext": {
+                    "type": "object",
+                    "properties": {
+                        "allowPrivilegeEscalation": {
+                            "type": "boolean"
+                        },
+                        "capabilities": {
+                            "type": "object",
+                            "properties": {
+                                "drop": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        },
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "readOnlyRootFilesystem": {
+                            "type": "boolean"
+                        },
+                        "runAsNonRoot": {
+                            "type": "boolean"
+                        },
+                        "runAsUser": {
+                            "type": "integer"
+                        },
+                        "seccompProfile": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+>>>>>>> 2dc431d7701dc911b1a15b822178c993d1c2177a
                 "serviceAccount": {
                     "type": "object",
                     "properties": {
@@ -1110,6 +1161,12 @@
         "revisionHistoryLimit": {
             "type": "integer"
         },
+        "runtimeClassName": {
+            "type": "string"
+        },
+        "schedulerName": {
+            "type": "string"
+        },
         "scopedNamespace": {
             "type": "string"
         },
@@ -1526,6 +1583,12 @@
                 },
                 "revisionHistoryLimit": {
                     "type": "integer"
+                },
+                "runtimeClassName": {
+                    "type": "string"
+                },
+                "schedulerName": {
+                    "type": "string"
                 },
                 "secretAnnotations": {
                     "type": "object"
