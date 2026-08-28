@@ -509,6 +509,12 @@ affinity: {}
 # -- Pod priority class name.
 priorityClassName: ""
 
+# -- Pod scheduler name.
+schedulerName: ""
+
+# -- Pod runtime class name.
+runtimeClassName: ""
+
 # -- Pod disruption budget - for more details see https://kubernetes.io/docs/concepts/workloads/pods/disruptions/
 podDisruptionBudget:
   enabled: false
@@ -674,6 +680,12 @@ webhook:
     # -- Pod priority class name.
   priorityClassName: ""
 
+    # -- Pod scheduler name.
+  schedulerName: ""
+
+    # -- Pod runtime class name.
+  runtimeClassName: ""
+
   # -- Pod disruption budget - for more details see https://kubernetes.io/docs/concepts/workloads/pods/disruptions/
   podDisruptionBudget:
     enabled: false
@@ -796,6 +808,10 @@ certController:
   create: true
   requeueInterval: "5m"
   replicaCount: 1
+  # -- Restrict the cert controller's informer cache to CustomResourceDefinitions and
+  # ValidatingWebhookConfigurations carrying the `external-secrets.io/component` label.
+  # Disable this only if the CRDs it manages were installed without that label.
+  enablePartialCache: true
   # -- Specifies Log Params to the Certificate Controller
   log:
     level: info
@@ -862,6 +878,12 @@ certController:
 
   # -- Pod priority class name.
   priorityClassName: ""
+
+    # -- Pod scheduler name.
+  schedulerName: ""
+
+    # -- Pod runtime class name.
+  runtimeClassName: ""
 
   # -- Pod disruption budget - for more details see https://kubernetes.io/docs/concepts/workloads/pods/disruptions/
   podDisruptionBudget:
