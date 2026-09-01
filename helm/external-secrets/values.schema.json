@@ -324,6 +324,20 @@
                 "strategy": {
                     "type": "object"
                 },
+                "tls": {
+                    "type": "object",
+                    "properties": {
+                        "ciphers": {
+                            "type": "string"
+                        },
+                        "curvePreferences": {
+                            "type": "array"
+                        },
+                        "minVersion": {
+                            "type": "string"
+                        }
+                    }
+                },
                 "tolerations": {
                     "type": "array"
                 },
@@ -1208,6 +1222,20 @@
         "systemAuthDelegator": {
             "type": "boolean"
         },
+        "tls": {
+            "type": "object",
+            "properties": {
+                "ciphers": {
+                    "type": "string"
+                },
+                "curvePreferences": {
+                    "type": "array"
+                },
+                "minVersion": {
+                    "type": "string"
+                }
+            }
+        },
         "tolerations": {
             "type": "array"
         },
@@ -1610,6 +1638,20 @@
                 },
                 "strategy": {
                     "type": "object"
+                },
+                "tls": {
+                    "type": "object",
+                    "properties": {
+                        "ciphers": {
+                            "type": "string"
+                        },
+                        "curvePreferences": {
+                            "type": "array"
+                        },
+                        "minVersion": {
+                            "type": "string"
+                        }
+                    }
                 },
                 "tolerations": {
                     "type": "array"
