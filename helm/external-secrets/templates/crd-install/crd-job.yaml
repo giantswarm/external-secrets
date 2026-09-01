@@ -30,7 +30,7 @@ spec:
         effect: NoSchedule
       containers:
       - name: {{ .Values.giantswarm.crds.podName }}
-        image: "{{ .Values.giantswarm.images.registry }}/giantswarm/docker-kubectl:1.23.6"
+        image: "{{ .Values.giantswarm.images.registry }}/giantswarm/docker-kubectl:1.35.4"
         command:
         - sh
         - -c
