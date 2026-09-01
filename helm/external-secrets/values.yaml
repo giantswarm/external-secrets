@@ -852,8 +852,6 @@ certController:
   # -- Specifies the amount of historic ReplicaSets k8s should keep (see https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#clean-up-policy)
   revisionHistoryLimit: 10
 
-<<<<<<< HEAD
-=======
   # -- CertController-specific TLS security profile overrides.
   # When set, these override the global tls.* values for the cert-controller deployment.
   tls:
@@ -869,12 +867,6 @@ certController:
     # +docs:property
     curvePreferences: []
 
-  image:
-    repository: ghcr.io/external-secrets/external-secrets
-    pullPolicy: IfNotPresent
-    tag: ""
-    flavour: ""
->>>>>>> 5c062ed4cf36b91f2bc65496e6f96cfe7dc0eaed
   imagePullSecrets: []
   rbac:
     # -- Specifies whether role and rolebinding resources should be created.
