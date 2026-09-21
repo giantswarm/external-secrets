@@ -2,8 +2,13 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
+<<<<<<< HEAD
   name: {{ include "external-secrets.name" . }}-dashboard
   namespace: {{ include "external-secrets.namespace" . }}
+=======
+  name: {{ include "external-secrets.fullname" . }}-dashboard
+  namespace: {{ .Values.grafanaDashboard.namespace | default (include "external-secrets.namespace" .) | quote }}
+>>>>>>> f8c134524e639d6ec317c7a0c3c57bbf7b5ecc49
   labels:
     {{ .Values.grafanaDashboard.sidecarLabel }}: {{ .Values.grafanaDashboard.sidecarLabelValue | quote }}
     {{- include "external-secrets.labels" . | nindent 4 }}
