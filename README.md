@@ -7,6 +7,8 @@ Here we define the `external-secrets` chart with its templates and default confi
 
 ## Installing
 
+This app is a cluster singleton: install it only once per workload cluster.
+
 The recommended way to install this app onto a workload cluster is a Flux `HelmRelease`:
 
 - [Deploying an application via a Flux HelmRelease](https://docs.giantswarm.io/tutorials/fleet-management/app-platform/deploy-app-helmrelease/)
@@ -21,36 +23,41 @@ As a fallback, the legacy App Platform ([deprecated](https://docs.giantswarm.io/
 
 ### values.yaml
 
-**This is an example of a values file.**
+This is an example of a values file that disables the `ClusterGenerator` CRD and its controller.
+Both settings are needed together. See [`values.yaml`](helm/external-secrets/values.yaml) for all options.
 
 ```yaml
 # values.yaml
 crds:
-  createClusterExternalSecret: true
-  createClusterSecretStore: true
+  createClusterGenerator: false
+processClusterGenerator: false
 ```
 
-### Templating
+### Deploying with kubectl-gs
 
-You can use the [official Giant Swarm kubectl plug-in](https://github.com/giantswarm/kubectl-gs/) to template the
-App CR and related resources.
+You can use the [official Giant Swarm kubectl plug-in](https://github.com/giantswarm/kubectl-gs/) to create the
+Flux `OCIRepository` and `HelmRelease` in the management cluster.
+
+Here is an example that would install the app to workload cluster `abc123` of organization `example`:
 
 ```shell
-kubectl gs template app \
-  --catalog giantswarm-catalog \
-  --name external-secrets \
-  --version 0.2.1 \
-  --target-namespace org-example \
-  --cluster-name abc123 \
-  --user-configmap values.yaml
+kubectl gs deploy chart \
+  --chart-name external-secrets \
+  --version 2.11.0 \
+  --organization example \
+  --target-cluster abc123 \
+  --target-namespace external-secrets \
+  --values-file values.yaml
 ```
 
-### Sample App CR and ConfigMap for the management cluster
+Add `--dry-run` to print the manifests without applying them.
 
-If you have access to the Kubernetes API on the management cluster, you could create
-the App CR and ConfigMap directly.
+<details>
+<summary>Legacy: sample App CR and ConfigMap for the management cluster</summary>
 
-Here is an example that would install the app to workload cluster `abc12`:
+If you still use the App Platform, you could create the App CR and ConfigMap directly in the
+management cluster. Here is an example that would install the app to workload cluster `abc123`
+of organization `example`:
 
 ```yaml
 # app.yaml
@@ -58,19 +65,21 @@ Here is an example that would install the app to workload cluster `abc12`:
 apiVersion: application.giantswarm.io/v1alpha1
 kind: App
 metadata:
+  labels:
+    giantswarm.io/cluster: abc123
   name: external-secrets
-  namespace: abc123
+  namespace: org-example
 spec:
-  catalog: giantswarm-catalog
+  catalog: giantswarm
   kubeConfig:
     inCluster: false
   name: external-secrets
-  namespace: org-example
+  namespace: external-secrets
   userConfig:
     configMap:
       name: external-secrets-userconfig-abc123
-      namespace: abc123
-  version: 0.2.1
+      namespace: org-example
+  version: 2.11.0
 ```
 
 ```yaml
@@ -78,15 +87,17 @@ spec:
 ---
 apiVersion: v1
 data:
-  values: |+
+  values: |
     crds:
-      createClusterExternalSecret: true
-      createClusterSecretStore: true
+      createClusterGenerator: false
+    processClusterGenerator: false
 kind: ConfigMap
 metadata:
   name: external-secrets-userconfig-abc123
-  namespace: abc123
+  namespace: org-example
 ```
+
+</details>
 
 See our [full reference on how to configure apps](https://docs.giantswarm.io/tutorials/fleet-management/app-platform/app-configuration/) for more details.
 
