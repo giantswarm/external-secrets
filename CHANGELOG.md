@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - The `helm.sh/chart` label is valid for long chart versions: the 63-character cut trims the whole trailing run of `-`, `.` and `_`.
 
+### Changed
+
+- Fix broken documentation links in the README and recommend installing via Flux HelmRelease, keeping the legacy App CR as fallback.
+
 ## [2.11.0] - 2026-09-22
 
 ### Changed
