@@ -52,7 +52,7 @@ kubectl gs deploy chart \
 
 Add `--dry-run` to print the manifests without applying them.
 
-See our [full reference on how to configure apps](https://docs.giantswarm.io/tutorials/fleet-management/app-platform/app-configuration/) for more details.
+See the [`kubectl gs deploy chart` reference](https://docs.giantswarm.io/reference/kubectl-gs/deploy-chart/) for all options.
 
 ## Credit
 
