@@ -52,53 +52,6 @@ kubectl gs deploy chart \
 
 Add `--dry-run` to print the manifests without applying them.
 
-<details>
-<summary>Legacy: sample App CR and ConfigMap for the management cluster</summary>
-
-If you still use the App Platform, you could create the App CR and ConfigMap directly in the
-management cluster. Here is an example that would install the app to workload cluster `abc123`
-of organization `example`:
-
-```yaml
-# app.yaml
----
-apiVersion: application.giantswarm.io/v1alpha1
-kind: App
-metadata:
-  labels:
-    giantswarm.io/cluster: abc123
-  name: external-secrets
-  namespace: org-example
-spec:
-  catalog: giantswarm
-  kubeConfig:
-    inCluster: false
-  name: external-secrets
-  namespace: external-secrets
-  userConfig:
-    configMap:
-      name: external-secrets-userconfig-abc123
-      namespace: org-example
-  version: 2.11.0
-```
-
-```yaml
-# user-values-configmap.yaml
----
-apiVersion: v1
-data:
-  values: |
-    crds:
-      createClusterGenerator: false
-    processClusterGenerator: false
-kind: ConfigMap
-metadata:
-  name: external-secrets-userconfig-abc123
-  namespace: org-example
-```
-
-</details>
-
 See our [full reference on how to configure apps](https://docs.giantswarm.io/tutorials/fleet-management/app-platform/app-configuration/) for more details.
 
 ## Credit

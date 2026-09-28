@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Fix broken documentation links in the README and recommend installing via Flux HelmRelease, keeping the legacy App CR as fallback.
-- Update README examples to chart version `2.11.0`, `kubectl gs deploy chart` and correct App CR namespaces.
+- Update README examples to chart version `2.11.0`, `kubectl gs deploy chart`, and remove the legacy App CR example.
 
 ## [2.11.0] - 2026-09-22
 
