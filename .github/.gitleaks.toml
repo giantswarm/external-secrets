@@ -1,107 +1,132 @@
 title = "gitleaks config"
 [[rules]]
+	id = "aws-manager-id"
 	description = "AWS Manager ID"
 	regex = '''(A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}'''
 	tags = ["key", "AWS"]
 [[rules]]
+	id = "aws-secret-key"
 	description = "AWS Secret Key"
 	regex = '''(?i)aws(.{0,20})?(?-i)['\"][0-9a-zA-Z\/+]{40}['\"]'''
 	tags = ["key", "AWS"]
 [[rules]]
+	id = "aws-mws-key"
 	description = "AWS MWS key"
 	regex = '''amzn\.mws\.[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'''
 	tags = ["key", "AWS", "MWS"]
 [[rules]]
+	id = "facebook-secret-key"
 	description = "Facebook Secret Key"
 	regex = '''(?i)(facebook|fb)(.{0,20})?(?-i)['\"][0-9a-f]{32}['\"]'''
 	tags = ["key", "Facebook"]
 [[rules]]
+	id = "facebook-client-id"
 	description = "Facebook Client ID"
 	regex = '''(?i)(facebook|fb)(.{0,20})?['\"][0-9]{13,17}['\"]'''
 	tags = ["key", "Facebook"]
 [[rules]]
+	id = "twitter-secret-key"
 	description = "Twitter Secret Key"
 	regex = '''(?i)twitter(.{0,20})?['\"][0-9a-z]{35,44}['\"]'''
 	tags = ["key", "Twitter"]
 [[rules]]
+	id = "twitter-client-id"
 	description = "Twitter Client ID"
 	regex = '''(?i)twitter(.{0,20})?['\"][0-9a-z]{18,25}['\"]'''
 	tags = ["client", "Twitter"]
 [[rules]]
+	id = "github"
 	description = "Github"
 	regex = '''(?i)github(.{0,20})?(?-i)['\"][0-9a-zA-Z]{35,40}['\"]'''
 	tags = ["key", "Github"]
 [[rules]]
+	id = "linkedin-client-id"
 	description = "LinkedIn Client ID"
 	regex = '''(?i)linkedin(.{0,20})?(?-i)['\"][0-9a-z]{12}['\"]'''
 	tags = ["client", "LinkedIn"]
 [[rules]]
+	id = "linkedin-secret-key"
 	description = "LinkedIn Secret Key"
 	regex = '''(?i)linkedin(.{0,20})?['\"][0-9a-z]{16}['\"]'''
 	tags = ["secret", "LinkedIn"]
 [[rules]]
+	id = "slack"
 	description = "Slack"
 	regex = '''xox[baprs]-([0-9a-zA-Z]{10,48})?'''
 	tags = ["key", "Slack"]
 [[rules]]
+	id = "asymmetric-private-key"
 	description = "Asymmetric Private Key"
 	regex = '''-----BEGIN ((EC|PGP|DSA|RSA|OPENSSH) )?PRIVATE KEY( BLOCK)?-----'''
 	tags = ["key", "AsymmetricPrivateKey"]
 [[rules]]
+	id = "generic-credential"
 	description = "Generic Credential"
 	regex = '''(?i)(api_key|apikey|secret)(.{0,20})?['|"][0-9a-zA-Z]{16,45}['|"]'''
 	tags = ["key", "API", "generic"]
 [[rules]]
+	id = "google-api-key"
 	description = "Google API key"
 	regex = '''AIza[0-9A-Za-z\\-_]{35}'''
 	tags = ["key", "Google"]
 [[rules]]
+	id = "heroku-api-key"
 	description = "Heroku API key"
 	regex = '''(?i)heroku(.{0,20})?['"][0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}['"]'''
 	tags = ["key", "Heroku"]
 [[rules]]
+	id = "mailchimp-api-key"
 	description = "MailChimp API key"
 	regex = '''(?i)(mailchimp|mc)(.{0,20})?['"][0-9a-f]{32}-us[0-9]{1,2}['"]'''
 	tags = ["key", "Mailchimp"]
 [[rules]]
+	id = "mailgun-api-key"
 	description = "Mailgun API key"
 	regex = '''(?i)(mailgun|mg)(.{0,20})?['"][0-9a-z]{32}['"]'''
 	tags = ["key", "Mailgun"]
 [[rules]]
+	id = "paypal-braintree-access-token"
 	description = "PayPal Braintree access token"
 	regex = '''access_token\$production\$[0-9a-z]{16}\$[0-9a-f]{32}'''
 	tags = ["key", "Paypal"]
 [[rules]]
+	id = "picatic-api-key"
 	description = "Picatic API key"
 	regex = '''sk_live_[0-9a-z]{32}'''
 	tags = ["key", "Picatic"]
 [[rules]]
+	id = "sendgrid-api-key"
 	description = "SendGrid API Key"
 	regex = '''SG\.[\w_]{16,32}\.[\w_]{16,64}'''
 	tags = ["key", "SendGrid"]
 [[rules]]
+	id = "slack-webhook"
 	description = "Slack Webhook"
 	regex = '''https://hooks.slack.com/services/T[a-zA-Z0-9_]{8}/B[a-zA-Z0-9_]{8}/[a-zA-Z0-9_]{24}'''
 	tags = ["key", "slack"]
 [[rules]]
+	id = "stripe-api-key"
 	description = "Stripe API key"
 	regex = '''(?i)stripe(.{0,20})?['\"][sk|rk]_live_[0-9a-zA-Z]{24}'''
 	tags = ["key", "Stripe"]
 [[rules]]
+	id = "square-access-token"
 	description = "Square access token"
 	regex = '''sq0atp-[0-9A-Za-z\-_]{22}'''
 	tags = ["key", "square"]
 [[rules]]
+	id = "square-oauth-secret"
 	description = "Square OAuth secret"
 	regex = '''sq0csp-[0-9A-Za-z\\-_]{43}'''
 	tags = ["key", "square"]
 [[rules]]
+	id = "twilio-api-key"
 	description = "Twilio API key"
 	regex = '''(?i)twilio(.{0,20})?['\"][0-9a-f]{32}['\"]'''
 	tags = ["key", "twilio"]
-[allowlist]
+[[allowlists]]
 	description = "Allowlisted files"
-	files = ['''^\.?gitleaks.toml$''',
+	paths = ['''^\.?gitleaks.toml$''',
 	'''(.*?)(jpg|gif|doc|pdf|bin)$''',
 	'''(go.mod|go.sum)$''',
     '''helm/external-secrets/crd-base/clustersecretstore.yaml''',
