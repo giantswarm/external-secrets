@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update bitwarden-sdk-server to v0.8.1 (giantswarm/external-secrets#225)
+
 ## [2.11.1] - 2026-09-28
 
 ### Fixed
