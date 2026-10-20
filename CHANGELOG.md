@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update architect to v10.14.9 (giantswarm/external-secrets#274)
+
 ## [2.11.1] - 2026-09-28
 
 ### Fixed
