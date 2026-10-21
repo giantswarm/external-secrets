@@ -18,7 +18,7 @@ tests:
           of: ConfigMap
       - equal:
           path: metadata.name
-          value: RELEASE-NAME-external-secrets-dashboard
+          value: external-secrets-dashboard
       - equal:
           path: metadata.labels["grafana_dashboard"]
           value: "1"

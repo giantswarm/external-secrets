@@ -9,7 +9,7 @@ templates:
 tests:
   - it: should not alter names that are well under the 63-char DNS label limit
     set:
-      fullnameOverride: my-release
+      nameOverride: my-release
       webhook.create: true
       webhook.service.enabled: true
     template: webhook-service.yaml
@@ -22,11 +22,11 @@ tests:
           pattern: ^.{1,63}$
 
   - it: should truncate from the right and preserve the name prefix for a short suffix (-webhook 8 chars)
-    # fullnameOverride: 60 chars ("external-secrets-production-cluster-for-long-release-testing").
+    # nameOverride: 60 chars ("external-secrets-production-cluster-for-long-release-testing").
     # componentName maxLen = 63 - 8 = 55; trunc(55) keeps the first 55 chars of the
     # base name so appending the 8-char suffix produces exactly 63 chars total.
     set:
-      fullnameOverride: "external-secrets-production-cluster-for-long-release-testing"
+      nameOverride: "external-secrets-production-cluster-for-long-release-testing"
       webhook.create: true
       webhook.service.enabled: true
     template: webhook-service.yaml
@@ -39,11 +39,11 @@ tests:
           pattern: ^.{1,63}$
 
   - it: should truncate from the right for the longest suffix in the chart (-cert-controller-metrics 24 chars)
-    # Same 60-char fullnameOverride.
+    # Same 60-char nameOverride.
     # componentName maxLen = 63 - 24 = 39; trunc(39) keeps the first 39 chars,
     # so the total is exactly 63.  This is the primary failure case from issue #1997.
     set:
-      fullnameOverride: "external-secrets-production-cluster-for-long-release-testing"
+      nameOverride: "external-secrets-production-cluster-for-long-release-testing"
       certController.create: true
       certController.metrics.service.enabled: true
     template: cert-controller-service.yaml
@@ -56,13 +56,13 @@ tests:
           pattern: ^.{1,63}$
 
   - it: should strip a trailing dash when the truncation point falls on a hyphen
-    # fullnameOverride: 60 chars with a hyphen at position 55
+    # nameOverride: 60 chars with a hyphen at position 55
     # ("external-secrets-for-production-release-cluster-naming-tests").
     # trunc(55) yields the first 54 chars plus a trailing "-"; trimSuffix "-"
     # removes it, leaving 54 chars, so the result is 54 + 8 = 62 chars with no
     # double-dash at the suffix boundary.
     set:
-      fullnameOverride: "external-secrets-for-production-release-cluster-naming-tests"
+      nameOverride: "external-secrets-for-production-release-cluster-naming-tests"
       webhook.create: true
       webhook.service.enabled: true
     template: webhook-service.yaml
@@ -79,7 +79,7 @@ tests:
     # maxLen=55 as -webhook. Confirms the main controller metrics Service is
     # covered by the helper, not just webhook/cert-controller Services.
     set:
-      fullnameOverride: "external-secrets-production-cluster-for-long-release-testing"
+      nameOverride: "external-secrets-production-cluster-for-long-release-testing"
       metrics.service.enabled: true
     template: service.yaml
     asserts:
@@ -95,7 +95,7 @@ tests:
     # If service.name here diverges from the Service metadata.name, TLS
     # routing breaks. Both must use the same componentName helper output.
     set:
-      fullnameOverride: "external-secrets-production-cluster-for-long-release-testing"
+      nameOverride: "external-secrets-production-cluster-for-long-release-testing"
       webhook.create: true
     template: validatingwebhook.yaml
     documentIndex: 0
@@ -113,7 +113,7 @@ tests:
     # commonName and the first dnsName entry use componentName so they stay
     # in sync with the Service even when the release name is long.
     set:
-      fullnameOverride: "external-secrets-production-cluster-for-long-release-testing"
+      nameOverride: "external-secrets-production-cluster-for-long-release-testing"
       webhook.create: true
       webhook.certManager.enabled: true
       webhook.certManager.cert.create: true
@@ -137,7 +137,7 @@ tests:
     # --service-name. The value must equal the webhook Service metadata.name or
     # the cert-controller can't locate the Service and TLS breaks.
     set:
-      fullnameOverride: "external-secrets-production-cluster-for-long-release-testing"
+      nameOverride: "external-secrets-production-cluster-for-long-release-testing"
       certController.create: true
       webhook.create: true
     template: cert-controller-deployment.yaml
@@ -151,7 +151,7 @@ tests:
     # cert-controller passes as --service-name. Both use componentName(-webhook)
     # so they stay in sync; this test surfaces any future divergence.
     set:
-      fullnameOverride: "external-secrets-production-cluster-for-long-release-testing"
+      nameOverride: "external-secrets-production-cluster-for-long-release-testing"
       webhook.create: true
       webhook.service.enabled: true
     template: webhook-service.yaml

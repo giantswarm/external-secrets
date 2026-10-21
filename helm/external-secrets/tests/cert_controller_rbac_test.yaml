@@ -90,7 +90,7 @@ tests:
             resources:
               - "secrets"
             resourceNames:
-              - "RELEASE-NAME-external-secrets-webhook"
+              - "external-secrets-webhook"
             verbs:
               - "update"
               - "patch"

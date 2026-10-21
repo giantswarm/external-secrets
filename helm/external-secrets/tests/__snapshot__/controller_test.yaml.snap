@@ -8,8 +8,9 @@ should match snapshot of default values:
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: external-secrets
         app.kubernetes.io/version: v2.11.0
-        helm.sh/chart: external-secrets-2.11.0
-      name: RELEASE-NAME-external-secrets
+        application.giantswarm.io/team: honeybadger
+        helm.sh/chart: external-secrets-0.0.0
+      name: external-secrets
       namespace: NAMESPACE
     spec:
       replicas: 1
@@ -25,7 +26,8 @@ should match snapshot of default values:
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: external-secrets
             app.kubernetes.io/version: v2.11.0
-            helm.sh/chart: external-secrets-2.11.0
+            application.giantswarm.io/team: honeybadger
+            helm.sh/chart: external-secrets-0.0.0
         spec:
           automountServiceAccountToken: true
           containers:
@@ -34,13 +36,20 @@ should match snapshot of default values:
                 - --metrics-addr=:8080
                 - --loglevel=info
                 - --zap-time-encoding=epoch
-              image: ghcr.io/external-secrets/external-secrets:v2.11.0
+              image: gsoci.azurecr.io/giantswarm/external-secrets:v2.11.0
               imagePullPolicy: IfNotPresent
               name: external-secrets
               ports:
                 - containerPort: 8080
                   name: metrics
                   protocol: TCP
+              resources:
+                limits:
+                  cpu: 100m
+                  memory: 512Mi
+                requests:
+                  cpu: 100m
+                  memory: 256Mi
               securityContext:
                 allowPrivilegeEscalation: false
                 capabilities:
@@ -53,4 +62,4 @@ should match snapshot of default values:
                   type: RuntimeDefault
           dnsPolicy: ClusterFirst
           hostNetwork: false
-          serviceAccountName: RELEASE-NAME-external-secrets
+          serviceAccountName: external-secrets
