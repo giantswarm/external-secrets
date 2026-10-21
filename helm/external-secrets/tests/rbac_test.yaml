@@ -1,4 +1,7 @@
 suite: test rbac
+# Pin the chart version so release PRs, which bump Chart.yaml, do not change the snapshots.
+chart:
+  version: 0.0.0
 templates:
   - rbac.yaml
 tests:
@@ -11,12 +14,12 @@ tests:
           of: ClusterRole
         documentSelector:
           path: metadata.name
-          value: RELEASE-NAME-external-secrets-view
+          value: external-secrets-view
       - notExists:
           path: metadata.labels["rbac.authorization.k8s.io/aggregate-to-view"]
         documentSelector:
           path: metadata.name
-          value: RELEASE-NAME-external-secrets-view
+          value: external-secrets-view
 
   - it: should remove the labels aggregate-to-edit to the view and edit ClusterRoles
     set:
@@ -27,22 +30,22 @@ tests:
           of: ClusterRole
         documentSelector:
           path: metadata.name
-          value: RELEASE-NAME-external-secrets-view
+          value: external-secrets-view
       - notExists:
           path: metadata.labels["rbac.authorization.k8s.io/aggregate-to-edit"]
         documentSelector:
           path: metadata.name
-          value: RELEASE-NAME-external-secrets-view
+          value: external-secrets-view
       - isKind:
           of: ClusterRole
         documentSelector:
           path: metadata.name
-          value: RELEASE-NAME-external-secrets-edit
+          value: external-secrets-edit
       - notExists:
           path: metadata.labels["rbac.authorization.k8s.io/aggregate-to-edit"]
         documentSelector:
           path: metadata.name
-          value: RELEASE-NAME-external-secrets-edit
+          value: external-secrets-edit
 
   - it: should remove the labels aggregate-to-admin to the view and edit ClusterRoles
     set:
@@ -53,22 +56,22 @@ tests:
           of: ClusterRole
         documentSelector:
           path: metadata.name
-          value: RELEASE-NAME-external-secrets-view
+          value: external-secrets-view
       - notExists:
           path: metadata.labels["rbac.authorization.k8s.io/aggregate-to-admin"]
         documentSelector:
           path: metadata.name
-          value: RELEASE-NAME-external-secrets-view
+          value: external-secrets-view
       - isKind:
           of: ClusterRole
         documentSelector:
           path: metadata.name
-          value: RELEASE-NAME-external-secrets-edit
+          value: external-secrets-edit
       - notExists:
           path: metadata.labels["rbac.authorization.k8s.io/aggregate-to-admin"]
         documentSelector:
           path: metadata.name
-          value: RELEASE-NAME-external-secrets-edit
+          value: external-secrets-edit
 
   - it: should not create auth delegator ClusterRoleBinding by default
     documentSelector:
@@ -102,7 +105,7 @@ tests:
           value: ServiceAccount
       - equal:
           path: subjects[0].name
-          value: RELEASE-NAME-external-secrets
+          value: external-secrets
       - equal:
           path: subjects[0].namespace
           value: NAMESPACE
@@ -124,7 +127,7 @@ tests:
           of: Role
       - equal:
           path: metadata.name
-          value: RELEASE-NAME-external-secrets-leaderelection
+          value: external-secrets-leaderelection
 
   - it: should include serviceaccounts/token create by default
     documentIndex: 0
@@ -133,7 +136,7 @@ tests:
           of: ClusterRole
       - equal:
           path: metadata.name
-          value: RELEASE-NAME-external-secrets-controller
+          value: external-secrets-controller
       - contains:
           path: rules
           content:
@@ -154,7 +157,7 @@ tests:
           of: ClusterRole
       - equal:
           path: metadata.name
-          value: RELEASE-NAME-external-secrets-controller
+          value: external-secrets-controller
       - notContains:
           path: rules
           content:
@@ -174,7 +177,7 @@ tests:
           of: ClusterRole
       - equal:
           path: metadata.name
-          value: RELEASE-NAME-external-secrets-controller
+          value: external-secrets-controller
       - contains:
           path: rules
           content:
@@ -196,7 +199,7 @@ tests:
           of: ClusterRole
       - equal:
           path: metadata.name
-          value: RELEASE-NAME-external-secrets-controller
+          value: external-secrets-controller
       - notContains:
           path: rules
           content:
@@ -219,7 +222,7 @@ tests:
           of: Role
       - equal:
           path: metadata.name
-          value: RELEASE-NAME-external-secrets-controller
+          value: external-secrets-controller
       - equal:
           path: metadata.namespace
           value: "my-ns"
@@ -234,7 +237,7 @@ tests:
           of: Role
       - equal:
           path: metadata.name
-          value: RELEASE-NAME-external-secrets-controller
+          value: external-secrets-controller
       - equal:
           path: metadata.namespace
           value: NAMESPACE
@@ -248,7 +251,7 @@ tests:
           of: ClusterRole
       - equal:
           path: metadata.name
-          value: RELEASE-NAME-external-secrets-controller
+          value: external-secrets-controller
       - notExists:
           path: metadata.namespace
 
@@ -257,7 +260,7 @@ tests:
       scopedRBAC: true
     documentSelector:
       path: metadata.name
-      value: RELEASE-NAME-external-secrets-view
+      value: external-secrets-view
     asserts:
       - isKind:
           of: Role
@@ -270,7 +273,7 @@ tests:
       scopedRBAC: true
     documentSelector:
       path: metadata.name
-      value: RELEASE-NAME-external-secrets-edit
+      value: external-secrets-edit
     asserts:
       - isKind:
           of: Role
@@ -288,7 +291,7 @@ tests:
           of: ClusterRole
       - equal:
           path: metadata.name
-          value: RELEASE-NAME-external-secrets-controller
+          value: external-secrets-controller
       - notExists:
           path: metadata.namespace
 
@@ -302,7 +305,7 @@ tests:
           of: RoleBinding
       - equal:
           path: metadata.name
-          value: RELEASE-NAME-external-secrets-controller
+          value: external-secrets-controller
       - equal:
           path: metadata.namespace
           value: NAMESPACE
@@ -311,7 +314,7 @@ tests:
           value: Role
       - equal:
           path: roleRef.name
-          value: RELEASE-NAME-external-secrets-controller
+          value: external-secrets-controller
 
   - it: should render controller RoleBinding with explicit scopedNamespace when scopedRBAC is true
     set:
@@ -323,7 +326,7 @@ tests:
           of: RoleBinding
       - equal:
           path: metadata.name
-          value: RELEASE-NAME-external-secrets-controller
+          value: external-secrets-controller
       - equal:
           path: metadata.namespace
           value: "my-ns"
@@ -332,7 +335,7 @@ tests:
           value: Role
       - equal:
           path: roleRef.name
-          value: RELEASE-NAME-external-secrets-controller
+          value: external-secrets-controller
 
   - it: should render controller ClusterRoleBinding when scopedRBAC is false
     set:
@@ -343,7 +346,7 @@ tests:
           of: ClusterRoleBinding
       - equal:
           path: metadata.name
-          value: RELEASE-NAME-external-secrets-controller
+          value: external-secrets-controller
       - notExists:
           path: metadata.namespace
       - equal:
@@ -351,4 +354,4 @@ tests:
           value: ClusterRole
       - equal:
           path: roleRef.name
-          value: RELEASE-NAME-external-secrets-controller
+          value: external-secrets-controller

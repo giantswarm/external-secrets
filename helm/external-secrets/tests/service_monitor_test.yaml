@@ -9,15 +9,17 @@ tests:
       apiVersions:
         - "monitoring.coreos.com/v1/ServiceMonitor"
     asserts:
+      # 3 ServiceMonitors plus the webhook and cert-controller metrics Services
       - hasDocuments:
-          count: 3
+          count: 5
   - it: should render service monitor when APIVersions is not present, serviceMonitor is enabled, and shouldRenderServiceMonitor is alwaysRender
     set:
       serviceMonitor.enabled: true
       serviceMonitor.renderMode: alwaysRender
     asserts:
+      # 3 ServiceMonitors plus the webhook and cert-controller metrics Services
       - hasDocuments:
-          count: 3
+          count: 5
   - it: should fail if APIVersions is missing, serviceMonitor is enabled, and serviceMonitor.renderMode is failIfMissing
     set:
       serviceMonitor.enabled: true

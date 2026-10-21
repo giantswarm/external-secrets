@@ -3,7 +3,6 @@ suite: test global values
 # - global.podLabels: Global pod labels applied to all deployments
 # - global.podAnnotations: Global pod annotations applied to all deployments
 # - global.imagePullSecrets: Global image pull secrets applied to all deployments
-# - global.repository: Global image repository applied to all deployments
 #
 # Test coverage:
 # 1. Verify global values are used when local values are not set
@@ -276,69 +275,9 @@ tests:
           path: spec.template.spec.imagePullSecrets
           count: 1
 
-  # Test global.repository
-  - it: should use global repository when set (controller)
-    template: deployment.yaml
-    set:
-      global.repository: "my-registry.io/custom/external-secrets"
-    asserts:
-      - matchRegex:
-          path: spec.template.spec.containers[0].image
-          pattern: ^my-registry\.io/custom/external-secrets:.*
-
-  - it: should use local repository when global repository not set (controller)
-    template: deployment.yaml
-    set:
-      global.repository: ""
-      image.repository: "ghcr.io/external-secrets/external-secrets"
-    asserts:
-      - matchRegex:
-          path: spec.template.spec.containers[0].image
-          pattern: ^ghcr\.io/external-secrets/external-secrets:.*
-
-  - it: should use global repository when set (webhook)
-    template: webhook-deployment.yaml
-    set:
-      global.repository: "my-registry.io/custom/external-secrets"
-    asserts:
-      - matchRegex:
-          path: spec.template.spec.containers[0].image
-          pattern: ^my-registry\.io/custom/external-secrets:.*
-
-  - it: should use local repository when global repository not set (webhook)
-    template: webhook-deployment.yaml
-    set:
-      global.repository: ""
-      webhook.image.repository: "ghcr.io/external-secrets/external-secrets"
-    asserts:
-      - matchRegex:
-          path: spec.template.spec.containers[0].image
-          pattern: ^ghcr\.io/external-secrets/external-secrets:.*
-
-  - it: should use global repository when set (cert-controller)
-    template: cert-controller-deployment.yaml
-    set:
-      global.repository: "my-registry.io/custom/external-secrets"
-    asserts:
-      - matchRegex:
-          path: spec.template.spec.containers[0].image
-          pattern: ^my-registry\.io/custom/external-secrets:.*
-
-  - it: should use local repository when global repository not set (cert-controller)
-    template: cert-controller-deployment.yaml
-    set:
-      global.repository: ""
-      certController.image.repository: "ghcr.io/external-secrets/external-secrets"
-    asserts:
-      - matchRegex:
-          path: spec.template.spec.containers[0].image
-          pattern: ^ghcr\.io/external-secrets/external-secrets:.*
-
-  # Combined test - all global values set
   - it: should apply all global values when local values not set (controller)
     template: deployment.yaml
     set:
-      global.repository: "my-registry.io/custom/external-secrets"
       global.imagePullSecrets:
         - name: global-secret
       global.podLabels:
@@ -346,9 +285,6 @@ tests:
       global.podAnnotations:
         globalAnnotation: "global-value"
     asserts:
-      - matchRegex:
-          path: spec.template.spec.containers[0].image
-          pattern: ^my-registry\.io/custom/external-secrets:.*
       - equal:
           path: spec.template.spec.imagePullSecrets[0].name
           value: global-secret

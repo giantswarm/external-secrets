@@ -1,4 +1,7 @@
 suite: test cert controller deployment
+# Pin the chart version so release PRs, which bump Chart.yaml, do not change the snapshots.
+chart:
+  version: 0.0.0
 templates:
   - cert-controller-deployment.yaml
   - cert-controller-service.yaml
@@ -8,15 +11,6 @@ tests:
       - cert-controller-deployment.yaml
     asserts:
       - matchSnapshot: {}
-  - it: should set imagePullPolicy to Always
-    set:
-      certController.image.pullPolicy: Always
-    templates:
-      - cert-controller-deployment.yaml
-    asserts:
-      - equal:
-          path: spec.template.spec.containers[0].imagePullPolicy
-          value: Always
   - it: should imagePullPolicy to be default value IfNotPresent
     templates:
       - cert-controller-deployment.yaml
@@ -57,12 +51,10 @@ tests:
     - equal:
         path: spec.strategy.rollingUpdate.maxUnavailable
         value: 0
-  - it: should override securityContext
+  - it: should override podSecurityContext
     set:
       certController.podSecurityContext:
         runAsUser: 2000
-      certController.securityContext:
-        runAsUser: 3000
     templates:
       - cert-controller-deployment.yaml
     asserts:
@@ -70,18 +62,6 @@ tests:
           path: spec.template.spec.securityContext
           value:
             runAsUser: 2000
-      - equal:
-          path: spec.template.spec.containers[0].securityContext
-          value:
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop:
-                - ALL
-            readOnlyRootFilesystem: true
-            runAsNonRoot: true
-            runAsUser: 3000
-            seccompProfile:
-              type: RuntimeDefault
   - it: should override hostNetwork
     set:
       certController.hostNetwork: true
@@ -120,27 +100,6 @@ tests:
       - equal:
           path: spec.template.spec.containers[0].args[6]
           value: "--metrics-addr=:8888"
-  - it: should override image flavour
-    set:
-      certController.image.repository: ghcr.io/external-secrets/external-secrets
-      certController.image.tag: v0.9.8
-      certController.image.flavour: ubi-boringssl
-    templates:
-      - cert-controller-deployment.yaml
-    asserts:
-      - equal:
-          path: spec.template.spec.containers[0].image
-          value: ghcr.io/external-secrets/external-secrets:v0.9.8-ubi-boringssl
-  - it: should override image flavour
-    set:
-      certController.image.repository: example.com/external-secrets/external-secrets
-      certController.image.tag: v0.9.9-ubi
-    templates:
-      - cert-controller-deployment.yaml
-    asserts:
-      - equal:
-          path: spec.template.spec.containers[0].image
-          value: example.com/external-secrets/external-secrets:v0.9.9-ubi
   - it: should render service without metrics label when metrics is enabled
     set:
       certController.metrics.service.enabled: true

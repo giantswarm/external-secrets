@@ -8,8 +8,8 @@ should match snapshot of default values:
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: external-secrets-cert-controller
         app.kubernetes.io/version: v2.11.0
-        helm.sh/chart: external-secrets-2.11.0
-      name: RELEASE-NAME-external-secrets-cert-controller
+        helm.sh/chart: external-secrets-0.0.0
+      name: external-secrets-cert-controller
       namespace: NAMESPACE
     spec:
       replicas: 1
@@ -25,23 +25,23 @@ should match snapshot of default values:
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: external-secrets-cert-controller
             app.kubernetes.io/version: v2.11.0
-            helm.sh/chart: external-secrets-2.11.0
+            helm.sh/chart: external-secrets-0.0.0
         spec:
           automountServiceAccountToken: true
           containers:
             - args:
                 - certcontroller
                 - --crd-requeue-interval=5m
-                - --service-name=RELEASE-NAME-external-secrets-webhook
+                - --service-name=external-secrets-webhook
                 - --service-namespace=NAMESPACE
-                - --secret-name=RELEASE-NAME-external-secrets-webhook
+                - --secret-name=external-secrets-webhook
                 - --secret-namespace=NAMESPACE
                 - --metrics-addr=:8080
                 - --healthz-addr=:8081
                 - --loglevel=info
                 - --zap-time-encoding=epoch
                 - --enable-partial-cache=true
-              image: ghcr.io/external-secrets/external-secrets:v2.11.0
+              image: gsoci.azurecr.io/giantswarm/external-secrets:v2.11.0
               imagePullPolicy: IfNotPresent
               name: cert-controller
               ports:
@@ -60,6 +60,13 @@ should match snapshot of default values:
                 periodSeconds: 5
                 successThreshold: 1
                 timeoutSeconds: 5
+              resources:
+                limits:
+                  cpu: 100m
+                  memory: 512Mi
+                requests:
+                  cpu: 100m
+                  memory: 256Mi
               securityContext:
                 allowPrivilegeEscalation: false
                 capabilities:

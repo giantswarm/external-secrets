@@ -8,8 +8,9 @@ should configure custom lease name when leaderElectionID is set:
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: external-secrets
         app.kubernetes.io/version: v2.11.0
-        helm.sh/chart: external-secrets-2.11.0
-      name: RELEASE-NAME-external-secrets-controller
+        application.giantswarm.io/team: honeybadger
+        helm.sh/chart: external-secrets-0.0.0
+      name: external-secrets-controller
     rules:
       - apiGroups:
           - external-secrets.io
@@ -72,6 +73,7 @@ should configure custom lease name when leaderElectionID is set:
           - fakes
           - gcraccesstokens
           - githubaccesstokens
+          - gitlabdeploytokens
           - quayaccesstokens
           - passwords
           - sshkeys
@@ -81,6 +83,7 @@ should configure custom lease name when leaderElectionID is set:
           - webhooks
           - grafanas
           - mfas
+          - beyondtrustworkloadcredentialsdynamicsecrets
         verbs:
           - get
           - list
@@ -159,11 +162,12 @@ should configure custom lease name when leaderElectionID is set:
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: external-secrets
         app.kubernetes.io/version: v2.11.0
-        helm.sh/chart: external-secrets-2.11.0
+        application.giantswarm.io/team: honeybadger
+        helm.sh/chart: external-secrets-0.0.0
         rbac.authorization.k8s.io/aggregate-to-admin: "true"
         rbac.authorization.k8s.io/aggregate-to-edit: "true"
         rbac.authorization.k8s.io/aggregate-to-view: "true"
-      name: RELEASE-NAME-external-secrets-view
+      name: external-secrets-view
     rules:
       - apiGroups:
           - external-secrets.io
@@ -181,12 +185,14 @@ should configure custom lease name when leaderElectionID is set:
           - generators.external-secrets.io
         resources:
           - acraccesstokens
+          - beyondtrustworkloadcredentialsdynamicsecrets
           - cloudsmithaccesstokens
           - clustergenerators
           - ecrauthorizationtokens
           - fakes
           - gcraccesstokens
           - githubaccesstokens
+          - gitlabdeploytokens
           - quayaccesstokens
           - passwords
           - sshkeys
@@ -209,10 +215,11 @@ should configure custom lease name when leaderElectionID is set:
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: external-secrets
         app.kubernetes.io/version: v2.11.0
-        helm.sh/chart: external-secrets-2.11.0
+        application.giantswarm.io/team: honeybadger
+        helm.sh/chart: external-secrets-0.0.0
         rbac.authorization.k8s.io/aggregate-to-admin: "true"
         rbac.authorization.k8s.io/aggregate-to-edit: "true"
-      name: RELEASE-NAME-external-secrets-edit
+      name: external-secrets-edit
     rules:
       - apiGroups:
           - external-secrets.io
@@ -238,6 +245,7 @@ should configure custom lease name when leaderElectionID is set:
           - fakes
           - gcraccesstokens
           - githubaccesstokens
+          - gitlabdeploytokens
           - quayaccesstokens
           - passwords
           - sshkeys
@@ -246,6 +254,7 @@ should configure custom lease name when leaderElectionID is set:
           - grafanas
           - generatorstates
           - mfas
+          - beyondtrustworkloadcredentialsdynamicsecrets
           - uuids
         verbs:
           - create
@@ -262,15 +271,16 @@ should configure custom lease name when leaderElectionID is set:
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: external-secrets
         app.kubernetes.io/version: v2.11.0
-        helm.sh/chart: external-secrets-2.11.0
-      name: RELEASE-NAME-external-secrets-controller
+        application.giantswarm.io/team: honeybadger
+        helm.sh/chart: external-secrets-0.0.0
+      name: external-secrets-controller
     roleRef:
       apiGroup: rbac.authorization.k8s.io
       kind: ClusterRole
-      name: RELEASE-NAME-external-secrets-controller
+      name: external-secrets-controller
     subjects:
       - kind: ServiceAccount
-        name: RELEASE-NAME-external-secrets
+        name: external-secrets
         namespace: NAMESPACE
   5: |
     apiVersion: rbac.authorization.k8s.io/v1
@@ -281,8 +291,9 @@ should configure custom lease name when leaderElectionID is set:
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: external-secrets
         app.kubernetes.io/version: v2.11.0
-        helm.sh/chart: external-secrets-2.11.0
-      name: RELEASE-NAME-external-secrets-leaderelection
+        application.giantswarm.io/team: honeybadger
+        helm.sh/chart: external-secrets-0.0.0
+      name: external-secrets-leaderelection
       namespace: NAMESPACE
     rules:
       - apiGroups:
@@ -319,16 +330,17 @@ should configure custom lease name when leaderElectionID is set:
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: external-secrets
         app.kubernetes.io/version: v2.11.0
-        helm.sh/chart: external-secrets-2.11.0
-      name: RELEASE-NAME-external-secrets-leaderelection
+        application.giantswarm.io/team: honeybadger
+        helm.sh/chart: external-secrets-0.0.0
+      name: external-secrets-leaderelection
       namespace: NAMESPACE
     roleRef:
       apiGroup: rbac.authorization.k8s.io
       kind: Role
-      name: RELEASE-NAME-external-secrets-leaderelection
+      name: external-secrets-leaderelection
     subjects:
       - kind: ServiceAccount
-        name: RELEASE-NAME-external-secrets
+        name: external-secrets
         namespace: NAMESPACE
   7: |
     apiVersion: rbac.authorization.k8s.io/v1
@@ -339,9 +351,10 @@ should configure custom lease name when leaderElectionID is set:
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: external-secrets
         app.kubernetes.io/version: v2.11.0
-        helm.sh/chart: external-secrets-2.11.0
+        application.giantswarm.io/team: honeybadger
+        helm.sh/chart: external-secrets-0.0.0
         servicebinding.io/controller: "true"
-      name: RELEASE-NAME-external-secrets-servicebindings
+      name: external-secrets-servicebindings
     rules:
       - apiGroups:
           - external-secrets.io
