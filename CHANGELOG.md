@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update architect to v10.16.7 (giantswarm/external-secrets#294)
+
 ### Fixed
 
 - Make the upstream helm unit tests pass against our chart: expect our unprefixed resource names, the Giant Swarm image and metrics Services, drop the cases for upstream image, `securityContext` and CRD settings our templates do not use, and pin the chart version in the snapshot suites so release PRs do not break them.
