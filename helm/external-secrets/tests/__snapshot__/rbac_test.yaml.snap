@@ -7,7 +7,7 @@ should configure custom lease name when leaderElectionID is set:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: external-secrets
-        app.kubernetes.io/version: v2.11.0
+        app.kubernetes.io/version: v2.14.0
         application.giantswarm.io/team: honeybadger
         helm.sh/chart: external-secrets-0.0.0
       name: external-secrets-controller
@@ -161,7 +161,7 @@ should configure custom lease name when leaderElectionID is set:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: external-secrets
-        app.kubernetes.io/version: v2.11.0
+        app.kubernetes.io/version: v2.14.0
         application.giantswarm.io/team: honeybadger
         helm.sh/chart: external-secrets-0.0.0
         rbac.authorization.k8s.io/aggregate-to-admin: "true"
@@ -214,7 +214,7 @@ should configure custom lease name when leaderElectionID is set:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: external-secrets
-        app.kubernetes.io/version: v2.11.0
+        app.kubernetes.io/version: v2.14.0
         application.giantswarm.io/team: honeybadger
         helm.sh/chart: external-secrets-0.0.0
         rbac.authorization.k8s.io/aggregate-to-admin: "true"
@@ -270,7 +270,7 @@ should configure custom lease name when leaderElectionID is set:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: external-secrets
-        app.kubernetes.io/version: v2.11.0
+        app.kubernetes.io/version: v2.14.0
         application.giantswarm.io/team: honeybadger
         helm.sh/chart: external-secrets-0.0.0
       name: external-secrets-controller
@@ -290,7 +290,7 @@ should configure custom lease name when leaderElectionID is set:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: external-secrets
-        app.kubernetes.io/version: v2.11.0
+        app.kubernetes.io/version: v2.14.0
         application.giantswarm.io/team: honeybadger
         helm.sh/chart: external-secrets-0.0.0
       name: external-secrets-leaderelection
@@ -329,7 +329,7 @@ should configure custom lease name when leaderElectionID is set:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: external-secrets
-        app.kubernetes.io/version: v2.11.0
+        app.kubernetes.io/version: v2.14.0
         application.giantswarm.io/team: honeybadger
         helm.sh/chart: external-secrets-0.0.0
       name: external-secrets-leaderelection
@@ -350,7 +350,7 @@ should configure custom lease name when leaderElectionID is set:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: external-secrets
-        app.kubernetes.io/version: v2.11.0
+        app.kubernetes.io/version: v2.14.0
         application.giantswarm.io/team: honeybadger
         helm.sh/chart: external-secrets-0.0.0
         servicebinding.io/controller: "true"

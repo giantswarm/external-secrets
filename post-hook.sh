@@ -23,6 +23,12 @@ for f in $(ls -I "cluster*.yaml" "$CRD_PATH"); do
 	sed -i '1d; $d' "$CRD_PATH/$f"
 done
 
+for f in "$CRD_PATH"/*.yaml; do
+	echo "Wrapping CRD $f in giantswarm.crds.install guard"
+	sed -i '1i {{- if .Values.giantswarm.crds.install }}' "$f"
+	echo '{{- end }}' >>"$f"
+done
+
 echo "Patching $FILE with upstream versions info"
 if git status --short "$FILE_PATH" | grep "^UU "; then
 	git show :2:"$FILE_PATH" >"$OURS"

@@ -7,7 +7,7 @@ should match snapshot of default values:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: external-secrets-cert-controller
-        app.kubernetes.io/version: v2.11.0
+        app.kubernetes.io/version: v2.14.0
         helm.sh/chart: external-secrets-0.0.0
       name: external-secrets-cert-controller
       namespace: NAMESPACE
@@ -24,7 +24,7 @@ should match snapshot of default values:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: external-secrets-cert-controller
-            app.kubernetes.io/version: v2.11.0
+            app.kubernetes.io/version: v2.14.0
             helm.sh/chart: external-secrets-0.0.0
         spec:
           automountServiceAccountToken: true
@@ -41,7 +41,7 @@ should match snapshot of default values:
                 - --loglevel=info
                 - --zap-time-encoding=epoch
                 - --enable-partial-cache=true
-              image: gsoci.azurecr.io/giantswarm/external-secrets:v2.11.0
+              image: gsoci.azurecr.io/giantswarm/external-secrets:v2.14.0
               imagePullPolicy: IfNotPresent
               name: cert-controller
               ports:
