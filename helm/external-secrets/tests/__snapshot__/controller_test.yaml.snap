@@ -7,10 +7,16 @@ should match snapshot of default values:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: external-secrets
+<<<<<<< HEAD
         app.kubernetes.io/version: v2.14.0
         application.giantswarm.io/team: honeybadger
         helm.sh/chart: external-secrets-0.0.0
       name: external-secrets
+=======
+        app.kubernetes.io/version: v2.15.0
+        helm.sh/chart: external-secrets-2.15.0
+      name: RELEASE-NAME-external-secrets
+>>>>>>> 8d8ebbab3aef7b6b2d6603cf046f246058a65a11
       namespace: NAMESPACE
     spec:
       replicas: 1
@@ -25,9 +31,14 @@ should match snapshot of default values:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: external-secrets
+<<<<<<< HEAD
             app.kubernetes.io/version: v2.14.0
             application.giantswarm.io/team: honeybadger
             helm.sh/chart: external-secrets-0.0.0
+=======
+            app.kubernetes.io/version: v2.15.0
+            helm.sh/chart: external-secrets-2.15.0
+>>>>>>> 8d8ebbab3aef7b6b2d6603cf046f246058a65a11
         spec:
           automountServiceAccountToken: true
           containers:
@@ -36,7 +47,11 @@ should match snapshot of default values:
                 - --metrics-addr=:8080
                 - --loglevel=info
                 - --zap-time-encoding=epoch
+<<<<<<< HEAD
               image: gsoci.azurecr.io/giantswarm/external-secrets:v2.14.0
+=======
+              image: ghcr.io/external-secrets/external-secrets:v2.15.0
+>>>>>>> 8d8ebbab3aef7b6b2d6603cf046f246058a65a11
               imagePullPolicy: IfNotPresent
               name: external-secrets
               ports:
