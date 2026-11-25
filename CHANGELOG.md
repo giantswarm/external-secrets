@@ -7,8 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `policies.kyverno.io/v1` PolicyExceptions next to the `kyverno.io/v2` ones, so the exceptions also apply to the CEL (ValidatingPolicy) versions of the policies. The CEL ones are always rendered; set `kyvernoPolicyExceptions.legacy.enabled: false` to stop rendering the legacy ones.
+- Label the `kyverno.io/v2` PolicyExceptions with `policy.giantswarm.io/migrated-to-cel: "true"`, to mark them as migrated to CEL.
+- Add `kyvernoPolicyExceptions.enabled` to turn off all PolicyExceptions.
+
 ### Changed
 
+- Move the PolicyExceptions from the release namespace to `kube-system` (`giantswarm.policyExceptionNamespace`), as the `giantswarm` namespace is going away.
 - Add the `io.giantswarm.application.managed` annotation to `Chart.yaml`, as the chart metadata standard requires.
 
 ## [2.14.0] - 2026-11-03
